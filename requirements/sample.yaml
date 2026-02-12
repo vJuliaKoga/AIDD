@@ -1,0 +1,8 @@
+id: FR-001
+name: QAタスク展開機能
+source: 企画書
+description: 工程選択に応じてQAタスクを展開する
+input: 工程選択
+output: タスク一覧
+success_condition: 工程に紐づくタスクが全件表示される
+excluded: 設計工程はPhase2対象
