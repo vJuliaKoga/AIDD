@@ -1,0 +1,6 @@
+meta:
+  run_id: "__RUN_ID__"
+  prompt_id: "__PROMPT_ID__"
+  timestamp: "__TIMESTAMP__"
+  model: "gpt-5.2"
+  output_hash: "__OUTPUT_HASH__"

@@ -1,0 +1,162 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://example.com/schemas/requirements.schema.json",
+	"title": "Requirement (FR/AR) Schema (with meta)",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"meta",
+		"id",
+		"type",
+		"title",
+		"role",
+		"what",
+		"why",
+		"acceptance_criteria",
+		"exceptions",
+		"logs",
+		"dependencies",
+		"permissions",
+		"nfr",
+		"evidence",
+		"changes_from_current",
+		"tbd"
+	],
+	"properties": {
+		"meta": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"run_id",
+				"prompt_id",
+				"timestamp",
+				"model",
+				"output_hash"
+			],
+			"properties": {
+				"run_id": {
+					"type": "string",
+					"pattern": "^(FR|AR)-\\d{3}$"
+				},
+				"prompt_id": {
+					"type": "string",
+					"pattern": "^PR-\\d{3}$"
+				},
+				"timestamp": {
+					"type": "string",
+					"description": "Local timestamp. Accepts 'YYYY-MM-DD HH:MM' or ISO-8601.",
+					"anyOf": [
+						{
+							"pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"
+						},
+						{
+							"format": "date-time"
+						}
+					]
+				},
+				"model": {
+					"type": "string",
+					"minLength": 1
+				},
+				"output_hash": {
+					"type": "string",
+					"pattern": "^[0-9a-f]{64}$",
+					"description": "sha256 hex"
+				}
+			}
+		},
+		"id": {
+			"type": "string",
+			"pattern": "^(FR|AR)-\\d{3}$"
+		},
+		"type": {
+			"type": "string",
+			"enum": [
+				"FR",
+				"AR"
+			]
+		},
+		"title": {
+			"type": "string",
+			"minLength": 1
+		},
+		"role": {
+			"type": "string",
+			"minLength": 1
+		},
+		"what": {
+			"type": "string",
+			"minLength": 1
+		},
+		"why": {
+			"type": "string",
+			"minLength": 1
+		},
+		"acceptance_criteria": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1,
+			"maxItems": 5
+		},
+		"exceptions": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		},
+		"logs": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		},
+		"dependencies": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		},
+		"permissions": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		},
+		"nfr": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		},
+		"evidence": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1
+		},
+		"changes_from_current": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		},
+		"tbd": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			}
+		}
+	}
+}

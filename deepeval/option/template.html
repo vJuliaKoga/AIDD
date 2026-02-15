@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepEval Professional Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #090516;
+            --bg-card: rgba(23, 16, 45, 0.8);
+            --deep-purple: #6344ff;
+            --accent-cyan: #00f2fe;
+            --accent-magenta: #7c3aed;
+            --status-pass: #10b981;
+            --status-fail: #ef4444;
+            --text-main: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(99, 68, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 40%);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pass { background: rgba(16, 185, 129, 0.2); color: var(--status-pass); border: 1px solid var(--status-pass); }
+        .badge-fail { background: rgba(239, 68, 68, 0.2); color: var(--status-fail); border: 1px solid var(--status-fail); }
+
+        .metric-row:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* カスタムスクロールバー */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-magenta); border-radius: 4px; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+            <div>
+                <h1 class="text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">DeepEval</span> Performance
+                </h1>
+                <p class="text-slate-400 mt-1">LLM Evaluation Summary & Diagnostic Metrics</p>
+            </div>
+            <div id="summary-stats" class="flex gap-4">
+                <!-- Stats injected by JS -->
+            </div>
+        </header>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Radar Chart -->
+            <div class="lg:col-span-1 glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-purple-400"></i> 評価項目別平均スコア
+                </h3>
+                <div class="h-64">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Trend Chart -->
+            <div class="lg:col-span-2 glass-card p-6">
+                <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-cyan-400"></i> テストケース別総合スコア比較
+                </h3>
+                <div class="h-64">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Results Table -->
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-indigo-400"></i> テストケース詳細
+        </h2>
+        <div id="test-cases-container" class="space-y-6">
+            <!-- Test cases injected here -->
+            <div class="text-center py-20 opacity-50">
+                <i class="fa-solid fa-spinner fa-spin text-4xl mb-4"></i>
+                <p>Loading DeepEval Results...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 設定: PASSの閾値
+        const SUCCESS_THRESHOLD = 0.7;
+
+        // ダミーデータ（fetch失敗時のフォールバック用）
+        const mockData = {
+            testCases: [
+                {
+                    name: "TC-001: Customer Support Intent",
+                    input: "How can I reset my password?",
+                    actualOutput: "To reset your password, go to settings and click 'Forgot Password'.",
+                    metrics: [
+                        { name: "Faithfulness", score: 0.9, weight: 1.0, reason: "The answer directly reflects the provided context." },
+                        { name: "Relevance", score: 0.85, weight: 0.8, reason: "Highly relevant to the user query." },
+                        { name: "Coherence", score: 0.95, weight: 0.5, reason: "Logical and easy to follow." }
+                    ]
+                },
+                {
+                    name: "TC-002: Technical Troubleshooting",
+                    input: "My screen is flickering since the update.",
+                    actualOutput: "Have you tried turning it off and on again? Also check cables.",
+                    metrics: [
+                        { name: "Faithfulness", score: 0.4, weight: 1.0, reason: "Found conflicting information regarding the hardware model." },
+                        { name: "Relevance", score: 0.7, weight: 0.8, reason: "The suggestion is generic." }
+                    ]
+                },
+                {
+                    name: "TC-003: Policy Inquiry",
+                    input: "What is your refund policy?",
+                    actualOutput: "We offer a 30-day money-back guarantee for all premium plans.",
+                    metrics: [
+                        { name: "Faithfulness", score: 1.0, weight: 1.0, reason: "Perfect match with official docs." },
+                        { name: "Compliance", score: 0.9, weight: 1.0, reason: "Follows all safety guidelines." }
+                    ]
+                }
+            ]
+        };
+
+        async function initDashboard() {
+            let data;
+            try {
+                // CI環境での出力を想定して 'results.json' を読み込む
+                const response = await fetch('results.json');
+                if (!response.ok) throw new Error('File not found');
+                data = await response.json();
+            } catch (e) {
+                console.warn("Using mock data for demonstration.");
+                data = mockData;
+            }
+
+            processAndRender(data);
+        }
+
+        function calculateWeightedScore(metrics) {
+            let totalWeight = 0;
+            let weightedSum = 0;
+            metrics.forEach(m => {
+                weightedSum += (m.score * m.weight);
+                totalWeight += m.weight;
+            });
+            return totalWeight === 0 ? 0 : weightedSum / totalWeight;
+        }
+
+        function processAndRender(data) {
+            const container = document.getElementById('test-cases-container');
+            const statsContainer = document.getElementById('summary-stats');
+            container.innerHTML = '';
+
+            let passCount = 0;
+            let totalWeightedScoreSum = 0;
+
+            const labels = [];
+            const trendScores = [];
+            const metricAverages = {};
+
+            data.testCases.forEach((tc, index) => {
+                const weightedScore = calculateWeightedScore(tc.metrics);
+                const isPass = weightedScore >= SUCCESS_THRESHOLD;
+                if (isPass) passCount++;
+                totalWeightedScoreSum += weightedScore;
+
+                // For Charts
+                labels.push(`TC-${String(index + 1).padStart(3, '0')}`);
+                trendScores.push((weightedScore * 10).toFixed(1));
+
+                tc.metrics.forEach(m => {
+                    if(!metricAverages[m.name]) metricAverages[m.name] = [];
+                    metricAverages[m.name].push(m.score);
+                });
+
+                // HTML Generation
+                const card = document.createElement('div');
+                card.className = 'glass-card overflow-hidden';
+                card.innerHTML = `
+                    <div class="p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
+                        <h3 class="text-xl font-bold text-white">${tc.name}</h3>
+                        <span class="status-badge ${isPass ? 'badge-pass' : 'badge-fail'}">
+                            ${isPass ? 'PASS' : 'FAIL'}
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-slate-500 font-bold">Input</label>
+                                <p class="text-sm bg-black/30 p-3 rounded-lg mt-1 border border-white/5 italic">"${tc.input}"</p>
+                            </div>
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-slate-500 font-bold">Actual Output</label>
+                                <p class="text-sm bg-purple-900/20 p-3 rounded-lg mt-1 border border-purple-500/20 text-indigo-100">${tc.actualOutput}</p>
+                            </div>
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-slate-500 font-bold">Summary</label>
+                                <div class="text-sm bg-black/30 p-3 rounded-lg mt-1 border border-white/5">
+                                    <p class="font-bold mb-2">${tc.summary?.判定 ?? ''}</p>
+                                    <ul class="list-disc pl-5 space-y-1 text-slate-300">${(tc.summary?.指摘 ?? []).map(x => `
+                                        <li>${x}</li>`).join('')}</ul>
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <div class="flex justify-between items-end mb-1">
+                                    <span class="text-xs text-slate-400">重要度を加味した総合スコア</span>
+                                    <span class="text-2xl font-black ${(weightedScore >= 0.7) ? 'text-emerald-400' : 'text-red-400'}">
+                                        ${(weightedScore * 10).toFixed(1)}<span class="text-sm font-normal text-slate-500">/10</span>
+                                    </span>
+                                </div>
+                                <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-purple-500 to-cyan-400" style="width: ${weightedScore * 100}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-black/20 rounded-xl p-4 border border-white/5">
+                            <label class="text-xs uppercase tracking-widest text-slate-500 font-bold mb-3 block">メトリクス詳細</label>
+                            <div class="space-y-3">
+                                ${tc.metrics.map(m => `
+                                    <div class="metric-row pb-2">
+                                        <div class="flex justify-between text-sm mb-1">
+                                            <span class="font-medium text-slate-300">${m.name} <span class="text-[10px] opacity-40">(w:${m.weight})</span></span>
+                                            <span class="${m.score >= 0.7 ? 'text-emerald-400' : 'text-red-400'} font-bold">${(m.score * 10).toFixed(1)}</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 leading-tight">${m.reason}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Summary Header
+            const avgTotal = (totalWeightedScoreSum / data.testCases.length * 10).toFixed(1);
+            statsContainer.innerHTML = `
+                <div class="glass-card px-4 py-2 text-center">
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">Overall</p>
+                    <p class="text-xl font-black text-cyan-400">${avgTotal}</p>
+                </div>
+                <div class="glass-card px-4 py-2 text-center border-emerald-500/30">
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">Success</p>
+                    <p class="text-xl font-black text-emerald-400">${((passCount/data.testCases.length)*100).toFixed(0)}%</p>
+                </div>
+            `;
+
+            renderCharts(labels, trendScores, metricAverages);
+        }
+
+        function renderCharts(labels, trendScores, metricAverages) {
+            // Radar Chart Logic
+            const radarLabels = Object.keys(metricAverages);
+            const radarData = radarLabels.map(label => {
+                const vals = metricAverages[label];
+                return (vals.reduce((a,b) => a+b, 0) / vals.length * 10);
+            });
+
+            new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: {
+                    labels: radarLabels,
+                    datasets: [{
+                        label: '品質評価プロファイル',
+                        data: radarData,
+                        backgroundColor: 'rgba(99, 68, 255, 0.2)',
+                        borderColor: '#6344ff',
+                        pointBackgroundColor: '#00f2fe',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255,255,255,0.1)' },
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            pointLabels: { color: '#94a3b8', font: { size: 10 } },
+                            ticks: { display: false, stepSize: 2 },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Line Chart Logic
+            new Chart(document.getElementById('lineChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'スコア',
+                        data: trendScores,
+                        borderColor: '#7c3aed',
+                        backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            min: 0, max: 10,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#64748b' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#64748b' }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        window.onload = initDashboard;
+    </script>
+</body>
+</html>
