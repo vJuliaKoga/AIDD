@@ -1,0 +1,105 @@
+meta:
+  run_id: 12_measurement_and_kpi
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 26b87a0523157f076dcf202c08a5ab427a83add572df88d5c7d8d6356f76402d
+section:
+  id: PLN-PLN-MEASURE-012
+  title: 成果測定と効果検証
+  source_anchor:
+    heading: 成果測定と効果検証
+  items:
+  - id: PLN-PLN-MEASURE_METRICS_TABLE-001
+    type: table
+    title: 定量的指標（測定方法・目標値・現実的期待値）
+    content: '| 指標 | 測定方法 | 目標値 | 現実的期待値 |
+
+      | --- | --- | --- | --- |
+
+      | QA工数 | タスク実施時間の記録 | － | むしろ増加 |
+
+      | 検索工数 | アプリ内検索 vs Web検索の比較 | 50%削減 | 30%削減 |
+
+      | 仕様書起因バグ | バグ原因分析 | 30%削減 | 20%削減 |
+
+      | 手戻り回数 | 設計変更回数の記録 | 20%削減 | 15%削減 |
+
+      | 仕様-実装乖離 | レビュー指摘数 | 40%削減 | 25%削減 |
+
+      | 品質ゲート通過率 | CI/CD成功率 | 90%以上 | 85%以上 |
+
+      | Deep Eval安定性 | スコア標準偏差 | σ < 0.05 | σ < 0.1 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-MEASURE_QA_EFFORT_ASSUMPTION-002
+    type: statement
+    title: QA工数増加の前提と意義
+    content: '「動けば満足」の文化により、QA工数は実質ゼロに近い状態があり得る。
+
+      本企画の導入後は、計画された品質保証活動によりQA工数は確実に増加する。
+
+
+      真の目標は「工数削減」ではなく「計画されたQA活動の定着」である。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-MEASURE_SECONDARY_BENEFITS-003
+    type: list
+    title: 副次的な便益（期待効果）
+    content: '- 検索時間の削減
+
+      - PoC段階での観点提案
+
+      - 属人化の解消
+
+      - 新人の早期戦力化
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-MEASURE_QUALITATIVE-004
+    type: table
+    title: 定性的指標（将来測定）
+    content: '| 指標 | 測定方法 | タイミング |
+
+      | --- | --- | --- |
+
+      | 精神的負担の軽減 | アンケート | Phase 1完了後 |
+
+      | チーム内知識共有 | インタビュー | Phase 2完了後 |
+
+      | 新人教育効果 | オンボーディング期間比較 | Phase 3完了後 |
+
+
+      ※サンプルプロジェクト段階ではスコープ外。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-MEASURE_PROOF_STRUCTURE-005
+    type: definition
+    title: 実証の構造（3層）
+    content: "proofstructure:\n\n  technicalproof:\n    what: \"提案する品質ゲートが機械的に動作すること\"\
+      \n    how: \"CI/CDで自動実行し、結果を公開\"\n    evidence:\n      - \"GitHub Actions実行ログ\"\
+      \n      - \"Allure Reportの公開URL\"\n      - \"品質スコア推移グラフ\"\n\n  methodologicalproof:\n\
+      \    what: \"この手法がAIDDにおいて有効であること\"\n    how: \"このアプリ自体をAIDDで開発し、品質を達成\"\n \
+      \   evidence:\n      - \"要件定義から実装までのトレーサビリティ\"\n      - \"Deep Eval 0.8以上の達成\"\
+      \n      - \"構造一貫性の維持\"\n\n  practicalproof:\n    what: \"現場で実際に使えること\"\n   \
+      \ how: \"Phase 1で仕様書評価から小規模導入\"\n    evidence:\n      - \"パイロットプロジェクトの成果\"\n\
+      \      - \"現場エンジニアのフィードバック\"\n      - \"バグ削減の定量データ\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

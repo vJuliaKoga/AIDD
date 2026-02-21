@@ -1,0 +1,66 @@
+meta:
+  run_id: 00_index
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: b1e19749cedcdf39b1b08c4e1fa55e7b9b72fae2df9fc00ad05938b46af532d9
+planning_index:
+  id: PLN-PLN-DOC-001
+  version: v2.2
+  title: 上流工程品質保証の構造化・可視化プラットフォーム
+  source:
+    type: markdown
+    path: AIDD/planning/planning_v2.2.md
+  owner:
+    name: 古賀
+  last_updated_date: '2026-02-21'
+  next_review_date: '2026-02-21'
+  sections:
+  - id: PLN-PLN-EXEC-001
+    file: 01_executive_summary.yaml
+    title: エグゼクティブサマリー
+  - id: PLN-PLN-BG-002
+    file: 02_background_and_problem.yaml
+    title: 企画背景と課題定義
+  - id: PLN-PLN-POS-003
+    file: 03_positioning_and_strategy.yaml
+    title: プロジェクトの位置づけと戦略的意義
+  - id: PLN-PLN-TERM-004
+    file: 04_glossary_and_constraints.yaml
+    title: 用語定義と前提条件
+  - id: PLN-PLN-CONCEPT-005
+    file: 05_core_concepts_and_principles.yaml
+    title: 基本思想とコンセプト
+  - id: PLN-PLN-SYS-006
+    file: 06_system_design.yaml
+    title: システム設計
+  - id: PLN-PLN-QA-007
+    file: 07_quality_assurance_design.yaml
+    title: 品質保証の核心設計
+  - id: PLN-PLN-ARCH-008
+    file: 08_architecture_and_ui.yaml
+    title: アーキテクチャとUI設計
+  - id: PLN-PLN-VIS-009
+    file: 09_visualization_and_export.yaml
+    title: 可視化と報告機能
+  - id: PLN-PLN-ROLL-010
+    file: 10_rollout_plan.yaml
+    title: 段階的導入戦略と展開計画
+  - id: PLN-PLN-VALID-011
+    file: 11_validation_and_meta_quality.yaml
+    title: 検証可能性の担保（自己実証含む）
+  - id: PLN-PLN-MEASURE-012
+    file: 12_measurement_and_kpi.yaml
+    title: 成果測定と効果検証
+  - id: PLN-PLN-PLAN-013
+    file: 13_execution_plan.yaml
+    title: プロジェクト実行計画
+  - id: PLN-PLN-RISK-014
+    file: 14_risks_and_constraints.yaml
+    title: リスクと制約の明確化
+  - id: PLN-PLN-END-015
+    file: 15_conclusion_next_steps.yaml
+    title: 結論と次のステップ
+  - id: PLN-PLN-APP-016
+    file: 16_appendix.yaml
+    title: 付録

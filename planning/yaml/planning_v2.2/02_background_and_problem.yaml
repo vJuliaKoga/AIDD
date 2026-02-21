@@ -1,0 +1,149 @@
+meta:
+  run_id: 02_background_and_problem
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 9b84c61b29bc6c25d7510df69d76b2cb125dd863958e1813082343ed53a994b8
+section:
+  id: PLN-PLN-BG-002
+  title: 企画背景と課題定義
+  source_anchor:
+    heading: 企画背景と課題定義
+  items:
+  - id: PLN-PLN-BG_CONTEXT-001
+    type: statement
+    title: AI駆動開発の現状と品質課題の顕在化
+    content: 'AI駆動開発の導入により、コード生成・設計支援の適用範囲が拡大している。
+
+      一方で、現場では品質課題が顕在化している。
+
+
+      本企画では、遅延率・手戻り発生率・テスト工数倍率をKPIとして定量管理し、
+
+      Phase 1のパイロットで仮説値を実測値に置換する（現時点では仮説値を含む）。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_OBSERVED_PROBLEMS-002
+    type: table
+    title: 現場で観測されている課題（カテゴリ別）
+    gate_exempt:
+    - G1
+    content: '| カテゴリ | 具体的課題 | 影響 |
+
+      | --- | --- | --- |
+
+      | 仕様の曖昧性 | 「適切に」「柔軟に」等の曖昧語が頻出 | AIが誤解釈し、意図しない実装を生成 |
+
+      | 仕様と実装の乖離 | 要件定義・設計書・実UIが一致しない | テスト工数が計画比で平均2.5倍に増加（仮説）、手戻り発生率が50%以上となる案件が発生（仮説）
+      |
+
+      | QA観点の属人化 | 何を確認すべきか個人の経験に依存 | 品質のバラつき、新人の戦力化遅延 |
+
+      | 判断根拠の不在 | なぜその設計にしたか記録されない | 保守時の意図不明、同じ議論の繰り返し |
+
+      | 品質の不可視性 | QA実施有無は分かるが中身が見えない | 品質リスクの早期検知不能 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_METRICS-003
+    type: metric
+    title: KPI（定量管理対象）と仮説値
+    content: '本企画で追跡するKPI：
+
+
+      - 遅延率（計画に対する遅延の発生割合）
+
+      - 手戻り発生率（レビュー/テスト/運用での設計修正・再実装の発生割合）
+
+      - テスト工数倍率（計画比で実際のテスト工数が何倍か）
+
+
+      現時点の仮説値（企画背景での観測/仮説）：
+
+
+      - テスト工数倍率：平均 2.5倍（仮説）
+
+      - 手戻り発生率：50%以上となる案件が発生（仮説）
+
+
+      ※Phase 1パイロットで実測し、値を置換する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_ROOT_CAUSES-004
+    type: list
+    title: 根本原因分析（3点に集約）
+    content: '課題の根本原因は以下3点に集約される：
+
+
+      1. 構造化されていない知識：QA観点がドキュメントに散在
+
+      2. 検証不可能な記述：テスト設計ができない要件定義
+
+      3. トレーサビリティの欠如：要件と実装の紐付けがない
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_CULTURE_RISK-005
+    type: quote
+    title: 結果として起きている状態（文化的リスク）
+    content: '「動けば満足」の文化が蔓延し、本質的な品質保証が機能していない状態が発生している。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_PRIMARY_GOAL-006
+    type: statement
+    title: Primary Goal（主要目標）
+    content: '仕様書の妥当性を検証可能にし、仕様と実装の乖離を防止する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_SECONDARY_GOALS-007
+    type: list
+    title: Secondary Goals（副次目標）
+    content: '- 上流工程のQA観点を標準化・構造化する
+
+      - 判断根拠とプロセスを記録・可視化する
+
+      - AIDDにおける品質保証手法を確立・実証する
+
+      - 検索工数の削減とPoC段階での観点提案を可能にする
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-BG_DECISION_RULES-008
+    type: decision_rule
+    title: 仮説値の扱い（実測置換ルール）
+    content: '本セクションに記載する「工数倍率」「発生率」等の数値が仮説である場合、
+
+      Phase 1のパイロットで実測値を取得し、仮説値を実測値に置換する。
+
+      置換後も、いつ・どのデータに基づき更新したかをログとして残す（証跡性の担保）。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

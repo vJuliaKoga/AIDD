@@ -1,0 +1,204 @@
+meta:
+  run_id: 06_system_design
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 379c97b7dca9f87a8293f9bf10264b34217d866aeef2911b035572abe13f73e0
+section:
+  id: PLN-PLN-SYS-006
+  title: システム設計
+  source_anchor:
+    heading: システム設計
+  items:
+  - id: PLN-PLN-SYS_LAYERS-001
+    type: table
+    title: 階層構造（3層）
+    content: '| レイヤー | 名称 | 内容 | ID形式例 |
+
+      | --- | --- | --- | --- |
+
+      | L1 | 工程 | 要件定義、基本設計、詳細設計 | REQ, BAS, DET |
+
+      | L2 | タスク | 非機能確認、前提整理、仕様妥当性評価等 | REQ-T001, BAS-T002 |
+
+      | L3 | 詳細 | チェック観点、テンプレート、プロンプト | REQ-T001-C01, REQ-T001-P01 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_TRACEABILITY_POLICY-002
+    type: statement
+    title: トレーサビリティID体系（紐付けの記録方針）
+    content: 'すべての成果物に一意のIDを付与し、紐付け（derivedfrom / tracesto / promptsused など）を記録する。
+
+      これにより、変更影響分析と、品質ゲートにおける追跡可能性検証を可能にする。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_ID_CONVENTION-003
+    type: decision_rule
+    title: 共通ルール（採用）：PREFIX-PHASE-PURPOSE-NNN
+    content: '基本形：<PREFIX>-<PHASE>-<PURPOSE>-<NNN>
+
+
+      - PREFIX：成果物種別（REQ/BAS/DET/TST/PRM/CHK/RES/PLN/ARC/UI/API/DB/WF/TPL/ABT/DEC/BUG…）
+
+      - PHASE：工程・対象領域（PLN/REQ/BAS/DET/ARC/UI/API/DB/WF/TPL/OPS…）
+
+      - PURPOSE：用途（FNC/DES/CMP/AMB/YAML/REVIEW/EVAL… ※固定語彙化推奨）
+
+      - NNN：3桁連番（001〜）
+
+
+      例：要件の曖昧語チェック用プロンプト → PRM-REQ-AMB-001
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_ID_EXAMPLES-004
+    type: table
+    title: 成果物種別ごとのID形式（推奨例）
+    content: '| 成果物種別 | ID形式（推奨） | 例 |
+
+      | --- | --- | --- |
+
+      | 企画（本企画書） | PLN-PLN-<PURPOSE>-NNN | PLN-PLN-GOAL-001（企画ゴール1） |
+
+      | 要件 | REQ-REQ-<PURPOSE>-NNN | REQ-REQ-FNC-001（機能要件1） |
+
+      | 基本設計 | BAS-BAS-<PURPOSE>-NNN | BAS-BAS-DES-001（設計項目1） |
+
+      | 詳細設計 | DET-DET-<PURPOSE>-NNN | DET-DET-CMP-001（コンポーネント1） |
+
+      | テストケース | TST-<PHASE>-<PURPOSE>-NNN | TST-REQ-FNC-001（REQ-FNC-001のTST） |
+
+      | プロンプト | PRM-<PHASE>-<PURPOSE>-NNN | PRM-REQ-AMB-001（曖昧語チェック） |
+
+      | チェックリスト | CHK-<PHASE>-<PURPOSE>-NNN | CHK-REQ-AMB-001（曖昧語チェック） |
+
+      | テスト結果 | RES-<PHASE>-<PURPOSE>-NNN | RES-TST-RUN-001（テスト実行結果） |
+
+      | アーキテクチャ設計 | ARC-ARC-<PURPOSE>-NNN | ARC-ARC-SYS-001（システム構成1） |
+
+      | UI設計 | UI-UI-<PURPOSE>-NNN | UI-UI-CMP-001（UIコンポーネント1） |
+
+      | APIエンドポイント | API-API-<PURPOSE>-NNN | API-API-GET-001（GETエンドポイント） |
+
+      | DBスキーマ | DB-DB-<PURPOSE>-NNN | DB-DB-TBL-001（テーブル1） |
+
+      | ワークフロー定義 | WF-<PHASE>-<PURPOSE>-NNN | WF-REQ-YAML-001（要件WF定義） |
+
+      | テンプレート | TPL-<PHASE>-<PURPOSE>-NNN | TPL-REQ-AMB-001（曖昧語TPL） |
+
+      | Abortログ | ABT-<PHASE>-<PURPOSE>-NNN | ABT-REQ-SCOPEOUT-001（Abort記録） |
+
+      | 判断ログ | DEC-<PHASE>-<PURPOSE>-NNN | DEC-ARC-CHOICE-001（設計判断1） |
+
+      | バグレポート（拡張） | BUG-<PHASE>-<PURPOSE>-NNN | BUG-OPS-DEFECT-001（バグ1） |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_TRACEABILITY_MATRIX_EX-005
+    type: definition
+    title: トレーサビリティマトリクス（例）
+    content: "traceability:\n  REQ-FNC-001:\n    title: \"ユーザーログイン機能\"\n    derivedfrom:\n\
+      \      - PLN-GOAL-001  # 企画ゴール: 仕様書と実装の乖離防止\n    tracesto:\n      - BAS-DES-001\
+      \  # 基本設計：認証フロー設計\n      - DET-CMP-001  # 詳細設計：LoginComponentの実装仕様\n      -\
+      \ TST-REQ-FNC-001  # テストケース：ログイン正常系\n      - TST-REQ-FNC-002  # テストケース：ログイン異常系\n\
+      \    promptsused:\n      - PRM-REQ-AMB-001  # 使用したプロンプト\n    evaluation:\n \
+      \     - RES-EVAL-001  # Deep Eval評価結果\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_PLN_TO_REQ_TRACE-006
+    type: decision_rule
+    title: 企画→要件 トレーサビリティ（追加定義）
+    content: '- 企画書内の主要主張（Goal / Challenge / Scope / Constraint 等）に PLN- IDを付与する。
+
+      - 要件定義書側の各要件に derivedfrom フィールドを追加し、企画の根拠を明示する。
+
+      - これにより「企画意図が要件に正しく反映されたか」を自動で検証できる。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_TASK_TICKET_EX-007
+    type: definition
+    title: タスクチケット構成（例）
+    gate_exempt:
+    - G1
+    content: "task:\n  id: \"REQ-T001\"\n  title: \"曖昧語排除チェック\"\n  layer: \"L2\"\n\
+      \  phase: \"要件定義\"\n  purpose: |\n    AIが誤解釈しうる曖昧な表現を特定し、\n    検証可能な記述に修正する\n\
+      \n  checkpoints:\n    - id: \"CHK-REQ-AMB-001-001\"\n      description: \"『適切に』『十分に』『柔軟に』等の曖昧語がないか\"\
+      \n      validationmethod: \"正規表現によるキーワード検索\"\n\n  acceptancecriteria:\n    -\
+      \ \"曖昧語が0件であること\"\n    - \"各要件に成功条件（受入基準）が明記されていること\"\n    - \"成功条件がテスト可能であること（検証方法が想像できる）\"\
+      \n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_STATUS-008
+    type: table
+    title: タスクステータス定義
+    content: '| ステータス | 意味 | 遷移条件 |
+
+      | --- | --- | --- |
+
+      | ToDo | 未着手 | 初期状態 |
+
+      | InProgress | 作業中 | 担当者が着手 |
+
+      | Done | 完了 | 品質ゲート通過 |
+
+      | Abort | 中止（理由必須） | スコープ外判断等 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_ABORT_PHILOSOPHY-009
+    type: statement
+    title: Abort設計思想（正式な品質判断として扱う）
+    content: 'Abortは例外ではなく、正式な品質判断である。
+
+      Abortに許容率を設けず、代わりにAbort理由の明示を必須とする。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-SYS_ABORT_CATEGORIES-010
+    type: table
+    title: Abort理由カテゴリ
+    content: '| カテゴリ | 説明 | 例 |
+
+      | --- | --- | --- |
+
+      | scopeout | プロジェクトスコープ外 | 既存システム流用部分 |
+
+      | prerequisitemissing | 前提条件未確定 | 顧客仕様待ち |
+
+      | delegated | 委託元で実施済 | 要件定義済案件 |
+
+      | notapplicable | 今回適用不要 | 非機能要件なしの簡易ツール |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

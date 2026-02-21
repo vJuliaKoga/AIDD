@@ -1,0 +1,92 @@
+meta:
+  run_id: 13_execution_plan
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: bce32bb9cf6a5e698207e162aa247dddac1fa0b6dd7abf3083fe0d374681c5b1
+section:
+  id: PLN-PLN-PLAN-013
+  title: プロジェクト実行計画
+  source_anchor:
+    heading: プロジェクト実行計画
+  items:
+  - id: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
+    type: definition
+    title: 'Phase 0: サンプルプロジェクト完成（成果物）'
+    content: "phase0deliverables:\n\n  application:\n    features:\n      - \"3層ワークフロー表示\"\
+      \n      - \"タスクステータス管理\"\n      - \"Abort理由記録\"\n      - \"判断ログ記録\"\n      -\
+      \ \"トレーサビリティマトリクス\"\n      - \"JSON/YAMLエクスポート\"\n      - \"品質フロー図生成\"\n\n \
+      \ cicd:\n    components:\n      - \"GitHub Actions workflow\"\n      - \"Deep\
+      \ Eval統合\"\n      - \"Promptfoo統合\"\n      - \"JSON Schema検証\"\n      - \"Allure\
+      \ Report自動生成\"\n      - \"スコア推移記録\"\n\n  contents:\n    - \"要件定義ワークフローテンプレート\"\
+      \n    - \"基本設計ワークフローテンプレート\"\n    - \"詳細設計ワークフローテンプレート\"\n    - \"曖昧語チェックリスト\"\
+      \n    - \"検証可能性チェックリスト\"\n    - \"プロンプトテンプレート集（10種以上）\"\n\n  documentation:\n\
+      \    - \"README（クイックスタート）\"\n    - \"アーキテクチャ設計書\"\n    - \"品質ゲート解説\"\n    -\
+      \ \"CI/CD設定ガイド\"\n    - \"トラブルシューティング\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-PLAN_PHASE0_CRITERIA-002
+    type: metric
+    title: 'Phase 0: 完了基準'
+    content: '機能：
+
+      - 定義された15画面すべてが設計通りに動作
+
+      - データの保存・読込が正常
+
+      - エクスポート機能が動作
+
+
+      品質ゲート：
+
+      - Deep Eval Score >= 0.8
+
+      - 曖昧語検出 = 0
+
+      - JSON Schema検証 = 100%
+
+      - トレーサビリティ = 100%
+
+
+      CI/CD：
+
+      - 全Jobが正常実行
+
+      - Allure Reportが自動生成
+
+      - スコア推移が記録
+
+
+      ドキュメント：
+
+      - 第三者が1時間以内にセットアップ可能
+
+      - すべての機能に説明ドキュメント
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-PLAN_PHASES_OVERVIEW-003
+    type: table
+    title: Phase 1〜4 概要（期間想定・主要活動・KPI）
+    content: '| Phase | 期間想定 | 主要活動 | KPI |
+
+      | --- | --- | --- | --- |
+
+      | Phase 1 | 1-2ヶ月 | 仕様書妥当性評価の現場導入 | 仕様書起因バグ20%削減 |
+
+      | Phase 2 | 2-3ヶ月 | 要件定義工程追加 | 手戻り15%削減 |
+
+      | Phase 3 | 3-4ヶ月 | 全設計工程カバー | トレーサビリティ100% |
+
+      | Phase 4 | 継続 | プロンプト共有機能、外部連携 | プロンプトDB 100件以上 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

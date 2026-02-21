@@ -1,0 +1,64 @@
+meta:
+  run_id: 16_appendix
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 731285f0d169e42d8b54888db9d9489fc081f01ddf39103f2968b4fea22e01d5
+section:
+  id: PLN-PLN-APP-016
+  title: 付録
+  source_anchor:
+    heading: 付録
+  items:
+  - id: PLN-PLN-APP_REFERENCES-001
+    type: table
+    title: 参考資料（ツール/手法）
+    content: '| 種別 | 名称 | URL | 目的/関連 |
+
+      | --- | --- | --- | --- |
+
+      | Tool | Deep Eval | https://docs.confident-ai.com/ | LLM出力の品質評価 |
+
+      | Tool | Promptfoo | https://www.promptfoo.dev/ | プロンプト品質評価 |
+
+      | Tool | Allure Report | https://docs.qameta.io/allure/ | テスト結果の可視化 |
+
+      | Method | Contract Testing | (TBD) | 構造の逸脱を最大リスクとする発想の元 |
+
+      | Method | Traceability Matrix | (TBD) | 要件-設計-テストの紐付け手法 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-APP_GLOSSARY_RECAP-002
+    type: table
+    title: 用語集（再掲）
+    gate_exempt:
+    - G1
+    content: '| 用語 | 定義 |
+
+      | --- | --- |
+
+      | AIDD | AI駆動開発。LLMを活用した開発手法 |
+
+      | QA4AIDD | ①AIに正しく指示 ②指示の遵守確認 |
+
+      | 上流工程 | （企画）要件定義・基本設計・詳細設計 |
+
+      | 品質保証（QA） | プロセスに焦点、欠陥予防 |
+
+      | 品質管理（QC） | 成果物に焦点、欠陥検出 |
+
+      | 曖昧語 | 「適切に」「柔軟に」等の解釈が分かれる表現 |
+
+      | 品質ゲート | 次工程移行の可否判定チェックポイント |
+
+      | トレーサビリティ | 要件-実装-テストの追跡可能性 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

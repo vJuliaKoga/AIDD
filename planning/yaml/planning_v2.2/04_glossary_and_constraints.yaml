@@ -1,0 +1,148 @@
+meta:
+  run_id: 04_glossary_and_constraints
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 491c59a632dc1f0de9f1dc5ce287a6e6e6970755deb908e4e04bf3ce6627ce8f
+section:
+  id: PLN-PLN-TERM-004
+  title: 用語定義と前提条件
+  source_anchor:
+    heading: 用語定義と前提条件
+  items:
+  - id: PLN-PLN-TERM_GLOSSARY-001
+    type: table
+    title: 重要用語の定義
+    gate_exempt:
+    - G1
+    content: '| 用語 | 定義 |
+
+      | --- | --- |
+
+      | AIDD | AI駆動開発（AI-Driven Development）。LLMを活用した要件定義・設計・実装・テストの自動化開発手法 |
+
+      | QA4AIDD | AI駆動開発における品質保証。①AIに正しく指示を与える ②指示が守られていることを確認する |
+
+      | 上流工程 | （企画）、要件定義、基本設計、詳細設計の各工程 |
+
+      | 品質保証（QA） | プロセスに焦点を当て、欠陥の予防と品質目標の達成を目指す活動 |
+
+      | 品質管理（QC） | 成果物に焦点を当て、欠陥の検出と是正を行う活動 |
+
+      | 構造化 | 情報を階層的・体系的に整理し、ID体系により追跡可能にすること |
+
+      | 検証可能性 | 要件や設計がテスト可能な形で記述され、合否判定できること |
+
+      | 曖昧語 | 「適切に」「十分に」「柔軟に」「簡単に」「最適に」等、解釈が分かれる表現 |
+
+      | 品質ゲート | 次工程への移行可否を判定する品質基準チェックポイント |
+
+      | トレーサビリティ | 要件から実装・テストまでの追跡可能性。変更影響分析を可能にする |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+    type: constraint
+    title: 技術的制約
+    content: '| 制約項目 | 内容 |
+
+      | --- | --- |
+
+      | AI基盤 | OpenAI API のみ使用可能 |
+
+      | OS環境 | Windows のみ |
+
+      | 開発体制 | 1人での開発・検証 |
+
+      | 対応ブラウザ | Edge、Chrome（モバイル非対応） |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-TERM_PROJECT_CONSTRAINTS-003
+    type: constraint
+    title: プロジェクト制約
+    content: '| 制約項目 | 内容 |
+
+      | --- | --- |
+
+      | 予算 | 月額予算10万円以内（個人プロジェクト規模） |
+
+      | 期間 | 明確な期限設定なし（品質優先） |
+
+      | スコープ | サンプルプロジェクトとしての完成度を優先 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-TERM_USER_CONSTRAINTS-004
+    type: constraint
+    title: ユーザー要件制約
+    content: '| 制約項目 | 内容 |
+
+      | --- | --- |
+
+      | 必須スキル | JSON・YAMLの構造を読み書きできること |
+
+      | 理由 | テンプレート内容の理解と、人による最終判断の実施に必要 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-TERM_SCOPE_IN-005
+    type: list
+    title: スコープ内（本プロジェクトの対象）
+    content: '- 上流工程（要件定義・基本設計・詳細設計）の品質保証ワークフロー
+
+      - 構造化テンプレート・チェックリスト・プロンプト集の提供
+
+      - 品質ゲート評価の自動化（Deep Eval、JSON Schema検証）
+
+      - トレーサビリティID体系の実装
+
+      - CI/CD環境構築とAllure Reportによるモニタリング
+
+      - Promptfooによるプロンプト品質評価
+
+      - Abort理由記録と判断ログの保存
+
+      - JSON/YAMLエクスポート機能
+
+      - データベースによる承認者管理
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-TERM_SCOPE_OUT-006
+    type: table
+    title: スコープ外（将来拡張候補）
+    content: '| 項目 | 理由 | 将来優先度 |
+
+      | --- | --- | --- |
+
+      | アプリ内AI自動生成機能 | 人の判断重視の思想 | 低 |
+
+      | 外部ツールAPI連携 | サンプルプロジェクトの範囲超過 | 中 |
+
+      | ユーザー満足度測定 | 社内展開前段階 | 低 |
+
+      | モバイル対応 | 利用シーン想定外 | 低 |
+
+      | プロンプト共有機能 | 最優先の将来機能として明記 | 最高 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

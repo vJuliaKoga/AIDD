@@ -1,0 +1,237 @@
+meta:
+  run_id: 08_architecture_and_ui
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 648e634bd74a454aee003421ef6f2455869644c96a6dda0e5c97679505c2d4ef
+section:
+  id: PLN-PLN-ARCH-008
+  title: アーキテクチャとUI設計
+  source_anchor:
+    heading: アーキテクチャとUI設計
+  items:
+  - id: PLN-PLN-ARCH_UI_QA_PURPOSE-001
+    type: statement
+    title: UI設計における品質観点（統一性の検証）
+    content: '本プロジェクトでは、UI統一性の検証も品質保証の対象とする。
+
+      目的は、設計仕様に対する再現性の確認である。
+
+
+      - JSON Schema定義に準拠した構造の要素が、同一のReactコンポーネントで実装されているか
+
+      - Codexによる自動生成でも一貫したUIが生成されるか
+
+      - 一貫したUI設計パターンにより保守性（認知負荷の低減）を担保できるか
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002
+    type: table
+    title: UI統一対象（要素・観点・検証方法）
+    content: '| UI要素 | 統一観点 | 検証方法 |
+
+      | --- | --- | --- |
+
+      | 工程スイッチ | サイズ、配色、アイコン配置 | Visual Regression Testing |
+
+      | タスクチケット | レイアウト、ステータス表示 | Storybook + Chromatic |
+
+      | 親子関係表現 | インデント、接続線、展開アニメーション | E2Eテスト |
+
+      | オーバーレイ | 表示タイミング、閉じ方、背景処理 | インタラクションテスト |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_UI_PATTERNS-003
+    type: definition
+    title: UI設計パターン（例：PhaseCard/TaskCard/DetailPanel）
+    content: "uidesignpatterns:\n\n  phaseswitch:\n    component: \"PhaseCard\"\n\
+      \    props:\n      - phaseid: string\n      - title: string\n      - status:\
+      \ \"active\" | \"completed\" | \"pending\"\n      - taskcount: number\n    \
+      \  - completionrate: number\n    visual:\n      width: \"300px\"\n      height:\
+      \ \"120px\"\n      borderradius: \"8px\"\n      elevation: \"2\"\n\n  taskticket:\n\
+      \    component: \"TaskCard\"\n    props:\n      - taskid: string\n      - title:\
+      \ string\n      - status: \"ToDo\" | \"InProgress\" | \"Done\" | \"Abort\"\n\
+      \      - priority: \"high\" | \"medium\" | \"low\"\n    visual:\n      width:\
+      \ \"280px\"\n      height: \"auto\"\n      borderleft: \"4px solid {statuscolor}\"\
+      \n      padding: \"16px\"\n\n  detailoverlay:\n    component: \"DetailPanel\"\
+      \n    props:\n      - contenttype: \"checklist\" | \"template\" | \"prompt\"\
+      \ | \"reference\"\n      - data: object\n    visual:\n      position: \"fixed\"\
+      \n      width: \"60vw\"\n      maxwidth: \"800px\"\n      animation: \"slide-in-right\
+      \ 0.3s\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_INTERACTION_WARNINGS-004
+    type: table
+    title: よくある誤りへの警告（検知タイミングと対処ガイド）
+    gate_exempt:
+    - G1
+    content: '| 誤りパターン | 検知タイミング | 警告内容 | 対処ガイド |
+
+      | --- | --- | --- | --- |
+
+      | 曖昧語入力 | テキスト入力時（リアルタイム） | 「『適切に』は曖昧な表現です」 | 「3秒以内に」等の具体例を提示 |
+
+      | 必須項目未入力でDone | Done遷移時 | 「チェックリスト未完了」 | 未完了項目をハイライト |
+
+      | Abort理由不足 | Abort実行時 | 「理由が50文字未満です」 | 記述ガイドライン表示 |
+
+      | トレーサビリティ欠落 | 工程完了時 | 「未紐付けの要件があります」 | 該当要件リスト表示 |
+
+      | 同一IDの重複 | ID入力時 | 「このIDは既に使用されています」 | ID命名規則を再提示 |
+
+      | JSON/YAML構文エラー | テンプレート編集時 | 「構文エラー: 行12」 | エラー箇所をハイライト |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005
+    type: statement
+    title: 段階的情報開示（Progressive Disclosure）
+    content: '初心者モード：
+
+      - ガイドツールチップ表示
+
+      - サンプル記入例を常時表示
+
+      - 各項目にヘルプアイコン
+
+      - 推奨アクション順を番号表示
+
+
+      熟練者モード：
+
+      - ガイド非表示
+
+      - キーボードショートカット有効
+
+      - 一括操作機能解放
+
+      - カスタムビュー作成可能
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_TECH_STACK-006
+    type: table
+    title: 技術スタック（レイヤー別）
+    content: '| レイヤー | 技術選定 | 選定理由 |
+
+      | --- | --- | --- |
+
+      | フロントエンド | React + TypeScript | コンポーネント再利用性、型安全性 |
+
+      | 状態管理 | Zustand | 軽量、学習コスト低 |
+
+      | UI Framework | Tailwind CSS + shadcn/ui | 統一性、カスタマイズ性 |
+
+      | データ検証 | Zod | ランタイム型検証、スキーマベース |
+
+      | ビジュアライゼーション | React Flow | ワークフロー図生成 |
+
+      | バックエンド | Node.js + Express | JSON/YAML処理の容易さ |
+
+      | データベース | SQLite | ローカル完結、ポータビリティ |
+
+      | CI/CD | GitHub Actions | 無料、YAML設定 |
+
+      | テスト | Vitest + Playwright | 高速、モダン |
+
+      | レポート | Allure Report | 視覚的、多機能 |
+
+      | プロンプト評価 | Promptfoo | プロンプト専用評価 |
+
+      | AI評価 | Deep Eval | LLM出力品質評価 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_DATAFLOW-007
+    type: list
+    title: データフロー（処理の流れ）
+    content: '1. ユーザー入力
+
+      2. フロントエンド検証（リアルタイム曖昧語チェック、構文チェック）
+
+      3. バックエンドAPI
+
+      4. 品質ゲート実行（Deep Eval評価、JSON Schema検証、トレーサビリティチェック）
+
+      5. 合格：データベース保存 → Allure Report更新
+
+      6. 不合格：エラーフィードバック → ユーザーへ返却
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_BACKUP_POLICY-008
+    type: table
+    title: バックアップ・リカバリ方針（データ保護戦略）
+    content: '| データ種別 | バックアップ頻度 | 保存先 | 保持期間 |
+
+      | --- | --- | --- | --- |
+
+      | プロジェクトデータ | 毎日深夜2時 | ローカルディスク + 外部ストレージ | 30日 |
+
+      | 判断ログ | リアルタイム | データベース + JSON Export | 無期限 |
+
+      | テンプレート | バージョン管理 | Git Repository | 無期限 |
+
+      | 評価結果 | テスト実行毎 | Allure Report履歴 | 90日 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ARCH_RECOVERY_PROCEDURES-009
+    type: decision_rule
+    title: リカバリ手順（想定レベル別）
+    content: 'レベル1：データベース破損
+
+      - 検知：起動時整合性チェック失敗
+
+      - 手順：前日バックアップからリストア → 最新JSONエクスポートとマージ → トレーサビリティ再検証
+
+      - 見積時間：15分
+
+
+      レベル2：CI/CD環境破壊
+
+      - 検知：GitHub Actions実行失敗
+
+      - 手順：設定ファイル(.github/workflows)復元 → シークレット再設定 → テスト実行で動作確認
+
+      - 見積時間：30分
+
+
+      レベル3：完全なデータ損失
+
+      - 検知：すべてのバックアップ失敗
+
+      - 手順：テンプレートはGitから復元 → プロジェクトデータは最終エクスポートから復元 → 判断ログ一部損失は許容
+
+      - 見積時間：2時間
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

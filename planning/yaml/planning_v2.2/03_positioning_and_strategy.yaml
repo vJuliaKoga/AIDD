@@ -1,0 +1,84 @@
+meta:
+  run_id: 03_positioning_and_strategy
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: e0ea8345aa6e76bfd3c76e2924db56c3dcb5753dee5c640bc762b87275cff2fb
+section:
+  id: PLN-PLN-POS-003
+  title: プロジェクトの位置づけと戦略的意義
+  source_anchor:
+    heading: プロジェクトの位置づけと戦略的意義
+  items:
+  - id: PLN-PLN-POS_NATURE-001
+    type: table
+    title: 本プロジェクトの性質（一次/二次目的と実証）
+    content: '| 側面 | 説明 |
+
+      | --- | --- |
+
+      | 一次目的 | QA4AIDDの実践手法を確立し、実証する |
+
+      | 二次目的 | 現場への段階的導入の足掛かりとする |
+
+      | 実証方法 | このアプリ自体をAIDDで開発し、品質保証プロセスを適用 |
+
+      | 成果物 | 動作するアプリ + CI/CD環境 + 品質保証テンプレート集 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-POS_STRATEGIC_VALUE-002
+    type: list
+    title: サンプルプロジェクトとしての戦略的価値
+    content: '- 実証可能性：提案する手法が実際に機能することを示す
+
+      - 再現可能性：CI/CD環境ごと提示し、他プロジェクトへの適用を容易にする
+
+      - 段階的浸透：まず仕様書妥当性評価から現場導入を開始
+
+      - ナレッジベース：プロンプト・チェックリスト・テンプレートを蓄積
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-POS_QA4AIDD_DEF-003
+    type: table
+    title: QA4AIDD（社内定義）
+    content: '| 項目 | 内容 |
+
+      | --- | --- |
+
+      | ① | AIに正しく指示を与える |
+
+      | ② | 指示が守られていることを確認する |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-POS_QA4AIDD_IMPL-004
+    type: table
+    title: QA4AIDD要素の本プロジェクトでの実現方法
+    content: '| QA4AIDD要素 | 本プロジェクトでの実現方法 |
+
+      | --- | --- |
+
+      | 正しく指示 | 構造化プロンプトテンプレート、曖昧語排除チェック |
+
+      | 指示の遵守確認 | JSON Schema検証、Deep Eval評価、構造一貫性テスト |
+
+      | 品質の可視化 | Allure Reportによる品質ゲート採点結果のモニタリング |
+
+      | 継続的改善 | Promptfooによるプロンプト評価、評価スコア推移グラフ |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

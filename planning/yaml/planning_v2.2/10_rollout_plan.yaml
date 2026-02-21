@@ -1,0 +1,168 @@
+meta:
+  run_id: 10_rollout_plan
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 8b528479a2426872375746a3e563306a1590bcb015ed4a7d4f8e06176e9fee76
+section:
+  id: PLN-PLN-ROLL-010
+  title: 段階的導入戦略と展開計画
+  source_anchor:
+    heading: 段階的導入戦略と展開計画
+  items:
+  - id: PLN-PLN-ROLL_BLOCKER-001
+    type: statement
+    title: 現場導入の戦略（最大ブロッカーへの集中）
+    content: '現場での最大の課題は「仕様書と実UIの乖離」である。
+
+      この課題に対し、最も効果を実感しやすいポイント（仕様書妥当性評価）から導入を開始する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_PHASES-002
+    type: table
+    title: 導入ステップ（Phase 0〜4）
+    content: '| Phase | 対象 | 目的 | 成功指標 |
+
+      | --- | --- | --- | --- |
+
+      | Phase 0 | サンプルプロジェクト完成 | 手法の実証 | アプリ完成 + CI/CD構築 |
+
+      | Phase 1 | 仕様書妥当性評価のみ | 即効性の実感 | 仕様書起因のバグ30%削減 |
+
+      | Phase 2 | 要件定義工程追加 | 上流への拡大 | 手戻り工数20%削減 |
+
+      | Phase 3 | 基本設計・詳細設計追加 | 全工程カバー | トレーサビリティ100%達成 |
+
+      | Phase 4 | プロンプト共有機能追加 | ナレッジ蓄積 | プロンプトDB 100件以上 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_PHASE1_RATIONALE-003
+    type: decision_rule
+    title: Phase 1を仕様書から始める理由（意思決定ロジック）
+    content: 'Phase 1を仕様書妥当性評価から始める理由：
+
+      - 現場が最も苦労しているポイントである
+
+      - 効果が1週間以内に可視化される（即効性）
+
+      - 既存ワークフローのフローチャート上で、追加ノードが3個以内である
+
+      - テストエンジニアの専門領域に近い
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_PHASE1_METRICS-004
+    type: metric
+    title: Phase 1の定量基準（効果可視化と追加ノード数）
+    content: '- 効果可視化までの期間：1週間以内
+
+      - 既存ワークフロー変更量：追加ノード（判断ノード + タスクノード）の合計が3個以内
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_PHASE1_SCOPE-005
+    type: list
+    title: 'Phase 1: 仕様書妥当性評価の実施内容（対象とチェック）'
+    content: '対象ドキュメント：
+
+      - 画面仕様書
+
+      - API仕様書
+
+      - データモデル仕様書
+
+
+      実施チェック（例）：
+
+      - 仕様書曖昧語チェック（実装者の誤解を防ぐ）
+
+      - 受入基準の検証可能性（テスト設計の前倒し）
+
+      - UI統一性チェック（デザインシステムとの整合）
+
+
+      パイロット計画：
+
+      - 小規模な新機能開発（1〜2週間規模）
+
+      - 専任QAエンジニア1名をアサイン
+
+      - 週次で効果測定
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_NODE_COUNT_RULE-006
+    type: decision_rule
+    title: 『既存ワークフロー変更ノード数』の定義と検証方法
+    content: "- 「追加ノードが3個以内」は、既存ワークフローのBPMN図（または同等のフローチャート）を基準に、\n  追加される判断ノードとタスクノードの合計数をカウントする。\n\
+      - 検証は、改修前後のBPMN図差分でノード増分を数え、3以下であることを確認する。\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_PROCESS_INTEGRATION-007
+    type: definition
+    title: 既存プロセスとの整合性（組み込み差分）
+    content: "processintegration:\n\n  requirementphase:\n    existing: \"要件定義書作成\
+      \ → レビュー → 承認\"\n    new: \"要件定義書作成 → 【品質ゲート実行】 → レビュー → 承認\"\n    change: \"\
+      レビュー前に自動品質チェック挿入\"\n\n  designphase:\n    existing: \"設計書作成 → レビュー → 承認\"\n\
+      \    new: \"設計書作成 → 【構造一貫性チェック】 → レビュー → 承認\"\n    change: \"構造の逸脱を事前検知\"\n\n\
+      \  testphase:\n    existing: \"テスト設計 → 実施 → バグ報告\"\n    new: \"【トレーサビリティ確認】\
+      \ → テスト設計 → 実施 → バグ報告\"\n    change: \"テスト漏れの事前検知\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_TOOL_INTEGRATION-008
+    type: table
+    title: 既存ツール連携ロードマップ（Phase 2以降想定）
+    content: '| 期間 | ツール | 連携方法 | 便益 |
+
+      | --- | --- | --- | --- |
+
+      | 短期（Phase 2） | Markdown/Word | エクスポート機能 | 既存ドキュメント形式での共有 |
+
+      | 中期（Phase 3） | Git | 自動コミット・タグ付け | バージョン管理との統合 |
+
+      | 中期（Phase 3） | Slack | 品質アラート通知 | リアルタイム状況共有 |
+
+      | 長期（Phase 4） | Jira | タスク自動生成 | プロジェクト管理統合 |
+
+      | 長期（Phase 4） | Confluence | ドキュメント自動反映 | 一元的な情報管理 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-ROLL_ONBOARDING-009
+    type: list
+    title: 教育・オンボーディング（学習リソース）
+    content: '- CI/CD環境の提示：GitHub Public Repositoryに、品質ゲート設定/Deep Eval/Promptfoo/Allure等を含めて提示
+
+      - チュートリアル：シンプルなTodoアプリを題材に、要件YAML化→曖昧語チェック→トレーサビリティ→ゲート通過を体験（2時間）
+
+      - ドキュメント：クイックスタート、品質ゲート解説、トラブルシューティング、ベストプラクティス集
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

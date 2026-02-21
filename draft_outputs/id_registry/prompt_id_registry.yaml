@@ -1,0 +1,63 @@
+meta:
+  version: '1.0'
+  last_updated: PENDING
+rules:
+  format: PRM-{PHASE}-{PURPOSE}-{NNN}
+  nnn_digits: 3
+phase_alias:
+  planning: PLN
+  requirements: REQ
+  basic_design: BAS
+  detail_design: DET
+  architecture: ARC
+  ui: UI
+  api: API
+  db: DB
+  workflow: WF
+  template: TPL
+  ops: OPS
+  test: TST
+  prompts: PRM
+  prompt: PRM
+  requirement: REQ
+  basic-design: BAS
+  basics: BAS
+  detailed_design: DET
+  detail-design: DET
+  detailed: DET
+purpose_vocab:
+- YAML
+- DRAFT
+- REVIEW
+- CHECK
+- EVAL
+- EXPORT
+- UPDATE
+- FIX
+sequences:
+- key: PRM-PLN-YAML
+  phase: PLN
+  purpose: YAML
+  next_nnn: 1
+  notes: 企画書→YAML化（分割/検査/スタンプ）
+- key: PRM-REQ-DRAFT
+  phase: REQ
+  purpose: DRAFT
+  next_nnn: 1
+  notes: 要件起票
+- key: PRM-BAS-DRAFT
+  phase: BAS
+  purpose: DRAFT
+  next_nnn: 1
+  notes: 基本設計起票
+- key: PRM-DET-DRAFT
+  phase: DET
+  purpose: DRAFT
+  next_nnn: 1
+  notes: 詳細設計起票
+notes:
+  recommended_directories:
+    prompts: AIDD/prompts/
+    requirements: AIDD/requirements/
+    basic_design: 'AIDD/basic_design/  (推奨: basic_design)'
+    detail_design: 'AIDD/detail_design/ (推奨: detail_design)'

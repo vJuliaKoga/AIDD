@@ -1,0 +1,266 @@
+meta:
+  run_id: 07_quality_assurance_design
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 138c328712795e1cfef6c1a626de3d7d8f6f7ad72159b0fbe46e87903db0c179
+section:
+  id: PLN-PLN-QA-007
+  title: 品質保証の核心設計
+  source_anchor:
+    heading: 品質保証の核心設計
+  items:
+  - id: PLN-PLN-QA_GATE_PHILOSOPHY-001
+    type: statement
+    title: 品質ゲート設計思想（構造逸脱を最大リスクとする）
+    content: '品質ゲートは、構造の逸脱を最大リスクとして設計する。
+
+      具体的には、曖昧語・検証不能な記述・スキーマ不一致・AI評価スコア低下・トレーサビリティ欠落を
+
+      機械的に検知し、次工程/デプロイへの進行をブロック可能とする。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_GATES-002
+    type: table
+    title: 品質ゲート定義（G1〜G5）
+    content: '| ゲート | 評価内容 | 合格基準 | 自動検証 |
+
+      | --- | --- | --- | --- |
+
+      | G1: 曖昧語チェック | 曖昧な表現の有無 | 曖昧語0件 | 正規表現 |
+
+      | G2: 検証可能性 | 受入基準の存在と具体性 | 全要件に検証可能な基準 | チェックリスト |
+
+      | G3: 構造一貫性 | JSON Schema準拠 | スキーマ検証100%パス | JSON Schema Validator |
+
+      | G4: AI評価スコア | Deep Evalによる評価 | スコア0.8以上 | Deep Eval |
+
+      | G5: トレーサビリティ | ID紐付けの完全性 | 全要件が設計・テストに紐付く | カスタムスクリプト |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_DEEPEVAL_THRESHOLD-003
+    type: metric
+    title: Deep Eval評価基準（閾値0.8）
+    content: 'Deep Evalの合格ラインは 0.8 とする。
+
+      評価項目と重み（顧客合意形成の下決定想定）：
+
+
+      - Contextual Relevancy: 0.25
+
+      - Faithfulness（ハルシネーション検出）: 0.25
+
+      - Contextual Precision: 0.25
+
+      - Answer Relevancy: 0.25
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_MANDATORY_CHECKS-004
+    type: list
+    title: 必須チェックリスト（AI駆動開発特化）
+    content: "すべてのプロジェクトで必須となるチェック項目：\n\n- 曖昧語排除\n  - 曖昧語がない\n  - 数値基準またはテスト可能な記述に置換されている\n\
+      - 検証可能性\n  - 各要件に成功条件（受入基準）が明記されている\n  - 成功条件がテスト可能である（テストケースが想像できる）\n  - 成功条件に具体的な期待値が含まれている\n\
+      - 構造整合性\n  - YAML/JSON形式の構文エラーがない\n  - 必須フィールドがすべて存在する\n  - ID命名規則に準拠している\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013
+    type: quote
+    title: 曖昧語の例（検出対象にする語の例示）
+    content: '例：
+
+      - 「適切に」 - 「十分に」 - 「柔軟に」 - 「簡単に」 - 「最適に」
+
+      ※上記は例示であり、G1のスキャン対象からは除外される（type: quote）。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_REVIEW_ACCEPTANCE-005
+    type: table
+    title: レビュー完了条件（承認者と承認基準）
+    content: '| 承認者 | 承認内容 | 承認基準 |
+
+      | --- | --- | --- |
+
+      | 企画者（顧客） | 要件の妥当性 | ビジネス要求との整合性 |
+
+      | QAエンジニア | 品質ゲート通過 | すべてのゲートが合格 |
+
+      | アーキテクト | 構造設計の妥当性 | 技術的実現可能性 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_MONITORING-006
+    type: metric
+    title: 評価スコア推移モニタリング（監視項目とアラート閾値）
+    content: "目的：AIモデル変動やプロンプト改善による品質変化を観測する。\n\n監視項目（例）：\n- Deep Eval Score（時系列）\n\
+      \  - アラート閾値：0.75（0.8を下回った場合に警告）\n- Ambiguous Word Count（時系列）\n  - 目標：0\n- Schema\
+      \ Validation Pass Rate（割合）\n  - 目標：100\n- Traceability Coverage（割合）\n  - 目標：100\n\
+      \  - 説明：要件→設計→テストの紐付け完全性\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_DATA_QUALITY_ABORT-007
+    type: decision_rule
+    title: Abort理由記述ガイドライン（品質基準）
+    content: 'Abort時は以下を記録する：
+
+      - カテゴリ選択（4種から選択）
+
+      - 詳細理由（最低50文字以上の説明）
+
+      - 代替措置（何で代替するか）
+
+      - 承認者（判断を承認した責任者）
+
+
+      記述品質の最低基準：
+
+      - 「スコープ外のため」だけでは不可
+
+      - 具体的な判断根拠を記述
+
+      - 将来的な再検討条件があれば明記
+
+      - 関連ドキュメントへのリンク推奨
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_DATA_QUALITY_DECISIONLOG-008
+    type: decision_rule
+    title: 判断ログ記述ガイドライン（必須項目と粒度）
+    content: '判断ログの必須記載事項：
+
+      - decidedby（氏名）
+
+      - decidedat（ISO8601形式の日時）
+
+      - decisionsummary（50文字以上の要約：何をどう判断したか）
+
+      - rationale（判断根拠：代替案・選択理由を含む）
+
+      - evidence（参照ドキュメント・評価結果ID・議事録等）
+
+      - risksandmitigation（該当時：リスクと軽減策）
+
+
+      粒度基準：
+
+      - High：判断理由200文字以上 + 代替案2つ以上
+
+      - Medium：判断理由と参考資料
+
+      - Low：簡潔な理由
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_DATA_QUALITY_CHECKS-009
+    type: list
+    title: データ整合性の自動チェック（CI/CD想定）
+    content: 'CI/CDで実行されるデータ品質チェック例：
+
+      - Abort Log Completeness：すべてのAbortステータスに理由が記載されているか
+
+      - Decision Log Minimum Length：判断ログが最低50文字以上か
+
+      - ID Uniqueness：すべてのIDが一意か
+
+      - Traceability Integrity：参照されているIDがすべて存在するか
+
+      - Date Format Validation：日時がISO8601形式か
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_RISK_TABLE-010
+    type: table
+    title: 想定リスクと対策（品質観点）
+    content: '| リスク | 影響度 | 発生確率 | 軽減策 | 検知方法 |
+
+      | --- | --- | --- | --- | --- |
+
+      | 形骸化 | High | Medium | 品質ゲートでデプロイブロック | CI/CD監視 |
+
+      | 適当なDone | High | High | チェックリスト必須、承認フロー | レビュー記録確認 |
+
+      | AIモデル変動 | Medium | Medium | モデルバージョン固定、評価スコア監視 | Allure Report |
+
+      | プロンプト劣化 | Medium | Low | Promptfoo継続評価 | スコア推移グラフ |
+
+      | 保守放棄 | Medium | Low | サンプルプロジェクトとして割り切り | - |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_DEGRADATION_DETECTION-011
+    type: decision_rule
+    title: 品質劣化検知（自動アラート条件と定期監査）
+    content: '自動アラート条件（例）：
+
+      - Deep Eval Score < 0.75 が3回連続 → Email通知 + CI/CDブロック
+
+      - Ambiguous Word Count > 0 → Build Warning
+
+      - Schema Validation Fail → Build Failure
+
+      - Traceability Coverage < 95% → Review Required
+
+
+      定期監査：
+
+      - 頻度：Weekly
+
+      - チェック：Abort理由の妥当性レビュー、チェックリスト陳腐化確認、プロンプトテンプレ有効性確認
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_PROMPTFOO-012
+    type: metric
+    title: Promptfoo評価（閾値0.8）と改善サイクル
+    content: 'Promptfooでプロンプト品質を評価し、閾値は 0.8 とする。
+
+
+      改善サイクル：
+
+      Promptfoo評価実行 → スコア0.8未満の検出 → プロンプト修正 → Deep Evalで実運用評価 →
+
+      スコア推移をAllure Reportで確認 → 改善効果を記録
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

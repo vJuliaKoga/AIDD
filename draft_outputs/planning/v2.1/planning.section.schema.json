@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/planning.section.schema.json",
+  "title": "Planning Section YAML Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "section"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "run_id",
+        "prompt_id",
+        "timestamp",
+        "model",
+        "output_hash"
+      ],
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prompt_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timestamp": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_hash": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "source_anchor",
+        "items"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^PLN-SEC-[A-Z0-9_]+-\\d{3}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_anchor": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "heading"
+          ],
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "title",
+              "content",
+              "tags",
+              "related"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^PLN-ITEM-[A-Z0-9_]+-\\d{3}$"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "statement",
+                  "definition",
+                  "table",
+                  "list",
+                  "quote",
+                  "metric",
+                  "decision_rule",
+                  "constraint"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "related": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "derivedfrom",
+                  "tracesto"
+                ],
+                "properties": {
+                  "derivedfrom": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": []
+                  },
+                  "tracesto": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": []
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+# planning.template.yaml
+# Purpose: Common section template for planning_v2.1 YAML conversion.
+# Note: meta values are placeholders; stampingMeta.py will overwrite/finalize them.
+
+meta:
+  run_id: "PENDING"
+  prompt_id: "PENDING"
+  timestamp: "PENDING"
+  model: "PENDING"
+  output_hash: "PENDING"
+
+section:
+  id: "PLN-SEC-XXXX-001"
+  title: "SECTION TITLE"
+  source_anchor:
+    heading: "Markdown見出し名"
+  items:
+    - id: "PLN-ITEM-XXXX-001"
+      type: "statement"  # statement | definition | table | list | quote | metric | decision_rule | constraint
+      title: "タイトル（任意）"
+      content: |
+        本文（必要なら複数行）
+      tags: []
+      related:
+        derivedfrom: []
+        tracesto: []

@@ -1,0 +1,101 @@
+meta:
+  run_id: 15_conclusion_next_steps
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 7ca1a34826bb386a744262af9e489fe2ce1c168e0a34bd16ab7821dc03783cd5
+section:
+  id: PLN-PLN-END-015
+  title: 結論と次のステップ
+  source_anchor:
+    heading: 結論と次のステップ
+  items:
+  - id: PLN-PLN-END_VALUE-001
+    type: statement
+    title: 本企画の価値（ツールではなく品質保証の提示）
+    content: '本企画は、単なるツール開発ではなく、
+
+      AI駆動開発時代における品質保証の在り方を問い直し、実証可能な形で提示する取り組みである。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-END_INNOVATIONS-002
+    type: list
+    title: 3つの革新性
+    content: '- 構造化された品質保証：属人的なQA観点を、ID体系とトレーサビリティで構造化
+
+      - 検証可能な品質基準：Deep Eval、Promptfoo等による定量的評価
+
+      - 自己実証的なアプローチ：提案手法を自らに適用し、有効性を証明
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-END_SUCCESS_CRITERIA-003
+    type: definition
+    title: 成功の定義（Phase別）
+    content: "successcriteria:\n\n  phase0:\n    technical: \"アプリが設計通りに動作し、品質ゲートをすべて通過\"\
+      \n    methodological: \"AIDDで開発し、Deep Eval 0.8以上を達成\"\n    evidence: \"CI/CD環境とAllure\
+      \ Reportを公開\"\n\n  phase1:\n    adoption: \"1件以上のパイロットプロジェクトで実施\"\n    impact:\
+      \ \"仕様書起因のバグを定量的に削減\"\n    feedback: \"現場から改善提案を5件以上収集\"\n\n  expansion:\n \
+      \   coverage: \"上流工程全体をカバー\"\n    traceability: \"要件→設計→テストの紐付け100%\"\n    standardization:\
+      \ \"社内標準プロセスとして承認\"\n\n  ecosystem:\n    knowledgebase: \"プロンプトDB 100件以上\"\n\
+      \    community: \"他プロジェクトでの自発的採用\"\n    evolution: \"コミュニティからの貢献\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-END_IMMEDIATE_ACTIONS-004
+    type: list
+    title: 着手すべきこと（次のアクション）
+    content: '1) 要件定義へ進むための準備
+
+      - この企画書をYAML化し、要件定義書を作成（deliverable: requirements.yaml）
+
+      - 品質ゲート（曖昧語チェック、検証可能性）を通過させる
+
+
+      2) アーキテクチャ設計
+
+      - 技術スタック確定とアーキテクチャ設計（deliverable: architecture.yaml）
+
+      - JSON Schema定義、データモデル設計へ接続
+
+
+      3) CI/CD初期設定
+
+      - GitHub Repository作成とCI/CD初期設定（deliverable: .github/workflows/qa.yml）
+
+      - Deep Eval、Promptfoo統合
+
+
+      4) コンテンツ作成
+
+      - 要件定義ワークフローテンプレート作成（deliverable: templates/requirement_workflow.yaml）
+
+      - チェックリスト、プロンプトテンプレート作成
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-END_SUMMARY-005
+    type: statement
+    title: まとめ（人間の役割：判断と責任）
+    content: 'AIが設計し、実装する時代において、人間の役割は「判断」と「責任」である。
+
+      品質保証を「個人の力量」から「構造とログ」に移し、
+
+      「動けば満足」から「なぜそう作ったか説明できる」開発へ転換する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

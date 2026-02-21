@@ -1,0 +1,86 @@
+meta:
+  run_id: 05_core_concepts_and_principles
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 49c1eb8797e8f46daedb4c671ff7121f1e07b0812db33db85b44d4151cfe5f6c
+section:
+  id: PLN-PLN-CONCEPT-005
+  title: 基本思想とコンセプト
+  source_anchor:
+    heading: 基本思想とコンセプト
+  items:
+  - id: PLN-PLN-CONCEPT_PHILOSOPHY-001
+    type: statement
+    title: 設計哲学（QAの思考順序を固定する）
+    content: '「考えなくていいQA」ではなく「考える順番を固定するQA」。
+
+      本アプリはAIに判断を委譲しない。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-CONCEPT_ROLE_SPLIT-002
+    type: table
+    title: 役割分担（判断=人間、記憶/構造化=システム、検証=自動化）
+    content: '| 役割 | 担当 | 理由 |
+
+      | --- | --- | --- |
+
+      | 判断 | 人間 | 責任の所在を明確にする |
+
+      | 記憶 | システム | 観点の漏れを防ぐ |
+
+      | 構造化 | システム | 思考順序を標準化する |
+
+      | 検証 | 自動化 | 機械的チェックは自動化 |
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-CONCEPT_PRINCIPLES-003
+    type: list
+    title: 核心的な設計原則
+    content: '- 検証可能性の強制：曖昧語を含む記述を品質ゲートで阻止
+
+      - 構造の一貫性：Codexによる自動生成でも同じ構造を保証
+
+      - 判断根拠の記録義務：すべての決定に理由を付与
+
+      - 形骸化の防止：品質ゲートを満たさないものはデプロイしない
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-CONCEPT_CONCEPT-004
+    type: statement
+    title: コンセプト（押せば展開されるQAワークフロー）
+    content: 'コンセプトは「押せば展開されるQAワークフロー」。
+
+      NotebookLMのマインドマップUIを参考に、工程→タスク→観点/テンプレート→実施/判断記録→品質ゲート評価→トレーサビリティ確保
+
+      の流れを、段階的に展開して実行できるUI/UXを目指す。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-CONCEPT_USABILITY_METRIC-005
+    type: metric
+    title: 操作性の定量基準（3クリック以内）
+    content: '3クリック以内で目的の情報にアクセス可能な操作で、品質保証活動を実施できること。
+
+      （工程選択 → タスク展開 → 観点/テンプレート表示 を基本導線として想定）
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

@@ -1,0 +1,154 @@
+meta:
+  run_id: 11_validation_and_meta_quality
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 4051ecedc5d5e614e13fed68b1a2cb4b18cad8ec8026934e58611440a77236d3
+section:
+  id: PLN-PLN-VALID-011
+  title: 検証可能性の担保（自己実証含む）
+  source_anchor:
+    heading: 検証可能性の担保
+  items:
+  - id: PLN-PLN-VALID_SELF_REFERENTIAL-001
+    type: quote
+    title: 自己言及的な品質保証（メタ品質保証）
+    content: '「提案する品質保証手法を、このアプリの開発に適用する」
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_META_QA-002
+    type: definition
+    title: メタ品質保証の構造（原則・検証・証跡）
+    content: "metaqualityassurance:\n  principle: |\n    このアプリが提示するワークフロー通りに、\n  \
+      \  このアプリ自体を開発する\n\n  validation:\n    - \"要件定義フローに従った要件定義書の作成\"\n    - \"曖昧語チェックを自己適用\"\
+      \n    - \"Deep Eval評価を自己実施\"\n    - \"構造一貫性の自動検証\"\n\n  evidence:\n    - \"\
+      CI/CDログの公開\"\n    - \"Allure Reportの公開\"\n    - \"品質ゲート通過履歴の公開\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_WORKFLOW_VALIDATION-003
+    type: decision_rule
+    title: ワークフロー定義の妥当性検証（手動→生成→検証）
+    content: '手法：
+
+      - 要件定義フローのみ人手で作成する。
+
+      - 基本設計・詳細設計のワークフローをCodexで生成させ、構造一貫性を検証する。
+
+
+      手順（概要）：
+
+      1) 要件定義ワークフローを手動作成（YAML）
+
+      2) そのYAMLを入力として、同じ構造で基本設計ワークフローの生成を依頼
+
+      3) JSON Schema等で構造一貫性（必須フィールド、ID規則、階層の深さ等）を自動検証
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004
+    type: metric
+    title: ワークフロー妥当性の受入基準（定量）
+    content: '- 生成されたワークフローがスキーマ検証を100%パス
+
+      - 手動作成と自動生成で同じUIレンダリング
+
+      - 5名のレビュアー（QAエンジニア3名、開発者2名）による5段階評価の平均が4.0以上
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_CONTENT_QUALITY-005
+    type: decision_rule
+    title: テンプレート/チェックリスト/プロンプトの品質基準
+    content: '作成方針：
+
+      - 初期は人手作成（AIDD初期フェーズでは専門知識のキュレーションが不可欠）
+
+
+      品質基準（例）：
+
+      - テンプレート：使用時にDeep Evalスコア0.8以上を達成、複数ユースケースで再利用可能、意図をコメントで明記
+
+      - チェックリスト：各項目が検証可能（Yes/No）、MECE、実施者スキルレベル明記、参考資料リンク
+
+      - プロンプト：Promptfooスコア0.8以上、期待する出力形式と制約条件を明記、バージョン履歴を記録
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_IMPROVEMENT_CYCLE-006
+    type: metric
+    title: 改善サイクル（頻度とプロセス）
+    content: '- 頻度：毎プロジェクト終了時
+
+      - プロセス：実施結果レビュー → 効果測定（スコア、工数等） → 改善案提案 → 次バージョンへ反映
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_CICD_PIPELINE-007
+    type: definition
+    title: CI/CDパイプライン設計（概要）
+    content: 'CI/CDで実行する主な検証：
+
+      - 構文検証（YAML/JSON）
+
+      - JSON Schema検証
+
+      - 曖昧語チェック
+
+      - Deep Eval評価（スコア閾値判定）
+
+      - Promptfoo評価
+
+      - トレーサビリティチェック
+
+      - Allure Report生成と公開
+
+      - スコア推移記録
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VALID_DEPLOYMENT_GATE-008
+    type: decision_rule
+    title: デプロイブロック条件（override禁止）
+    content: 'デプロイ条件：すべての条件が合格（all must pass）
+
+      - 構文検証: PASS
+
+      - 曖昧語チェック: 0件
+
+      - JSON Schema検証: 100%
+
+      - Deep Eval Score: >= 0.8
+
+      - トレーサビリティ: >= 95%
+
+
+      不合格時：デプロイをブロックし、通知と修正ガイド提示を行う。
+
+      上書きデプロイ（override）は許可しない（形骸化防止）。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

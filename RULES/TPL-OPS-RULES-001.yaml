@@ -1,0 +1,54 @@
+meta:
+  artifact_id: TPL-OPS-RULES-001
+  file: "TPL-OPS-RULES-001.md"
+  author: "@juria.koga"
+  source_type: "human"
+  timestamp: 2026-02-21 15:54
+  content_hash: 0be45ca65413d0019106d6e80cb849a5e58160f158757583b4bec516f454827e
+rules_doc:
+  id: TPL-OPS-RULES-001
+  title: AI運用ルール（AIDD）
+  scope:
+    tools:
+    - Cline
+    - Codex
+    applies_to:
+    - AIDD/*
+  id_convention:
+    format: <PREFIX>-<PHASE>-<PURPOSE>-<NNN>
+    issuer:
+      script: AIDD/tools/issue_id.py
+      registry: AIDD/id_registry/id_rules_registry.yaml
+      log: AIDD/id_registry/id_issued_log.yaml
+    hard_rules:
+    - 手採番禁止（必ずissue_id.py）
+  quality_gates:
+    schema_validation:
+      required: true
+      tool: python -c (jsonschema Draft202012Validator)
+      selection_rule:
+        type: registry
+        registry_path: AIDD/RULES/schema_registry.yaml
+        match_key: target_file_path
+      output_requirement:
+        must_include:
+        - VALID
+        source: terminal
+    meta_stamping:
+      required: true
+      tool: AIDD/tools/stampingMeta.py
+      rule:
+      - schema_validation が VALID の後にのみ実行
+      - meta.output_hash は PENDING 禁止
+      - meta.run_id はファイル名（拡張子除く）に一致すること（stampingMeta仕様）
+  terminal_rules:
+    platform: Windows PowerShell
+    must_not:
+    - python を引数なしで起動して REPL（>>>）に入らない
+    - bash のヒアドキュメント（<<）を使わない
+    recovery:
+    - '>>> が出たら exit() して PS> に戻る'
+  change_policy:
+    authority: repo owner
+    process:
+    - 変更時は id_issued_log と合わせて追跡可能にする

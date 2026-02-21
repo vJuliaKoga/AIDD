@@ -1,0 +1,98 @@
+meta:
+  source_file: "planning/planning.md"
+  compiled_at: "YYYY-MM-DD HH:MM"
+  compiler: "cline(gpt-5.2)"
+  version: "v1"
+  output_hash: sha256
+
+project:
+  title: "TBD"
+
+  background:
+    context: "TBD"
+    summary: "TBD"
+
+  problems:
+    - "TBD"
+
+  purpose:
+    goals:
+      - "TBD"
+    outcomes:
+      - "TBD"
+
+  principles:
+    core_statement: "TBD"
+    do:
+      - "TBD"
+    dont:
+      - "TBD"
+    human_in_charge: true
+
+  system_structure:
+    layers:
+      - level: "L1"
+        name: "TBD"
+        scope:
+          - "TBD"
+      - level: "L2"
+        name: "TBD"
+        scope:
+          - "TBD"
+      - level: "L3"
+        name: "TBD"
+        scope:
+          - "TBD"
+    task_ticket_fields:
+      - "TBD"
+    auto_generation_allowed: false
+
+  status_model:
+    statuses:
+      - "TBD"
+    abort_requires_reason: true
+    abort_reason_examples:
+      - "TBD"
+    abort_is_official_judgment: true
+
+  visualization:
+    features:
+      - "TBD"
+    flow_diagram:
+      generated: true
+      includes_abort_branch: true
+      produces_quality_history: true
+    snapshot:
+      session_save: true
+      export_formats:
+        - "TBD"
+      intended_use:
+        - "TBD"
+
+  ui_quality_points:
+    included_in_scope: true
+    targets:
+      - "TBD"
+    purpose_statement: "TBD"
+
+  positioning:
+    is_not:
+      - "TBD"
+    is: "TBD"
+
+  roadmap:
+    - phase: 1
+      scope: "TBD"
+    - phase: 2
+      scope: "TBD"
+
+  expected_effects:
+    - "TBD"
+
+  open_questions:
+    - "TBD"
+
+source_of_truth:
+  citations:
+    - section: "TBD（例：1. 背景）"
+      evidence: "TBD（該当箇所の要約。推測禁止）"

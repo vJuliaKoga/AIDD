@@ -1,0 +1,73 @@
+meta:
+  run_id: 01_executive_summary
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 86fc4acac750117d9e6c524cec97d44a7f7bdcac67d87d4b04bbc4fbce3fee47
+section:
+  id: PLN-PLN-EXEC-001
+  title: エグゼクティブサマリー
+  source_anchor:
+    heading: エグゼクティブサマリー
+  items:
+  - id: PLN-PLN-EXEC_OVERVIEW-001
+    type: statement
+    title: 企画概要
+    content: '本企画は、AI駆動開発（AIDD）における上流工程の品質保証を、
+
+      構造化・可視化・検証可能にするWebアプリケーションプラットフォームを構築する。
+
+
+      単なるチェックリストツールではなく、上流成果物（仕様書・要件・設計）の品質を
+
+      「機械的に検証可能な構造」へ落とし込み、品質ゲートとトレーサビリティにより
+
+      仕様と実装の乖離リスクを低減する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-EXEC_POSITION-002
+    type: statement
+    title: サンプルプロジェクトとしての位置づけ
+    content: '本企画は、AIDDにおける品質保証手法（QA4AIDD）そのものを実証するサンプルプロジェクトとして位置づける。
+
+      アプリ自体をAIDDで開発し、提案する品質保証プロセスを自己適用することで、
+
+      手法の実効性（検証可能性・構造一貫性・追跡可能性）を示す。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-EXEC_VALUEPROP-003
+    type: quote
+    title: 核心的価値提案
+    content: '「仕様書と実装の乖離」という現場最大の課題に対し、
+
+      構造化された品質ゲートとトレーサビリティにより、
+
+      検証可能な品質保証プロセスを提供する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-EXEC_SCOPE-004
+    type: statement
+    title: 対象領域（上流工程品質保証）
+    content: '本プラットフォームの主対象は上流工程（要件定義・基本設計・詳細設計）である。
+
+      上流成果物を構造化し、品質ゲート（曖昧語チェック、検証可能性、スキーマ準拠等）を通すことで、
+
+      後工程（実装・テスト）の手戻りを抑制する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

@@ -1,0 +1,84 @@
+meta:
+  run_id: 14_risks_and_constraints
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 153db305bfe67b40d604b6c099643225f2e31c99543493d9c1dcb9f9da286be1
+section:
+  id: PLN-PLN-RISK-014
+  title: リスクと制約の明確化
+  source_anchor:
+    heading: リスクと制約の明確化
+  items:
+  - id: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+    type: constraint
+    title: 技術制約（impact/mitigation含む）
+    content: "- 制約: OpenAI APIのみ使用可能\n  impact: 他のLLMとの比較検証ができない\n  mitigation: 将来的なマルチモデル対応を設計に考慮\n\
+      \n- 制約: Windows環境のみ\n  impact: Mac/Linux環境での動作未検証\n  mitigation: コンテナ化を将来検討\n\
+      \n- 制約: 1人開発\n  impact: 開発速度、品質レビューの限界\n  mitigation: 自動テストの充実、外部レビュー依頼\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
+    type: constraint
+    title: プロジェクト制約（impact/mitigation含む）
+    content: "- 制約: サンプルプロジェクト\n  impact: 実運用の課題が未発見の可能性\n  mitigation: Phase 1での小規模実証\n\
+      \n- 制約: 予算制限\n  impact: 有料ツール・サービスの選択肢が限定\n  mitigation: OSSの最大活用\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-RISK_CONSTRAINTS_SKILL-003
+    type: constraint
+    title: スキル制約（理由含む）
+    content: "- 制約: JSON/YAML読み書き必須\n  impact: ユーザー層が限定される\n  mitigation: GUIによる補助、エラーメッセージの充実\n\
+      \  reason: 人による最終判断の質を担保するため\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-RISK_CAPABILITIES-004
+    type: list
+    title: できること（capabilities）
+    content: '- 上流工程の品質観点を構造化して提示
+
+      - 品質ゲートによる機械的チェックの自動化
+
+      - 判断プロセスと根拠の記録・可視化
+
+      - トレーサビリティの完全な追跡
+
+      - CI/CDによる継続的品質監視
+
+      - プロンプト品質の定量評価
+
+      - 評価スコアの推移モニタリング
+
+      - プロジェクト固有の品質履歴生成
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-RISK_NONCAPABILITIES-005
+    type: list
+    title: できないこと（non-capabilities）
+    content: '- AIによる自動判断（人の判断を代替しない）
+
+      - 完全な品質保証（あくまでプロセス支援）
+
+      - すべてのバグの検出（上流工程に特化）
+
+      - ドメイン知識の自動習得（テンプレートは人が作成）
+
+      - リアルタイムコラボレーション（Phase 0では）
+
+      - 多言語対応（日本語のみ）
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

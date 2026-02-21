@@ -1,0 +1,81 @@
+meta:
+  run_id: 09_visualization_and_export
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: 7336c2cec2ab1bcee22d9d26104caa60c4bc4bf017240a44a9c77a13d23427b3
+section:
+  id: PLN-PLN-VIS-009
+  title: 可視化と報告機能
+  source_anchor:
+    heading: 可視化と報告機能
+  items:
+  - id: PLN-PLN-VIS_WORKFLOW_PURPOSE-001
+    type: statement
+    title: 品質フロー図生成の目的
+    content: '実施したQAタスクの流れを視覚化し、プロジェクト固有の品質履歴を生成する。
+
+      可視化結果は、レビュー・監査・日報・改善サイクルの証跡として利用する。
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002
+    type: metric
+    title: 品質フロー図の品質基準（検証可能性）
+    content: '- React Flow形式のJSONデータとして出力されること
+
+      - 全タスクノード（Done/Abort含む）が表示されること
+
+      - ノード間の接続関係が正しいこと（親子関係、実施順序）
+
+      - Abort分岐が点線で表示されること
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VIS_WORKFLOW_ELEMENTS-003
+    type: definition
+    title: 表示要素定義（nodes/edges/layout）
+    content: "workflowvisualization:\n  nodes:\n    - type: \"phase\"\n      display:\
+      \ \"工程名（完了率）\"\n      color: \"status依存\"\n    - type: \"task\"\n      display:\
+      \ \"タスク名（ステータス）\"\n      color:\n        ToDo: \"#gray\"\n        InProgress:\
+      \ \"#blue\"\n        Done: \"#green\"\n        Abort: \"#orange\"\n\n  edges:\n\
+      \    - type: \"flow\"\n      display: \"実施順序\"\n      style: \"solid line\"\n\
+      \    - type: \"abortbranch\"\n      display: \"Abort分岐\"\n      style: \"dashed\
+      \ line\"\n      label: \"Abort理由要約\"\n\n  layout:\n    algorithm: \"hierarchical\"\
+      \n    direction: \"left-to-right\"\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VIS_SNAPSHOT_EX-004
+    type: definition
+    title: スナップショット保存（データ例）
+    content: "snapshot:\n  id: \"SNAP-20240115-143000\"\n  createdat: \"2024-01-15T14:30:00Z\"\
+      \n  createdby: \"Sam\"\n\n  project:\n    name: \"顧客管理システムリニューアル\"\n    phase:\
+      \ \"要件定義\"\n\n  statussummary:\n    totaltasks: 15\n    done: 12\n    inprogress:\
+      \ 2\n    abort: 1\n\n  qualitymetrics:\n    deepevalscore: 0.85\n    ambiguouswordcount:\
+      \ 0\n    traceabilitycoverage: 100\n\n  exportformats:\n    - json: \"snapshot20240115.json\"\
+      \n    - yaml: \"snapshot20240115.yaml\"\n    - pdf: \"qualityreport20240115.pdf\"\
+      \n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-VIS_DAILY_REPORT_FORMAT-005
+    type: definition
+    title: 日報利用フォーマット（例）
+    content: "品質保証活動報告 (2024-01-15)\n\n実施タスク\n• ✅ REQ-T001: 曖昧語チェック → Done\n• ✅ REQ-T002:\
+      \ 非機能要件確認 → Done\n• ⏸️ REQ-T005: ログイン詳細仕様 → Abort（既存SSO利用）\n\n品質メトリクス\n• Deep\
+      \ Eval Score: 0.85 (目標: 0.8以上)\n• 曖昧語検出: 0件\n• トレーサビリティ: 100%\n\n判断事項\n• ログイン機能は既存SSOシステムを利用する方針決定\n\
+      \  - 理由: コスト削減、統一認証の維持\n  - 承認者: プロジェクトリーダー Tom\n\n次回アクション\n• BAS-T001: 画面遷移設計の着手\n\
+      • REQ-T002で指摘された性能要件の具体化\n"
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []

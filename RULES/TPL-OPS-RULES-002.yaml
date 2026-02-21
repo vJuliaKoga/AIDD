@@ -1,0 +1,77 @@
+meta:
+  artifact_id: TPL-OPS-RULES-002
+  file: TPL-OPS-RULES-002.yaml
+  author: '@juria.koga'
+  source_type: human
+  timestamp: 2026-02-21 17:25
+  content_hash: 3569e1b2158d7544bd2c4b9cce0583ced3d3e8987db294b14820588bccc9baf5
+rules_doc:
+  id: TPL-OPS-RULES-001
+  title: AI運用ルール（AIDD）
+  scope:
+    tools:
+    - Cline
+    - Codex
+    applies_to:
+    - AIDD/*
+  id_convention:
+    format: <PREFIX>-<PHASE>-<PURPOSE>-<NNN>
+    issuer:
+      script: AIDD/tools/issue_id.py
+      registry: AIDD/id_registry/id_rules_registry.yaml
+      log: AIDD/id_registry/id_issued_log.yaml
+    hard_rules:
+    - 手採番禁止（必ずissue_id.py）
+  quality_gates:
+    schema_validation:
+      required: true
+      tool: python -c (jsonschema Draft202012Validator)
+      selection_rule:
+        type: registry
+        registry_path: AIDD/RULES/schema_registry.yaml
+        match_key: target_file_path
+      output_requirement:
+        must_include:
+        - VALID
+        source: terminal
+    meta_stamping:
+      required: true
+      tool: AIDD/tools/stampingMeta.py
+      rule:
+      - schema_validation が VALID の後にのみ実行
+      - meta.output_hash は PENDING 禁止
+      - meta.run_id はファイル名（拡張子除く）に一致すること（stampingMeta仕様）
+    gate_runner:
+      required: true
+      tool: AIDD/tools/run_gates.py
+      when: すべての成果物生成・schema検査・meta確定が完了した最後
+      command_template: python AIDD\tools\run_gates.py --repo-root . --target <TARGET_DIR>
+        --schema-registry AIDD\RULES\schema_registry.yaml --report-out AIDD\reports\gate_report_<TARGET_SLUG>.json
+      pass_condition: '標準出力に ''GATES: PASS'' が含まれること'
+      fail_action:
+      - レポートJSONを確認してFAIL原因（schema/meta/ID/曖昧語）を修正する
+      - PASSになるまでrun_gates.pyを再実行する
+      - PASSするまで次工程へ進まない
+      artifacts:
+      - AIDD/reports/gate_report_*.json（最新PASS結果）
+      report_naming:
+        rule: AIDD/reports/gate_report_<TARGET_SLUG>.json
+        target_slug_definition: 対象ディレクトリの末尾要素を基本に、必要なら上位要素も連結して一意にする（例：planning_v2.2
+          / requirements_v1）。スラッシュは '_' に置換。
+        examples:
+        - target: AIDD/planning/yaml/planning_v2.2
+          report_out: AIDD/reports/gate_report_planning_v2.2.json
+        - target: AIDD/requirements/yaml/requirements_v1
+          report_out: AIDD/reports/gate_report_requirements_v1.json
+        hard_rule: report_out は必ず AIDD/reports/ 配下に出力し、最新の PASS 結果で上書きすること
+  terminal_rules:
+    platform: Windows PowerShell
+    must_not:
+    - python を引数なしで起動して REPL（>>>）に入らない
+    - bash のヒアドキュメント（<<）を使わない
+    recovery:
+    - '>>> が出たら exit() して PS> に戻る'
+  change_policy:
+    authority: repo owner
+    process:
+    - 変更時は id_issued_log と合わせて追跡可能にする

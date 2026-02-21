@@ -1,0 +1,83 @@
+meta:
+  run_id: PENDING
+  prompt_id: PENDING
+  timestamp: PENDING
+  model: PENDING
+  output_hash: PENDING
+checklist:
+  id: CHK-PLN-CONSIST-001
+  title: 企画MD ↔ 企画YAML 整合性チェック（planning_v2.2）
+  scope:
+    source_md: AIDD/planning/planning_v2.2.md
+    yaml_dir: AIDD/planning/yaml/planning_v2.2/
+    expected_sections: 01-16 + 00_index
+    files_checked:
+    - AIDD/planning/yaml/planning_v2.2/00_index.yaml
+    - AIDD/planning/yaml/planning_v2.2/01_executive_summary.yaml
+    - AIDD/planning/yaml/planning_v2.2/02_background_and_problem.yaml
+    - AIDD/planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml
+    - AIDD/planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml
+    - AIDD/planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml
+    - AIDD/planning/yaml/planning_v2.2/06_system_design.yaml
+    - AIDD/planning/yaml/planning_v2.2/07_quality_assurance_design.yaml
+    - AIDD/planning/yaml/planning_v2.2/08_architecture_and_ui.yaml
+    - AIDD/planning/yaml/planning_v2.2/09_visualization_and_export.yaml
+    - AIDD/planning/yaml/planning_v2.2/10_rollout_plan.yaml
+    - AIDD/planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml
+    - AIDD/planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml
+    - AIDD/planning/yaml/planning_v2.2/13_execution_plan.yaml
+    - AIDD/planning/yaml/planning_v2.2/14_risks_and_constraints.yaml
+    - AIDD/planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml
+    - AIDD/planning/yaml/planning_v2.2/16_appendix.yaml
+  acceptance:
+    pass_condition: 全項目がYes（例外はDEC/ABTで理由を残す）
+  items:
+  - id: CHK-PLN-CONSIST-001-001
+    category: 構造・ファイル
+    check: 00_index.yaml が存在し、01〜16 を参照できる（セクション抜けがない）
+    evidence:
+    - AIDD/planning/yaml/planning_v2.2/00_index.yaml
+    result: PENDING
+  - id: CHK-PLN-CONSIST-001-002
+    category: 構造・ファイル
+    check: 各セクションYAMLは planning.section.schema.json に VALID
+    evidence:
+    - schema validation logs (terminal)
+    result: PENDING
+  - id: CHK-PLN-CONSIST-001-003
+    category: 構造・ファイル
+    check: 00_index.yaml は planning.index.schema.json に VALID
+    evidence:
+    - index schema validation log
+    result: PENDING
+  - id: CHK-PLN-CONSIST-001-060
+    category: meta
+    check: 01〜16＋00_index 全てに meta があり、PENDING が残っていない（output_hash含む）
+    evidence:
+    - meta fields inspection
+    result: PENDING
+  - id: CHK-PLN-CONSIST-001-020
+    category: ID
+    check: 企画YAML内のIDが <PREFIX>-<PHASE>-<PURPOSE>-<NNN> 形式に統一されている
+    evidence:
+    - ID regex check
+    result: PENDING
+  - id: CHK-PLN-CONSIST-001-021
+    category: ID
+    check: 旧形式（REQ-FNC-001等）が運用IDとして混入していない
+    evidence:
+    - search results in YAML
+    result: PENDING
+  auto_findings:
+    generated_at: '2026-02-21T07:40:32'
+    summary_ok: true
+    missing_meta: []
+    pending_meta: []
+    bad_ids: []
+    index_mismatch: []
+  decision:
+    status: ToDo
+    decidedby: PENDING
+    decidedat: PENDING
+    rationale: PENDING
+    evidence: []

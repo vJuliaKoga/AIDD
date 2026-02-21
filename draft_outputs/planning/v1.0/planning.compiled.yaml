@@ -1,0 +1,164 @@
+meta:
+  source_file: "planning/planning.md"
+  compiled_at: "2026-02-17 09:17"
+  compiler: "cline(gpt-5.2)"
+  version: "v1"
+  output_hash: "449ed4897cf0f025c4b6f0da4d0947c41955d732c9826d31a7f777079a389c98"
+
+project:
+  title: "上流工程品質保証の構造化・可視化プラットフォーム"
+
+  background:
+    context: |-
+      AI駆動開発（AIDD）の導入により、要件定義・設計工程においてAIの利用が増加している。
+      しかし、現場では上流工程のQA観点が属人化している等の課題がある。
+    summary: "QAの実施有無は分かるが、QAの“中身”が見えない状態になっている。"
+
+  problems:
+    - "上流工程のQA観点が属人化している"
+    - "チェックリストやプロンプトが散在している"
+    - "「何を確認したか」が記録されない"
+    - "Abort判断や差し戻し理由が残らない"
+    - "進捗と品質保証範囲が可視化されない"
+
+  purpose:
+    goals:
+      - "構造化する"
+      - "可視化する"
+      - "再利用可能にする"
+      - "判断ログを残す"
+    outcomes:
+      - "上流工程の品質保証を支えるワークフロー基盤を構築する"
+      - "QAの思考順序を標準化する"
+
+  principles:
+    core_statement: "「考えなくていいQA」ではなく「考える順番を固定するQA」"
+    do:
+      - "プロンプトはテンプレートとして保管する"
+      - "チェックリストは標準観点として整理する"
+      - "判断は必ず人が行う"
+    dont:
+      - "AIに判断させる仕組みにはしない"
+      - "自動生成は行わない"
+    human_in_charge: true
+
+  system_structure:
+    layers:
+      - level: "L1"
+        name: "工程"
+        scope:
+          - "要件定義"
+          - "基本設計"
+          - "詳細設計"
+      - level: "L2"
+        name: "タスク"
+        scope:
+          - "非機能確認"
+          - "前提整理"
+      - level: "L3"
+        name: "詳細"
+        scope:
+          - "チェック観点"
+          - "テンプレ"
+          - "参考資料"
+    task_ticket_fields:
+      - "目的"
+      - "確認観点"
+      - "チェックリスト"
+      - "参考プロンプト（テンプレ）"
+      - "参考資料リンク"
+      - "判定基準"
+    auto_generation_allowed: false
+
+  status_model:
+    statuses:
+      - "ToDo"
+      - "Done"
+      - "Abort"
+    abort_requires_reason: true
+    abort_reason_examples:
+      - "今回対象外"
+      - "前提未確定"
+      - "スコープ外"
+    abort_is_official_judgment: true
+
+  visualization:
+    features:
+      - "品質フロー図生成"
+      - "スナップショット保存"
+    flow_diagram:
+      generated: true
+      includes_abort_branch: true
+      produces_quality_history: true
+    snapshot:
+      session_save: true
+      export_formats:
+        - "JSON"
+      intended_use:
+        - "日報利用可能"
+
+  ui_quality_points:
+    included_in_scope: true
+    targets:
+      - "工程スイッチUIの統一"
+      - "タスクチケットUIの統一"
+      - "親子UIの差別化"
+    purpose_statement: "設計仕様に対する再現性の確認"
+
+  positioning:
+    is_not:
+      - "AI評価エンジンではない"
+      - "自動判定システムではない"
+      - "AI制御プラットフォームではない"
+    is: "上流QAを構造化する土台"
+
+  roadmap:
+    - phase: 1
+      scope: "要件定義工程のみ実装"
+    - phase: 2
+      scope: "設計工程追加"
+    - phase: 3
+      scope: "ログ分析機能"
+    - phase: 4
+      scope: "全社展開"
+
+  expected_effects:
+    - "QA観点の標準化"
+    - "判断ログの蓄積"
+    - "属人性の低減"
+    - "上流工程の見える化"
+    - "精神的負担の軽減"
+
+  open_questions:
+    - "対象ユーザー（役割/権限）と運用フロー（誰がDone/Abortを確定するか）は？"
+    - "タスクチケットの永続化方式（保存先、履歴管理、差し戻しの記録粒度）は？"
+    - "品質フロー図の表現形式（UI/出力フォーマット、生成タイミング）は？"
+    - "スナップショットのJSONエクスポート仕様（スキーマ、互換性方針）は？"
+    - "ロードマップPhase3の「ログ分析機能」の具体範囲（指標、分析単位、可視化方法）は？"
+    - "プロンプト/チェックリストの管理方法（版管理、レビュー、再利用単位）は？"
+    - "UI統一性検証の受入基準（合否条件、評価観点の定義、記録方法）は？"
+
+source_of_truth:
+  citations:
+    - section: "1. 企画背景"
+      evidence: "AIDD導入で上流工程でのAI利用が増加し、QA観点の属人化や散在、記録欠如などの課題がある。"
+    - section: "2. 本企画の目的"
+      evidence: "上流工程の品質保証を構造化/可視化/再利用可能化し、判断ログを残すためのワークフロー基盤を構築する。"
+    - section: "3. 基本思想"
+      evidence: "AIに判断させず、プロンプトはテンプレとして保管し、チェックリストを標準化し、判断は人が行う。"
+    - section: "4. コンセプト"
+      evidence: "工程スイッチで必要タスクを展開し、タスク内で観点/テンプレ表示、実施ステータス記録、フロー図可視化を行う。"
+    - section: "5. システム構造"
+      evidence: "L1=工程、L2=タスク、L3=詳細の階層構造と、タスクが保持する項目が定義されている。"
+    - section: "6. ステータス設計"
+      evidence: "ToDo/Done/Abortを持ち、Abortは理由必須で公式な品質判断として扱う。"
+    - section: "7. 可視化機能"
+      evidence: "品質フロー図生成とスナップショット保存（JSONエクスポート、日報利用）が記載されている。"
+    - section: "8. UI設計における品質観点"
+      evidence: "工程スイッチ/タスクチケット/親子UIの統一性を検証対象とし、設計仕様に対する再現性確認として扱う。"
+    - section: "9. 本基盤の位置づけ"
+      evidence: "AI評価/自動判定/AI制御ではなく、上流QAを構造化する土台である。"
+    - section: "10. 実行ロードマップ"
+      evidence: "Phase1〜4の段階的な実装範囲が記載されている。"
+    - section: "11. 期待効果"
+      evidence: "QA観点標準化、判断ログ蓄積、属人性低減、見える化、精神的負担軽減が期待効果として列挙されている。"

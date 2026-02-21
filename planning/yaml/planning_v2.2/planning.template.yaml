@@ -1,0 +1,22 @@
+meta:
+  run_id: planning.template
+  prompt_id: PRM-PLN-YAML-002
+  timestamp: 2026-02-21 18:18
+  model: gpt-5.2
+  output_hash: ac7941fc2888c09989b0e98316df727f579ddead657b82b2ad020c5fb0c9bb83
+section:
+  id: PLN-PLN-SEC_XXXX-001
+  title: SECTION TITLE
+  source_anchor:
+    heading: Markdown見出し名
+  items:
+  - id: PLN-PLN-ITEM_XXXX-001
+    type: statement
+    title: タイトル（任意）
+    content: '本文（必要なら複数行）
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
