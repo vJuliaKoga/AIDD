@@ -9,6 +9,7 @@ What it does (minimum useful gates):
 - META: meta required keys exist + no PENDING
 - ID: ID format check (<PREFIX>-<PHASE>-<PURPOSE>-<NNN>) across common fields
 - G1 (lightweight): Ambiguity-term scan (Japanese vague words) across YAML text
+  + Now includes SUGGESTIONS for how to fix each ambiguous term
 
 It prints:
 - Console summary with PASS/FAIL
@@ -43,18 +44,52 @@ except ImportError:
 
 DEFAULT_META_KEYS = ["run_id", "prompt_id", "timestamp", "model", "output_hash"]
 
-# A pragmatic default set; you can extend via --ambiguity-terms-yaml
-DEFAULT_AMBIGUITY_TERMS = [
-    # generic vague / subjective
-    "直感的", "わかりやすい", "簡単", "詳細な", "適切", "十分", "なるべく", "できるだけ",
-    "最小", "最適", "高品質", "高い", "低い", "多い", "少ない",
-    # time vagueness
-    "即座に", "すぐ", "迅速", "短期間", "近日", "なるはや",
-    # severity / frequency vagueness
-    "深刻", "多発", "爆発的", "急速", "急速に", "大幅", "大きい", "小さい",
-    # impact vagueness
-    "影響が最小", "影響が少ない", "影響は小さい",
-]
+# ============================================================
+# NEW: AMBIGUITY_RULES dictionary
+# Each entry: "曖昧語" → "修正の指針・例"
+# ============================================================
+AMBIGUITY_RULES = {
+    "迅速": "時間上限(ms/秒/分)を明示すること。例: response_time_ms <= 200",
+    "すぐ": "最大待機時間またはトリガー条件を明示すること (例: クリック後 100ms 以内)",
+    "適切": "評価基準または成功条件を列挙すること (例: エラー率 < 1%、レスポンスタイム < 2秒)",
+    "十分": "定量的な閾値または完了条件を定義すること (例: カバレッジ ≥ 80%)",
+    "高品質": "品質指標（例: エラー率、成功率）を指定すること (例: 不具合密度 < 0.5件/KLOC)",
+    
+    # 以下は汎用的な曖昧語（デフォルト候補として残す）
+    "直感的": "ユーザビリティ指標を定義すること (例: タスク成功率 > 90%、学習時間 < 5分)",
+    "わかりやすい": "可読性基準を定義すること (例: リーダビリティスコア > 60)",
+    "簡単": "操作ステップ数または習得時間を明示すること (例: 3ステップ以内、初回利用時間 < 10分)",
+    "詳細な": "必須記載項目またはドキュメントページ数を明示すること",
+    "なるべく": "優先度または制約条件を明確化すること",
+    "できるだけ": "努力目標値と最低保証値を分けて定義すること",
+    "最小": "具体的な下限値または制約を定義すること",
+    "最適": "最適化の目的関数と制約条件を明示すること",
+    "高い": "定量的な閾値を定義すること (例: > 95%)",
+    "低い": "定量的な上限を定義すること (例: < 5%)",
+    "多い": "件数または頻度の下限を明示すること",
+    "少ない": "件数または頻度の上限を明示すること",
+    
+    # 時間に関する曖昧語
+    "即座に": "最大応答時間を明示すること (例: < 100ms)",
+    "短期間": "具体的な期間を定義すること (例: 1週間以内)",
+    "近日": "具体的な日付または期間を明示すること",
+    "なるはや": "期限日時を明示すること",
+    
+    # 深刻度・頻度に関する曖昧語
+    "深刻": "影響範囲と優先度レベルを定義すること (例: P1: 全ユーザー影響)",
+    "多発": "発生頻度の閾値を定義すること (例: 1日10件以上)",
+    "爆発的": "増加率の数値を明示すること (例: 前日比200%増)",
+    "急速": "変化率または時間軸を明示すること",
+    "急速に": "時間軸と変化率を明示すること",
+    "大幅": "変化量または変化率を数値で定義すること (例: 30%以上の増加)",
+    "大きい": "サイズまたは影響範囲の閾値を定義すること",
+    "小さい": "サイズまたは影響範囲の上限を定義すること",
+    
+    # 影響に関する曖昧語
+    "影響が最小": "許容される最大影響範囲を定義すること (例: 影響ユーザー数 < 100)",
+    "影響が少ない": "影響度の定量的上限を定義すること",
+    "影響は小さい": "影響範囲と深刻度の上限を定義すること",
+}
 
 # Generic ID regex for PREFIX-PHASE-PURPOSE-NNN
 GEN_ID_PATTERN = re.compile(r"^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\d{3}$")
@@ -255,31 +290,53 @@ def id_check(doc: Any) -> Tuple[bool, List[str]]:
     return (len(issues) == 0), issues
 
 
-def ambiguity_scan(doc: Any, terms: List[str]) -> Tuple[bool, List[Dict[str, Any]]]:
-    """Scan string fields for ambiguity terms.
-
+def ambiguity_scan(doc: Any, rules: Dict[str, str]) -> Tuple[bool, List[Dict[str, Any]]]:
+    """
+    Scan string fields for ambiguity terms defined in rules.
+    
     Gate policy:
     - items[].type == quote (and future example) are treated as *citations/examples* and excluded from G1.
       Rationale: documents often enumerate ambiguous words as examples; those examples must not fail G1.
+    
+    Returns:
+        (ok, hits) where hits is a list of dicts with keys:
+            - term: the ambiguous term found
+            - suggestion: how to fix it
+            - sample: a sample of the text where it was found
     """
     texts = find_all_strings_excluding_item_types(doc, excluded_item_types=["quote", "example"], gate_name="G1")
     hits: List[Dict[str, Any]] = []
-    for t in terms:
+    
+    for term, suggestion in rules.items():
         for s in texts:
-            if t in s:
-                hits.append({"term": t, "sample": s[:140] + ("…" if len(s) > 140 else "")})
-                break
+            if term in s:
+                hits.append({
+                    "term": term,
+                    "suggestion": suggestion,
+                    "sample": s[:140] + ("…" if len(s) > 140 else "")
+                })
+                break  # Only report once per term per file
+    
     ok = len(hits) == 0
     return ok, hits
 
 
-def load_ambiguity_terms_yaml(path: Path) -> List[str]:
+def load_ambiguity_rules_yaml(path: Path) -> Dict[str, str]:
+    """
+    Load ambiguity rules from a YAML file.
+    Expected format:
+        rules:
+          曖昧語1: "修正例1"
+          曖昧語2: "修正例2"
+    Or just a dict at root level.
+    """
     data = load_yaml(path)
-    if isinstance(data, dict) and "terms" in data and isinstance(data["terms"], list):
-        return [str(x) for x in data["terms"]]
-    if isinstance(data, list):
-        return [str(x) for x in data]
-    raise ValueError("Ambiguity terms YAML must be a list or {terms:[...]}")
+    if isinstance(data, dict):
+        if "rules" in data and isinstance(data["rules"], dict):
+            return {str(k): str(v) for k, v in data["rules"].items()}
+        # Assume root is the rules dict
+        return {str(k): str(v) for k, v in data.items()}
+    raise ValueError("Ambiguity rules YAML must be a dict mapping terms to suggestions")
 
 
 def rel_from_repo_root(repo_root: Path, file_path: Path) -> str:
@@ -294,7 +351,7 @@ def main():
     ap.add_argument("--target", required=True, help="Target dir or YAML file")
     ap.add_argument("--schema-registry", required=True, help="schema_registry.yaml path")
     ap.add_argument("--meta-required", default=",".join(DEFAULT_META_KEYS), help="Comma-separated required meta keys")
-    ap.add_argument("--ambiguity-terms-yaml", default="", help="Optional YAML file for ambiguity terms")
+    ap.add_argument("--ambiguity-rules-yaml", default="", help="Optional YAML file for ambiguity rules (term → suggestion)")
     ap.add_argument("--report-out", default="gate_report.json", help="Report JSON output path")
     ap.add_argument("--fail-on-ambiguity", action="store_true", help="If set, ambiguity hits make gate fail (default: true anyway)")
     args = ap.parse_args()
@@ -305,10 +362,14 @@ def main():
     report_out = (repo_root / args.report_out).resolve() if not Path(args.report_out).is_absolute() else Path(args.report_out).resolve()
 
     required_meta = [x.strip() for x in args.meta_required.split(",") if x.strip()]
-    ambiguity_terms = DEFAULT_AMBIGUITY_TERMS
-    if args.ambiguity_terms_yaml:
-        terms_path = (repo_root / args.ambiguity_terms_yaml).resolve() if not Path(args.ambiguity_terms_yaml).is_absolute() else Path(args.ambiguity_terms_yaml).resolve()
-        ambiguity_terms = load_ambiguity_terms_yaml(terms_path)
+    
+    # Load ambiguity rules (default or from file)
+    ambiguity_rules = AMBIGUITY_RULES
+    rules_source = "AMBIGUITY_RULES (default)"
+    if args.ambiguity_rules_yaml:
+        rules_path = (repo_root / args.ambiguity_rules_yaml).resolve() if not Path(args.ambiguity_rules_yaml).is_absolute() else Path(args.ambiguity_rules_yaml).resolve()
+        ambiguity_rules = load_ambiguity_rules_yaml(rules_path)
+        rules_source = str(rules_path)
 
     registry = load_schema_registry(schema_registry_path)
 
@@ -342,8 +403,8 @@ def main():
             id_results["failed"] += 1
             id_results["failures"].append({"file": rel, "issues": id_issues})
 
-        # G1 ambiguity
-        amb_ok, amb_hits = ambiguity_scan(doc, ambiguity_terms)
+        # G1 ambiguity (now with suggestions)
+        amb_ok, amb_hits = ambiguity_scan(doc, ambiguity_rules)
         g1_results["checked"] += 1
         if not amb_ok:
             g1_results["failed"] += 1
@@ -372,7 +433,7 @@ def main():
             "checked": g1_results["checked"],
             "failed": g1_results["failed"],
             "hits": g1_results["hits"],
-            "terms_source": args.ambiguity_terms_yaml or "DEFAULT_AMBIGUITY_TERMS",
+            "rules_source": rules_source,
         },
         "G3_schema": {
             "pass": g3_results["failed"] == 0,
