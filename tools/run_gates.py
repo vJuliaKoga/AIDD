@@ -210,7 +210,7 @@ def find_all_strings_excluding_item_types(
             return []
 
         t = obj.get("type")
-        # Exclude the entire subtree for quote/example-like items (examples/quotations are not gate targets).
+        # 引用/例のようなアイテムのサブツリー全体を除外
         if isinstance(t, str) and t in set(excluded_item_types):
             return []
 
@@ -315,7 +315,7 @@ def ambiguity_scan(doc: Any, rules: Dict[str, str]) -> Tuple[bool, List[Dict[str
                     "suggestion": suggestion,
                     "sample": s[:140] + ("…" if len(s) > 140 else "")
                 })
-                break  # Only report once per term per file
+                break  # レポートは1ファイルごとに1回のみ生成
     
     ok = len(hits) == 0
     return ok, hits
@@ -334,13 +334,11 @@ def load_ambiguity_rules_yaml(path: Path) -> Dict[str, str]:
     if isinstance(data, dict):
         if "rules" in data and isinstance(data["rules"], dict):
             return {str(k): str(v) for k, v in data["rules"].items()}
-        # Assume root is the rules dict
         return {str(k): str(v) for k, v in data.items()}
     raise ValueError("Ambiguity rules YAML must be a dict mapping terms to suggestions")
 
 
 def rel_from_repo_root(repo_root: Path, file_path: Path) -> str:
-    # Return posix-ish relative path string starting with AIDD/...
     rel = file_path.resolve().relative_to(repo_root.resolve())
     return str(rel).replace("\\", "/")
 
@@ -363,7 +361,7 @@ def main():
 
     required_meta = [x.strip() for x in args.meta_required.split(",") if x.strip()]
     
-    # Load ambiguity rules (default or from file)
+    # 曖昧語ルールをロード
     ambiguity_rules = AMBIGUITY_RULES
     rules_source = "AMBIGUITY_RULES (default)"
     if args.ambiguity_rules_yaml:
