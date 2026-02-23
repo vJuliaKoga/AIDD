@@ -1,0 +1,213 @@
+meta:
+  artifact_id: PENDING  # stampingMeta.pyで自動付与
+  file: PENDING
+  author: '@juria.koga'
+  source_type: human
+  timestamp: PENDING
+  content_hash: PENDING
+
+claude_code_rules:
+  rule_id: REQ-OPS-RULES-CLAUDE-001
+  title: "Claude Code（Cline）使用時の要件定義ルール"
+  scope:
+    applies_to:
+      - AIDD/requirements/**/*.yaml
+    tools:
+      - Cline
+      - Claude Code
+      - issue_id.py
+      - stampingMeta.py
+      - ambiguous_checker.py
+      - run_gates.py
+      
+  workflow:
+    # 要件定義ワークフロー
+    - step: 1
+      action: "要件定義YAML作成"
+      tool: manual/Cline
+      input: "企画書YAML（例: PLN-PLN-CONCEPT-005）"
+      output: "requirements_draft.yaml（ID/meta未確定）"
+      notes: |
+        - テンプレート（template.yaml）を基に作成
+        - すべてのIDフィールドは "PENDING" のまま
+        - metaセクションも "PENDING" のまま
+        
+    - step: 2
+      action: "ID付与"
+      tool: issue_id.py
+      command_template: |
+        python AIDD/tools/issue_id.py --prefix REQ --phase <PHASE> --purpose <PURPOSE>
+      execution_rule:
+        - 要件ごとに個別実行
+        - 発行されたIDを手動でYAMLに転記、または出力を解析してスクリプトで一括置換
+        - PHASEとPURPOSEはID付与ルール（id_rules_registry.yaml）に従う
+      example_commands:
+        - "python AIDD/tools/issue_id.py --prefix REQ --phase FUNC --purpose WF"
+        - "python AIDD/tools/issue_id.py --prefix REQ --phase NFUNC --purpose USABILITY"
+        - "python AIDD/tools/issue_id.py --prefix REQ --phase CONST --purpose TECH"
+      output: "IDが確定したYAML（metaはまだPENDING）"
+      
+    - step: 3
+      action: "曖昧語チェック"
+      tool: ambiguous_checker.py
+      command_template: |
+        python AIDD/tools/ambiguous_checker.py --file <YAML_PATH>
+      pass_condition: "曖昧語検出数 = 0"
+      fail_action:
+        - 検出された曖昧語を修正
+        - 再度ambiguous_checker.pyを実行
+        - PASSするまで繰り返す
+      notes: |
+        曖昧語例: 適切に、十分に、できるだけ、なるべく、基本的に、
+                  一般的に、必要に応じて、適宜、etc.
+        → 定量的・検証可能な表現に修正する
+        
+    - step: 4
+      action: "スキーマ検証"
+      tool: python jsonschema
+      command_template: |
+        python -c "import yaml, jsonschema, json; ..."
+      selection_rule:
+        registry: AIDD/RULES/schema_registry.yaml
+        match_key: requirements
+      pass_condition: "標準出力に 'VALID' を含む"
+      fail_action:
+        - エラーメッセージを確認してYAML構造を修正
+        - 再度スキーマ検証を実行
+        
+    - step: 5
+      action: "meta情報スタンプ"
+      tool: stampingMeta.py
+      command_template: |
+        python AIDD/tools/stampingMeta.py --file <YAML_PATH>
+      execution_rule:
+        - スキーマ検証PASSの後にのみ実行
+        - meta.run_idがファイル名と一致することを確認
+        - meta.content_hashが "PENDING" でないことを確認
+      output: "meta情報が確定したYAML"
+      
+    - step: 6
+      action: "統合品質ゲート実行"
+      tool: run_gates.py
+      command_template: |
+        python AIDD\tools\run_gates.py --repo-root . --target AIDD/requirements/yaml/<VERSION_DIR> --schema-registry AIDD\RULES\schema_registry.yaml --report-out AIDD\reports\gate_report_requirements_<VERSION>.json
+      pass_condition: "標準出力に 'GATES: PASS' を含む"
+      fail_action:
+        - レポートJSON（AIDD/reports/gate_report_requirements_*.json）を確認
+        - FAILの原因（schema/meta/ID/曖昧語）を修正
+        - 再度run_gates.pyを実行
+        - PASSするまで次工程（設計フェーズ）へ進まない
+      artifacts:
+        - AIDD/reports/gate_report_requirements_<VERSION>.json
+      notes: |
+        すべての成果物（requirements YAML）が完成した最後に1回実行
+        
+  hard_rules:
+    - rule_id: HR-001
+      description: "手採番ID禁止"
+      enforcement: "すべてのIDはissue_id.pyで発行し、id_issued_log.yamlに記録する"
+      
+    - rule_id: HR-002
+      description: "曖昧語ゼロ要求"
+      enforcement: "ambiguous_checker.pyでチェックし、検出数=0でなければ次工程不可"
+      
+    - rule_id: HR-003
+      description: "meta情報必須"
+      enforcement: "stampingMeta.py実行後、PENDINGフィールドが残存していないこと"
+      
+    - rule_id: HR-004
+      description: "統合ゲートPASS必須"
+      enforcement: "run_gates.pyがPASSするまで次工程（設計）へ進まない"
+      
+    - rule_id: HR-005
+      description: "トレーサビリティ完全性"
+      enforcement: "すべての要件がderived_fromで企画書IDにトレース可能であること"
+      
+  terminal_rules:
+    platform: Windows PowerShell
+    must_not:
+      - "python を引数なしで起動してREPL（>>>）に入らない"
+      - "bash のヒアドキュメント（<<）を使わない"
+    recovery:
+      - ">>> が出たら exit() してPS>に戻る"
+      
+  directory_structure:
+    # 推奨ディレクトリ構造
+    requirements_root: AIDD/requirements/yaml/
+    versioning: |
+      - requirements_v1/
+        - requirements_document.yaml
+        - functional_requirements_detail.yaml（必要に応じて分割）
+        - non_functional_requirements_detail.yaml
+      - requirements_v2/
+        - ...
+    reports: AIDD/reports/gate_report_requirements_v*.json
+    
+  file_naming:
+    convention: "<phase>_<purpose>_<version>.yaml"
+    examples:
+      - requirements_document_v1.yaml
+      - requirements_functional_v1.yaml
+      - requirements_nonfunctional_v1.yaml
+    meta_run_id_rule: "ファイル名（拡張子除く）と一致させる"
+    
+  quality_checklist:
+    # 品質チェックリスト（手動確認用）
+    - item: "すべてのIDがPENDINGでない"
+      automated: false
+      
+    - item: "すべてのmetaフィールドがPENDINGでない"
+      automated: true
+      tool: run_gates.py
+      
+    - item: "曖昧語検出数 = 0"
+      automated: true
+      tool: ambiguous_checker.py
+      
+    - item: "スキーマ検証PASS"
+      automated: true
+      tool: jsonschema
+      
+    - item: "すべての機能要件にacceptance_criteriaが存在"
+      automated: false
+      
+    - item: "すべての非機能要件にmetricsとtarget_valueが存在"
+      automated: false
+      
+    - item: "トレーサビリティマトリクスが完全（すべての要件がderived_fromを持つ）"
+      automated: false
+      
+    - item: "validation_summaryの数値が実際の要件数と一致"
+      automated: false
+      
+  change_management:
+    version_control: |
+      - 要件の追加・変更時は新バージョンディレクトリを作成
+      - 変更理由をREADME.mdまたは変更履歴YAMLに記録
+    approval_process: |
+      - status: draft → review → approved → baseline
+      - approved以降の変更は変更管理プロセスに従う
+    traceability_update: |
+      - 要件変更時、traces_toで影響を受ける設計・テストも更新
+      
+  error_recovery:
+    # よくあるエラーと対処法
+    - error: "YAML syntax error"
+      cause: "インデント不正、コロン/ハイフン位置ミス"
+      solution: "YAMLバリデーターで構文チェック、サンプルと比較"
+      
+    - error: "Schema validation failed"
+      cause: "必須フィールド欠落、型不一致"
+      solution: "エラーメッセージから該当箇所を特定、schema定義と照合"
+      
+    - error: "Ambiguous terms detected"
+      cause: "曖昧語が残存"
+      solution: "検出された用語を定量的・検証可能な表現に置換"
+      
+    - error: "meta.content_hash is PENDING"
+      cause: "stampingMeta.py未実行、またはファイル保存後に再実行していない"
+      solution: "ファイル保存後、stampingMeta.pyを再実行"
+      
+    - error: "GATES: FAIL"
+      cause: "いずれかのゲート条件が不合格"
+      solution: "レポートJSONを確認し、FAILの具体的原因（schema/meta/ID/曖昧語）を修正"

@@ -1,0 +1,154 @@
+meta:
+  artifact_id: PENDING  # stampingMeta.pyで自動付与
+  file: PENDING  # stampingMeta.pyで自動付与
+  author: '@author_name'  # 実行者名を記載
+  source_type: human  # human/codex/hybrid
+  timestamp: PENDING  # stampingMeta.pyで自動付与
+  content_hash: PENDING  # stampingMeta.pyで自動付与
+
+requirements_document:
+  doc_id: PENDING  # issue_id.py --prefix REQ --phase REQ --purpose TEMPLATE で付与
+  title: ""  # 要件定義書のタイトル
+  version: "1.0"
+  status: draft  # draft/review/approved/baseline
+  derived_from: ""  # 元となる企画書のID（例: PLN-PLN-CONCEPT-005）
+  
+  functional_requirements:
+    # 機能要件リスト
+    - req_id: PENDING  # issue_id.py --prefix REQ --phase FUNC --purpose <目的> で付与
+      category: ""  # UI/UX, データ管理, 自動化, 検証, セキュリティ, etc.
+      priority: Must  # Must/Should/Could/Won't（いずれか1つを選択）
+      title: ""  # 要件の簡潔なタイトル
+      description: |
+        要件の詳細説明。
+        検証可能な表現を使用し、曖昧語（適切に、十分に、できるだけ、等）は排除する。
+      rationale: ""  # この要件が必要な理由・背景
+      acceptance_criteria:
+        # 受入基準（測定可能な条件を列挙）
+        - criterion: ""
+          verification_method: ""  # テスト/レビュー/デモ/分析
+      assumptions: []  # 前提条件（この要件が成立するための前提）
+      risks:  # 要件固有リスク
+        - risk_description: ""
+          probability: ""  # 高/中/低
+          impact: ""  # 高/中/低
+          mitigation: ""  # リスク軽減策
+      derived_from: ""  # 企画書の該当ID
+      traces_to: []  # 設計・テストへのトレース先（後工程で追加）
+      dependencies: []  # 依存する他要件のID
+      notes: ""  # 補足情報（任意）
+      
+  non_functional_requirements:
+    # 非機能要件リスト
+    - req_id: PENDING  # issue_id.py --prefix REQ --phase NFUNC --purpose <目的> で付与
+      category: ""  # 性能, 保守性, 可用性, セキュリティ, スケーラビリティ, etc.
+      priority: Must  # Must/Should/Could/Won't（いずれか1つを選択）
+      title: ""
+      description: |
+        非機能要件の詳細説明。
+        定量的な指標と目標値を必ず含める。
+      rationale: ""  # この要件が必要な理由・背景
+      metrics:
+        - metric_name: ""
+          target_value: ""  # 数値目標（例: ≤200ms, ≥99.9%, 100%）
+          measurement_method: ""  # 測定方法の具体的説明
+          tool: ""  # 使用する測定ツール（任意）
+      derived_from: ""
+      traces_to: []
+      dependencies: []
+      notes: ""
+      
+  constraints:
+    # 制約条件リスト
+    - constraint_id: PENDING  # issue_id.py --prefix REQ --phase CONST --purpose <目的> で付与
+      type: ""  # 技術的制約/ビジネス制約/運用制約/法規制/組織ポリシー
+      title: ""
+      description: |
+        制約の詳細説明。
+        制約が生じる理由と背景を明記する。
+      rationale: ""  # この制約が存在する理由・背景
+      impact: ""  # システム・開発への影響
+      mitigation: ""  # 緩和策・対応方針
+      derived_from: ""
+      
+  data_requirements:
+    # データ要件
+    entities:
+      - entity_id: PENDING  # issue_id.py --prefix REQ --phase DATA --purpose <エンティティ名> で付与
+        entity_name: ""  # エンティティ名（英語推奨）
+        description: ""  # エンティティの説明
+        attributes:
+          - attribute_name: ""
+            data_type: ""  # string/integer/boolean/date/datetime/uuid/etc.
+            required: true/false
+            default_value: ""  # デフォルト値（任意）
+            description: ""
+        relationships:
+          - related_entity: ""  # 関連エンティティ名
+            relationship_type: ""  # 1対1/1対多/多対多
+            description: ""
+        validation_rules:
+          - rule: ""  # 検証ルールの説明
+            enforcement: ""  # database/application/both
+        derived_from: ""
+        
+  integration_requirements:
+    # 統合要件リスト
+    - integration_id: PENDING  # issue_id.py --prefix REQ --phase INTEG --purpose <目的> で付与
+      title: ""
+      target_system: ""  # 連携先システム名
+      interface_type: ""  # REST API/GraphQL/File/Database/Message Queue/etc.
+      data_format: ""  # JSON/XML/CSV/YAML/Protobuf/etc.
+      protocol: ""  # HTTPS/MQTT/gRPC/etc.
+      frequency: ""  # リアルタイム/バッチ（日次）/オンデマンド/etc.
+      authentication: ""  # 認証方式（API Key/OAuth2/mTLS/etc.）
+      error_handling: ""  # エラー時の動作
+      rationale: ""  # この統合が必要な理由・背景
+      assumptions: []  # 前提条件（この統合が成立するための前提）
+      risks:  # 統合固有リスク
+        - risk_description: ""
+          probability: ""  # 高/中/低
+          impact: ""  # 高/中/低
+          mitigation: ""  # リスク軽減策
+      derived_from: ""
+      
+  quality_gates:
+    # 品質ゲート定義リスト
+    - gate_id: PENDING  # issue_id.py --prefix REQ --phase QG --purpose <フェーズ名> で付与
+      phase: ""  # 適用フェーズ（例: 判断記録保存時、テンプレート承認時）
+      title: ""
+      conditions:
+        - condition: ""  # 検証条件（測定可能な表現）
+          automated: true/false  # 自動検証可能か
+          tool: ""  # 使用する検証ツール（自動の場合）
+      blocking: true/false  # ゲート不合格時に処理を阻止するか
+      pass_criteria: ""  # 合格基準の明確な定義
+      derived_from: ""
+
+  traceability:
+    # トレーサビリティマトリクス
+    concept_to_requirement:
+      - source_id: ""  # 企画書のID
+        target_ids: []  # 該当する要件IDのリスト
+    requirement_to_design:
+      # 設計フェーズで追加
+      - source_id: ""  # 要件ID
+        target_ids: []  # 設計書のIDリスト
+    requirement_to_test:
+      # テストフェーズで追加
+      - source_id: ""  # 要件ID
+        target_ids: []  # テストケースIDリスト
+
+  validation_summary:
+    # 要件定義の妥当性サマリー（run_gates.pyが自動更新）
+    total_requirements: 0  # 合計要件数
+    functional: 0
+    non_functional: 0
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 0
+    # 以下はrun_gates.pyが自動計算・埋め込み
+    ambiguous_terms_count: PENDING  # run_gates.pyが自動更新
+    coverage_ratio: PENDING  # run_gates.pyが自動更新
+    traceability_completeness: PENDING  # run_gates.pyが自動更新
