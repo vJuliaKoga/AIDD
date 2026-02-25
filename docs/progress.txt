@@ -1,0 +1,43 @@
+# progress.txt — 実装進捗記録
+# 更新ルール: 毎セッション開始時に読み込み、終了時に更新する
+
+last_updated: 2026-02-24
+
+## 現在のフェーズ
+Phase 0: サンプルプロジェクト完成（AIDDによる自己実証）
+
+## 全体進捗
+[ ] M0: 環境構築・骨格        (0/5)
+[ ] M1: バックエンドコア      (0/14)
+[ ] M2: フロントエンドコア    (0/16)
+[ ] M3: テスト・品質保証      (0/10)
+[ ] M4: CI/CDと最終検証       (0/4)
+
+## 直近の完了タスク
+（なし。実装開始前）
+
+## 次にやること（優先順）
+1. IMPL-001: リポジトリ初期化・ディレクトリ構造作成
+2. IMPL-002: フロントエンドVite+React+TypeScript初期化
+3. IMPL-003: バックエンドNode+Express初期化
+4. IMPL-004: SQLiteセットアップ・初期マイグレーション
+5. IMPL-005: GitHub Actions CI設定
+
+## ブロッカー
+（なし）
+
+## 判断事項（直近）
+- 2026-02-24: docs/ フォルダに定義書群を生成（PRD/画面遷移/技術スタック/FE指針/BE構造/実装計画/progress/lessons）
+- 2026-02-24: AIDD/RULES/CLAUDE.md を生成（REQ-OPS-RULES-CLAUDE-001.yaml から）
+- 2026-02-24: 07_quality_assurance_design.yaml の ID 並び順修正（QA_AMBIGUOUS_EXAMPLES-013 を末尾へ移動）
+
+## 品質メトリクス（最新）
+Deep Eval Score:      未計測（実装前）
+曖昧語検出数:         未計測
+トレーサビリティ:     未計測
+スキーマ検証:         未実施
+
+## ノート
+- 企画書: planning/planning_v2.2.md (PLN-PLN-GOAL-001)
+- 上流工程YAML: planning/yaml/planning_v2.2/ (16セクション)
+- 要件定義YAML: AIDD/requirements/ (未作成)

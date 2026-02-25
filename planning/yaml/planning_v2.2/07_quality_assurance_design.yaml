@@ -77,20 +77,6 @@ section:
     related:
       derivedfrom: []
       tracesto: []
-  - id: PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013
-    type: quote
-    title: 曖昧語の例（検出対象にする語の例示）
-    content: '例：
-
-      - 「適切に」 - 「十分に」 - 「柔軟に」 - 「簡単に」 - 「最適に」
-
-      ※上記は例示であり、G1のスキャン対象からは除外される（type: quote）。
-
-      '
-    tags: []
-    related:
-      derivedfrom: []
-      tracesto: []
   - id: PLN-PLN-QA_REVIEW_ACCEPTANCE-005
     type: table
     title: レビュー完了条件（承認者と承認基準）
@@ -258,6 +244,20 @@ section:
       Promptfoo評価実行 → スコア0.8未満の検出 → プロンプト修正 → Deep Evalで実運用評価 →
 
       スコア推移をAllure Reportで確認 → 改善効果を記録
+
+      '
+    tags: []
+    related:
+      derivedfrom: []
+      tracesto: []
+  - id: PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013
+    type: quote
+    title: 曖昧語の例（検出対象にする語の例示）
+    content: '例：
+
+      - 「適切に」 - 「十分に」 - 「柔軟に」 - 「簡単に」 - 「最適に」
+
+      ※上記は例示であり、G1のスキャン対象からは除外される（type: quote）。
 
       '
     tags: []

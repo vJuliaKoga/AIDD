@@ -3,6 +3,8 @@ meta:
   file: PENDING  # stampingMeta.pyで自動付与
   author: '@author_name'  # 実行者名を記載
   source_type: human  # human/codex/hybrid
+  prompt_id: PENDING  # 使用したプロンプトID（例: PRM-REQ-YAML-001）
+  model: PENDING  # 使用したAIモデル（例: claude-sonnet-4-6）
   timestamp: PENDING  # stampingMeta.pyで自動付与
   content_hash: PENDING  # stampingMeta.pyで自動付与
 

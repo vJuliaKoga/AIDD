@@ -6,4 +6,4 @@ schema_registry:
   - match: "^AIDD/planning/yaml/planning_v2\\.2/\\d{2}_.+\\.yaml$"
     schema: "AIDD/planning/yaml/planning_v2.2/planning.section.schema.json"
   - match: "^AIDD/requirements/yaml/.+\\.yaml$"
-    schema: "AIDD/requirements/yaml/requirements.schema.json"
+    schema: "AIDD/requirements/JSONScheme/req.schema.json"

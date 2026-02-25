@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""
 issue_id.py
 One-person ID issuer for the AIDD convention: PREFIX-PHASE-PURPOSE-NNN.
 
@@ -11,6 +11,7 @@ One-person ID issuer for the AIDD convention: PREFIX-PHASE-PURPOSE-NNN.
 - Prints issued id to stdout (so Cline can capture it)
 
 Single-user assumption: no file locking.
+"""
 
 import argparse
 import datetime as _dt

@@ -1,0 +1,483 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/req.schema.json",
+  "title": "Requirements Document Schema (req.template.yaml)",
+  "description": "AIDD要件定義テンプレート(req.template.yaml)の構造を検証するスキーマ。G3品質ゲートで使用。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "requirements_document"],
+
+  "$defs": {
+
+    "PendingOrReqId": {
+      "description": "PENDING または REQ-PHASE-PURPOSE-NNN 形式のID",
+      "type": "string",
+      "anyOf": [
+        { "const": "PENDING" },
+        { "pattern": "^REQ-[A-Z]+-[A-Z0-9_]+-\\d{3}$" },
+        { "const": "" }
+      ]
+    },
+
+    "DerivedFromRef": {
+      "description": "上流成果物IDへの参照（空・PENDING・PLN/REQ-*形式を許容）",
+      "type": "string",
+      "anyOf": [
+        { "const": "PENDING" },
+        { "const": "" },
+        { "pattern": "^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\\d{3}$" }
+      ]
+    },
+
+    "Priority": {
+      "description": "MoSCoW優先度",
+      "type": "string",
+      "enum": ["Must", "Should", "Could", "Won't"]
+    },
+
+    "ProbabilityImpact": {
+      "description": "確率・影響度（高/中/低）",
+      "type": "string",
+      "enum": ["高", "中", "低"]
+    },
+
+    "VerificationMethod": {
+      "description": "検証方法",
+      "type": "string",
+      "enum": ["テスト", "レビュー", "デモ", "分析"]
+    },
+
+    "Risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["risk_description", "probability", "impact", "mitigation"],
+      "properties": {
+        "risk_description": { "type": "string", "minLength": 1 },
+        "probability": { "$ref": "#/$defs/ProbabilityImpact" },
+        "impact": { "$ref": "#/$defs/ProbabilityImpact" },
+        "mitigation": { "type": "string", "minLength": 1 }
+      }
+    },
+
+    "AcceptanceCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion", "verification_method"],
+      "properties": {
+        "criterion": { "type": "string", "minLength": 1 },
+        "verification_method": { "$ref": "#/$defs/VerificationMethod" }
+      }
+    },
+
+    "Metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric_name", "target_value", "measurement_method"],
+      "properties": {
+        "metric_name": { "type": "string", "minLength": 1 },
+        "target_value": { "type": "string", "minLength": 1 },
+        "measurement_method": { "type": "string", "minLength": 1 },
+        "tool": { "type": "string" }
+      }
+    },
+
+    "FunctionalRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "req_id", "category", "priority", "title", "description",
+        "rationale", "acceptance_criteria", "assumptions", "risks",
+        "derived_from", "traces_to", "dependencies"
+      ],
+      "properties": {
+        "req_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "description": "UI/UX, データ管理, 自動化, 検証, セキュリティ 等"
+        },
+        "priority": { "$ref": "#/$defs/Priority" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string" },
+        "acceptance_criteria": {
+          "type": "array",
+          "description": "G2: 受入基準は最低1件必須",
+          "items": { "$ref": "#/$defs/AcceptanceCriterion" },
+          "minItems": 1
+        },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "risks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Risk" }
+        },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" },
+        "traces_to": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "NonFunctionalRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "req_id", "category", "priority", "title", "description",
+        "rationale", "metrics", "derived_from", "traces_to", "dependencies"
+      ],
+      "properties": {
+        "req_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "description": "性能, 保守性, 可用性, セキュリティ, スケーラビリティ 等"
+        },
+        "priority": { "$ref": "#/$defs/Priority" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string" },
+        "metrics": {
+          "type": "array",
+          "description": "G2: 指標は最低1件必須（target_value に定量値を含むこと）",
+          "items": { "$ref": "#/$defs/Metric" },
+          "minItems": 1
+        },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" },
+        "traces_to": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+
+    "Constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraint_id", "type", "title", "description",
+        "rationale", "impact", "mitigation", "derived_from"
+      ],
+      "properties": {
+        "constraint_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "type": {
+          "type": "string",
+          "enum": ["技術的制約", "ビジネス制約", "運用制約", "法規制", "組織ポリシー"]
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string" },
+        "impact": { "type": "string" },
+        "mitigation": { "type": "string" },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" }
+      }
+    },
+
+    "Attribute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attribute_name", "data_type", "required"],
+      "properties": {
+        "attribute_name": { "type": "string", "minLength": 1 },
+        "data_type": {
+          "type": "string",
+          "enum": [
+            "string", "integer", "boolean", "date", "datetime",
+            "uuid", "float", "array", "object", "text"
+          ]
+        },
+        "required": { "type": "boolean" },
+        "default_value": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+
+    "Relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["related_entity", "relationship_type", "description"],
+      "properties": {
+        "related_entity": { "type": "string", "minLength": 1 },
+        "relationship_type": {
+          "type": "string",
+          "enum": ["1対1", "1対多", "多対多"]
+        },
+        "description": { "type": "string" }
+      }
+    },
+
+    "ValidationRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "enforcement"],
+      "properties": {
+        "rule": { "type": "string", "minLength": 1 },
+        "enforcement": {
+          "type": "string",
+          "enum": ["database", "application", "both"]
+        }
+      }
+    },
+
+    "Entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "entity_name", "description", "attributes", "derived_from"],
+      "properties": {
+        "entity_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "entity_name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "attributes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Attribute" },
+          "minItems": 1
+        },
+        "relationships": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Relationship" }
+        },
+        "validation_rules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ValidationRule" }
+        },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" }
+      }
+    },
+
+    "DataRequirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entities"],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Entity" }
+        }
+      }
+    },
+
+    "IntegrationRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "integration_id", "title", "target_system", "interface_type",
+        "data_format", "protocol", "frequency", "authentication",
+        "error_handling", "rationale", "derived_from"
+      ],
+      "properties": {
+        "integration_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "title": { "type": "string", "minLength": 1 },
+        "target_system": { "type": "string", "minLength": 1 },
+        "interface_type": {
+          "type": "string",
+          "enum": ["REST API", "GraphQL", "File", "Database", "Message Queue", "その他"]
+        },
+        "data_format": {
+          "type": "string",
+          "enum": ["JSON", "XML", "CSV", "YAML", "Protobuf", "その他"]
+        },
+        "protocol": {
+          "type": "string",
+          "enum": ["HTTPS", "MQTT", "gRPC", "WebSocket", "その他"]
+        },
+        "frequency": { "type": "string", "minLength": 1 },
+        "authentication": { "type": "string", "minLength": 1 },
+        "error_handling": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string" },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "risks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Risk" }
+        },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" }
+      }
+    },
+
+    "GateCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["condition", "automated"],
+      "properties": {
+        "condition": { "type": "string", "minLength": 1 },
+        "automated": { "type": "boolean" },
+        "tool": { "type": "string" }
+      }
+    },
+
+    "QualityGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate_id", "phase", "title", "conditions",
+        "blocking", "pass_criteria", "derived_from"
+      ],
+      "properties": {
+        "gate_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "phase": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "conditions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/GateCondition" },
+          "minItems": 1
+        },
+        "blocking": { "type": "boolean" },
+        "pass_criteria": { "type": "string", "minLength": 1 },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" }
+      }
+    },
+
+    "TraceMatrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "target_ids"],
+        "properties": {
+          "source_id": { "type": "string" },
+          "target_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "Traceability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concept_to_requirement"],
+      "properties": {
+        "concept_to_requirement": { "$ref": "#/$defs/TraceMatrix" },
+        "requirement_to_design": { "$ref": "#/$defs/TraceMatrix" },
+        "requirement_to_test": { "$ref": "#/$defs/TraceMatrix" }
+      }
+    },
+
+    "ValidationSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_requirements", "functional", "non_functional",
+        "constraints", "data_entities", "integrations", "quality_gates",
+        "ambiguous_terms_count", "coverage_ratio", "traceability_completeness"
+      ],
+      "properties": {
+        "total_requirements": { "type": "integer", "minimum": 0 },
+        "functional": { "type": "integer", "minimum": 0 },
+        "non_functional": { "type": "integer", "minimum": 0 },
+        "constraints": { "type": "integer", "minimum": 0 },
+        "data_entities": { "type": "integer", "minimum": 0 },
+        "integrations": { "type": "integer", "minimum": 0 },
+        "quality_gates": { "type": "integer", "minimum": 0 },
+        "ambiguous_terms_count": {
+          "anyOf": [
+            { "const": "PENDING" },
+            { "type": "integer", "minimum": 0 }
+          ]
+        },
+        "coverage_ratio": {
+          "anyOf": [
+            { "const": "PENDING" },
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "string", "pattern": "^\\d+(\\.\\d+)?%$" }
+          ]
+        },
+        "traceability_completeness": {
+          "anyOf": [
+            { "const": "PENDING" },
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "string", "pattern": "^\\d+(\\.\\d+)?%$" }
+          ]
+        }
+      }
+    }
+  },
+
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "stampingMeta.py が自動付与するフィールドを含む。PENDING は許容。",
+      "required": [
+        "artifact_id", "file", "author", "source_type",
+        "prompt_id", "model", "timestamp", "content_hash"
+      ],
+      "properties": {
+        "artifact_id": { "type": "string" },
+        "file": { "type": "string" },
+        "author": { "type": "string", "minLength": 1 },
+        "source_type": {
+          "type": "string",
+          "enum": ["human", "codex", "hybrid"]
+        },
+        "prompt_id": { "type": "string" },
+        "model": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "content_hash": { "type": "string" }
+      }
+    },
+
+    "requirements_document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "doc_id", "title", "version", "status",
+        "derived_from", "functional_requirements",
+        "non_functional_requirements", "constraints",
+        "traceability", "validation_summary"
+      ],
+      "properties": {
+        "doc_id": { "$ref": "#/$defs/PendingOrReqId" },
+        "title": { "type": "string", "minLength": 1 },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "review", "approved", "baseline"]
+        },
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" },
+        "functional_requirements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/FunctionalRequirement" }
+        },
+        "non_functional_requirements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/NonFunctionalRequirement" }
+        },
+        "constraints": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Constraint" }
+        },
+        "data_requirements": { "$ref": "#/$defs/DataRequirements" },
+        "integration_requirements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/IntegrationRequirement" }
+        },
+        "quality_gates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/QualityGate" }
+        },
+        "traceability": { "$ref": "#/$defs/Traceability" },
+        "validation_summary": { "$ref": "#/$defs/ValidationSummary" }
+      }
+    }
+  }
+}
