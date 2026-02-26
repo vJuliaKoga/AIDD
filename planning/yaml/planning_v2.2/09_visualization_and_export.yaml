@@ -20,7 +20,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002
     type: metric
@@ -36,7 +36,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-VIS_WORKFLOW_ELEMENTS-003
     type: definition
@@ -51,7 +51,7 @@ section:
       \n    direction: \"left-to-right\"\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-VIS_SNAPSHOT_EX-004
     type: definition
@@ -65,7 +65,7 @@ section:
       \n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-VIS_DAILY_REPORT_FORMAT-005
     type: definition
@@ -77,5 +77,5 @@ section:
       • REQ-T002で指摘された性能要件の具体化\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

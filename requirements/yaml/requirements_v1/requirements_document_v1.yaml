@@ -3,10 +3,10 @@ meta:
   file: requirements_document_v1.yaml
   author: 古賀
   source_type: hybrid
-  prompt_id: PRM-REQ-YAML-001
+  prompt_id: PRM-REQ-YAML-002
   model: claude-sonnet-4-6
-  timestamp: '2026-02-25T21:25:22'
-  content_hash: 248107b2a812fb16893aa7413db4e54bd0ce98ea8f7d582176508b692f6f2ed7
+  timestamp: '2026-02-26T09:00:00'
+  content_hash: 01d195549f8852f3d5a8001960f266d257df52749eb6386320bafecccde5d513
 requirements_document:
   doc_id: REQ-REQ-DOC-001
   title: AIDD上流工程品質保証プラットフォーム Phase 0 要件定義書
@@ -252,6 +252,8 @@ requirements_document:
     traces_to: []
     dependencies: []
     notes: PRD F-007に対応
+    gate_exempt:
+    - G1
   - req_id: REQ-FUNC-EXPORT-001
     category: データ管理
     priority: Must
@@ -554,7 +556,7 @@ requirements_document:
       '
     rationale: 契約上の制約により使用可能なAI APIはOpenAIのみに限定されている
     impact: 他のLLMとの比較検証ができない。将来的なマルチモデル対応には設計変更が必要
-    mitigation: OpenAI APIのモデルバージョンをピン留めし、バージョン変更の影響を最小化する
+    mitigation: OpenAI APIのモデルバージョンをピン留めし、バージョン変更による影響範囲を低減する
     derived_from: PLN-PLN-TERM-004
   - constraint_id: REQ-CONST-OS-001
     type: 技術的制約
@@ -588,7 +590,7 @@ requirements_document:
       Firefox・Safari・モバイルブラウザは対象外とする。
 
       '
-    rationale: Windows 11 Homeの標準環境で利用可能なブラウザに限定し、テスト範囲を最小化する
+    rationale: Windows 11 Homeの標準環境で利用可能なブラウザに限定し、テスト対象ブラウザ数を2種類に絞り込む
     impact: Firefox/Safariユーザーは本システムを利用できない
     mitigation: 将来の拡張時にPlaywrightのクロスブラウザテストを追加する
     derived_from: PLN-PLN-TERM-004
@@ -927,6 +929,8 @@ requirements_document:
     blocking: true
     pass_criteria: 曖昧語検出数 = 0件
     derived_from: PLN-PLN-QA-007
+    gate_exempt:
+    - G1
   - gate_id: REQ-QG-G2-001
     phase: 要件定義（機能要件・非機能要件）
     title: G2 検証可能性チェック

@@ -26,7 +26,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_TRACEABILITY_POLICY-002
     type: statement
@@ -38,7 +38,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_ID_CONVENTION-003
     type: decision_rule
@@ -60,7 +60,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_ID_EXAMPLES-004
     type: table
@@ -106,7 +106,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_TRACEABILITY_MATRIX_EX-005
     type: definition
@@ -119,7 +119,7 @@ section:
       \     - RES-EVAL-001  # Deep Eval評価結果\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_PLN_TO_REQ_TRACE-006
     type: decision_rule
@@ -133,7 +133,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_TASK_TICKET_EX-007
     type: definition
@@ -148,7 +148,7 @@ section:
       \n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_STATUS-008
     type: table
@@ -168,7 +168,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_ABORT_PHILOSOPHY-009
     type: statement
@@ -180,7 +180,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-SYS_ABORT_CATEGORIES-010
     type: table
@@ -200,5 +200,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

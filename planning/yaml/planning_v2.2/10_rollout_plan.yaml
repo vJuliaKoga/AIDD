@@ -20,7 +20,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_PHASES-002
     type: table
@@ -42,7 +42,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_PHASE1_RATIONALE-003
     type: decision_rule
@@ -60,7 +60,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_PHASE1_METRICS-004
     type: metric
@@ -72,7 +72,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_PHASE1_SCOPE-005
     type: list
@@ -106,7 +106,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_NODE_COUNT_RULE-006
     type: decision_rule
@@ -115,7 +115,7 @@ section:
       - 検証は、改修前後のBPMN図差分でノード増分を数え、3以下であることを確認する。\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_PROCESS_INTEGRATION-007
     type: definition
@@ -128,7 +128,7 @@ section:
       \ → テスト設計 → 実施 → バグ報告\"\n    change: \"テスト漏れの事前検知\"\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_TOOL_INTEGRATION-008
     type: table
@@ -150,7 +150,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ROLL_ONBOARDING-009
     type: list
@@ -164,5 +164,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

@@ -1,58 +1,17 @@
 {
-  "generated_at": "2026-02-25T21:25:59",
-  "repo_root": "D:\\Github",
-  "target": "D:\\Github\\AIDD\\requirements\\yaml\\requirements_v1",
+  "generated_at": "2026-02-26T08:36:35",
+  "repo_root": "C:\\Users\\juria.koga\\Documents\\Github",
+  "target": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD\\requirements\\yaml\\requirements_v1",
   "files_checked": [
     "AIDD/requirements/yaml/requirements_v1/requirements_document_v1.yaml"
   ],
-  "overall_pass": false,
+  "overall_pass": true,
   "gates": {
     "G1_ambiguity": {
-      "pass": false,
+      "pass": true,
       "checked": 1,
-      "failed": 1,
-      "hits": [
-        {
-          "file": "AIDD/requirements/yaml/requirements_v1/requirements_document_v1.yaml",
-          "hits": [
-            {
-              "term": "適切",
-              "suggestion": "評価基準または成功条件を列挙すること (例: エラー率 < 1%、レスポンスタイム < 2秒)",
-              "sample": "ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」\n「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」\n等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。\n"
-            },
-            {
-              "term": "十分",
-              "suggestion": "定量的な閾値または完了条件を定義すること (例: カバレッジ ≥ 80%)",
-              "sample": "ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」\n「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」\n等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。\n"
-            },
-            {
-              "term": "簡単",
-              "suggestion": "操作ステップ数または習得時間を明示すること (例: 3ステップ以内、初回利用時間 < 10分)",
-              "sample": "ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」\n「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」\n等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。\n"
-            },
-            {
-              "term": "なるべく",
-              "suggestion": "優先度または制約条件を明確化すること",
-              "sample": "ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」\n「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」\n等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。\n"
-            },
-            {
-              "term": "できるだけ",
-              "suggestion": "努力目標値と最低保証値を分けて定義すること",
-              "sample": "ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」\n「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」\n等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。\n"
-            },
-            {
-              "term": "最小",
-              "suggestion": "具体的な下限値または制約を定義すること",
-              "sample": "OpenAI APIのモデルバージョンをピン留めし、バージョン変更の影響を最小化する"
-            },
-            {
-              "term": "最適",
-              "suggestion": "最適化の目的関数と制約条件を明示すること",
-              "sample": "ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」\n「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」\n等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。\n"
-            }
-          ]
-        }
-      ],
+      "failed": 0,
+      "hits": [],
       "rules_source": "AMBIGUITY_RULES (default)"
     },
     "G3_schema": {
@@ -60,7 +19,7 @@
       "checked": 1,
       "failed": 0,
       "failures": [],
-      "schema_registry": "D:\\Github\\AIDD\\RULES\\schema_registry.yaml"
+      "schema_registry": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD\\RULES\\schema_registry.yaml"
     },
     "META": {
       "pass": true,

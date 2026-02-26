@@ -1,6 +1,6 @@
 meta:
   version: '1.0'
-  last_updated: '2026-02-25T21:21:32'
+  last_updated: '2026-02-26T08:49:03'
 issued:
 - id: REQ-REQ-DOC-001
   issued_at: '2026-02-25T21:20:45'
@@ -234,5 +234,59 @@ issued:
   issued_at: '2026-02-25T21:21:32'
   sequence_key: REQ-QG-G5
   title: G5 トレーサビリティチェック
+  note: ''
+  context: ''
+- id: REQ-REQ-DOC-002
+  issued_at: '2026-02-26T08:48:19'
+  sequence_key: REQ-REQ-DOC
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-FUNC-VALID-001
+  issued_at: '2026-02-26T08:49:01'
+  sequence_key: REQ-FUNC-VALID
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-FUNC-QASTR-001
+  issued_at: '2026-02-26T08:49:01'
+  sequence_key: REQ-FUNC-QASTR
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-FUNC-OBS-001
+  issued_at: '2026-02-26T08:49:01'
+  sequence_key: REQ-FUNC-OBS
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-NFUNC-KPI-001
+  issued_at: '2026-02-26T08:49:02'
+  sequence_key: REQ-NFUNC-KPI
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-CONST-HYPO-001
+  issued_at: '2026-02-26T08:49:02'
+  sequence_key: REQ-CONST-HYPO
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-QG-G1-002
+  issued_at: '2026-02-26T08:49:03'
+  sequence_key: REQ-QG-G1
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-QG-G3-002
+  issued_at: '2026-02-26T08:49:03'
+  sequence_key: REQ-QG-G3
+  title: ''
+  note: ''
+  context: ''
+- id: REQ-QG-G5-002
+  issued_at: '2026-02-26T08:49:03'
+  sequence_key: REQ-QG-G5
+  title: ''
   note: ''
   context: ''

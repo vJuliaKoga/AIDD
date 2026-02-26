@@ -123,7 +123,14 @@
           "type": "array",
           "items": { "type": "string" }
         },
-        "notes": { "type": "string" }
+        "notes": { "type": "string" },
+        "gate_exempt": {
+          "description": "このアイテムを除外するゲート名リスト（例: [\"G1\"]）。引用・例示を含む項目でG1が誤検知する場合に使用。",
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        }
       }
     },
 
@@ -338,7 +345,14 @@
         },
         "blocking": { "type": "boolean" },
         "pass_criteria": { "type": "string", "minLength": 1 },
-        "derived_from": { "$ref": "#/$defs/DerivedFromRef" }
+        "derived_from": { "$ref": "#/$defs/DerivedFromRef" },
+        "gate_exempt": {
+          "description": "このゲート定義アイテムを除外するゲート名リスト。条件文に検出対象語を列挙する場合にG1除外で使用。",
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "array", "items": { "type": "string" } }
+          ]
+        }
       }
     },
 

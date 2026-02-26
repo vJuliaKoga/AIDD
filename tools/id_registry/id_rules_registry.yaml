@@ -1,7 +1,7 @@
 meta:
   version: '1.0'
   name: AIDD ID Rules Registry
-  last_updated: '2026-02-25T21:21:32'
+  last_updated: '2026-02-26T08:49:03'
   owner: j.koga
   notes: ID convention registry for PREFIX-PHASE-PURPOSE-NNN.
 rules:
@@ -236,7 +236,7 @@ sequences:
   prefix: REQ
   phase: REQ
   purpose: DOC
-  next_nnn: 2
+  next_nnn: 3
   notes: auto-created
 - key: REQ-FUNC-QG
   prefix: REQ
@@ -440,7 +440,7 @@ sequences:
   prefix: REQ
   phase: QG
   purpose: G1
-  next_nnn: 2
+  next_nnn: 3
   notes: auto-created
 - key: REQ-QG-G2
   prefix: REQ
@@ -452,7 +452,7 @@ sequences:
   prefix: REQ
   phase: QG
   purpose: G3
-  next_nnn: 2
+  next_nnn: 3
   notes: auto-created
 - key: REQ-QG-G4
   prefix: REQ
@@ -464,6 +464,36 @@ sequences:
   prefix: REQ
   phase: QG
   purpose: G5
+  next_nnn: 3
+  notes: auto-created
+- key: REQ-FUNC-VALID
+  prefix: REQ
+  phase: FUNC
+  purpose: VALID
+  next_nnn: 2
+  notes: auto-created
+- key: REQ-FUNC-QASTR
+  prefix: REQ
+  phase: FUNC
+  purpose: QASTR
+  next_nnn: 2
+  notes: auto-created
+- key: REQ-FUNC-OBS
+  prefix: REQ
+  phase: FUNC
+  purpose: OBS
+  next_nnn: 2
+  notes: auto-created
+- key: REQ-NFUNC-KPI
+  prefix: REQ
+  phase: NFUNC
+  purpose: KPI
+  next_nnn: 2
+  notes: auto-created
+- key: REQ-CONST-HYPO
+  prefix: REQ
+  phase: CONST
+  purpose: HYPO
   next_nnn: 2
   notes: auto-created
 phase_alias:

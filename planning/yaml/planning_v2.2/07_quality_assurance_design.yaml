@@ -22,7 +22,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_GATES-002
     type: table
@@ -44,7 +44,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_DEEPEVAL_THRESHOLD-003
     type: metric
@@ -65,7 +65,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_MANDATORY_CHECKS-004
     type: list
@@ -75,7 +75,7 @@ section:
       - 構造整合性\n  - YAML/JSON形式の構文エラーがない\n  - 必須フィールドがすべて存在する\n  - ID命名規則に準拠している\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_REVIEW_ACCEPTANCE-005
     type: table
@@ -93,7 +93,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_MONITORING-006
     type: metric
@@ -104,7 +104,7 @@ section:
       \  - 説明：要件→設計→テストの紐付け完全性\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_DATA_QUALITY_ABORT-007
     type: decision_rule
@@ -133,7 +133,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_DATA_QUALITY_DECISIONLOG-008
     type: decision_rule
@@ -164,7 +164,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_DATA_QUALITY_CHECKS-009
     type: list
@@ -184,7 +184,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_RISK_TABLE-010
     type: table
@@ -206,7 +206,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_DEGRADATION_DETECTION-011
     type: decision_rule
@@ -231,7 +231,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_PROMPTFOO-012
     type: metric
@@ -248,7 +248,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013
     type: quote
@@ -262,5 +262,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

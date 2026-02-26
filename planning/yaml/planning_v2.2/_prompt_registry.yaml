@@ -1,0 +1,10 @@
+# Prompt ID Registry
+# このファイルはプロンプト定義IDをトレーサビリティシステムに登録するためのファイルです。
+# verify_traceability.py が prompt_id フィールドの参照を解決するために使用します。
+prompts:
+  - id: PRM-PLN-YAML-002
+    title: 企画書YAML生成プロンプト
+    file: prompts/PRM-PLN-YAML-002.md
+  - id: PRM-REQ-YAML-002
+    title: 要件定義YAML生成プロンプト
+    file: prompts/PRM-REQ-YAML-002.md

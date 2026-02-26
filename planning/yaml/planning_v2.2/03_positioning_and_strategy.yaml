@@ -28,7 +28,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-POS_STRATEGIC_VALUE-002
     type: list
@@ -44,7 +44,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-POS_QA4AIDD_DEF-003
     type: table
@@ -60,7 +60,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-POS_QA4AIDD_IMPL-004
     type: table
@@ -80,5 +80,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

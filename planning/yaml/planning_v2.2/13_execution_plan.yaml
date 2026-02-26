@@ -25,7 +25,7 @@ section:
       \ \"CI/CD設定ガイド\"\n    - \"トラブルシューティング\"\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-PLAN_PHASE0_CRITERIA-002
     type: metric
@@ -68,7 +68,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-PLAN_PHASES_OVERVIEW-003
     type: table
@@ -88,5 +88,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

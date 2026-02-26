@@ -20,7 +20,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-END_INNOVATIONS-002
     type: list
@@ -34,7 +34,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-END_SUCCESS_CRITERIA-003
     type: definition
@@ -48,7 +48,7 @@ section:
       \    community: \"他プロジェクトでの自発的採用\"\n    evolution: \"コミュニティからの貢献\"\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-END_IMMEDIATE_ACTIONS-004
     type: list
@@ -83,7 +83,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-END_SUMMARY-005
     type: statement
@@ -97,5 +97,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

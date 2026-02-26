@@ -1,0 +1,8 @@
+# PRD Root Source Registry
+# このファイルは企画書YAMLアイテムのトレーサビリティ起点を定義します。
+# 企画書はプロジェクトのルート文書であり、ビジネス要求（PRD）を起点とします。
+prd_source:
+  id: PRD-DOC-AIDD-001
+  title: AIDDプロジェクト プロダクト要求文書（PRD）
+  file: docs/PRD.md
+  description: 上流工程品質保証プラットフォームの原点となるビジネス要求定義

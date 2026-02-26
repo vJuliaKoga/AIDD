@@ -18,7 +18,7 @@ section:
       \n- 制約: 1人開発\n  impact: 開発速度、品質レビューの限界\n  mitigation: 自動テストの充実、外部レビュー依頼\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
     type: constraint
@@ -27,7 +27,7 @@ section:
       \n- 制約: 予算制限\n  impact: 有料ツール・サービスの選択肢が限定\n  mitigation: OSSの最大活用\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-RISK_CONSTRAINTS_SKILL-003
     type: constraint
@@ -36,7 +36,7 @@ section:
       \  reason: 人による最終判断の質を担保するため\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-RISK_CAPABILITIES-004
     type: list
@@ -60,7 +60,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-RISK_NONCAPABILITIES-005
     type: list
@@ -80,5 +80,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []

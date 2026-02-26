@@ -27,7 +27,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002
     type: table
@@ -47,7 +47,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_UI_PATTERNS-003
     type: definition
@@ -68,7 +68,7 @@ section:
       \ 0.3s\"\n"
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_INTERACTION_WARNINGS-004
     type: table
@@ -94,7 +94,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005
     type: statement
@@ -123,7 +123,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_TECH_STACK-006
     type: table
@@ -159,7 +159,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_DATAFLOW-007
     type: list
@@ -179,7 +179,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_BACKUP_POLICY-008
     type: table
@@ -199,7 +199,7 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
   - id: PLN-PLN-ARCH_RECOVERY_PROCEDURES-009
     type: decision_rule
@@ -233,5 +233,5 @@ section:
       '
     tags: []
     related:
-      derivedfrom: []
+      derivedfrom: [PRD-DOC-AIDD-001]
       tracesto: []
