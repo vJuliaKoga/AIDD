@@ -1,0 +1,252 @@
+meta:
+  artifact_id: PENDING
+  file: req_core_concepts_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-003
+  model: PENDING
+  timestamp: PENDING
+  content_hash: PENDING
+
+requirements_document:
+  doc_id: PENDING
+  title: AIDD上流工程品質保証プラットフォーム — 基本思想とコンセプト 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-CONCEPT-005
+
+  functional_requirements:
+    - req_id: PENDING
+      category: UI/UX
+      priority: Must
+      title: 役割分担に基づくUI設計（判断=人間・記憶/構造化=システム・検証=自動化）
+      description: |
+        UIは人間が判断する箇所とシステムが自動処理する箇所を視覚的に分離して設計する。
+        具体的には：
+        - 判断（人間）：各タスクの承認・却下・Abort判定画面は人間操作を必須とし、AIによる自動承認は実装しない
+        - 記憶/構造化（システム）：チェックリスト・テンプレート・プロンプトの表示と観点の提示はシステムが担う
+        - 検証（自動化）：G1〜G5の品質ゲート実行・結果判定はシステムが自動実行する
+      rationale: 設計哲学「考える順番を固定するQA」を実現するには、役割分担をUIレベルで強制する必要がある。
+      acceptance_criteria:
+        - criterion: 承認・却下・Abort判定はUIボタン操作なしに自動遷移しない
+          verification_method: テスト
+        - criterion: 品質ゲート（G1〜G5）の実行ボタン押下後にシステムが自動で全ゲートを評価し結果を表示する
+          verification_method: テスト
+        - criterion: 各工程のチェックリストとテンプレートがタスク選択後に自動表示される
+          verification_method: デモ
+      assumptions:
+        - AIによる判断自動化はPhase 0のスコープ外である
+      risks:
+        - risk_description: 人間の判断ステップが省略される運用が定着し品質保証が形骸化する
+          probability: 中
+          impact: 高
+          mitigation: 承認操作なしにDoneへ遷移できないUI制御を実装し、チェックリスト完了が承認の前提条件となるよう強制する
+      derived_from: PLN-PLN-CONCEPT_ROLE_SPLIT-002
+      traces_to: []
+      dependencies: []
+      notes: PLN-PLN-CONCEPT_PHILOSOPHY-001（設計哲学）を具現化する中核要件
+
+    - req_id: PENDING
+      category: 検証
+      priority: Must
+      title: 曖昧語リアルタイム検出・ブロック機能
+      description: |
+        テキスト入力フィールドにおいて、曖昧語（「適切に」「十分に」「できるだけ」「なるべく」
+        「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」等）を
+        入力時にリアルタイム検出してアラートを表示する。
+        品質ゲートG1として、曖昧語が残存するドキュメントの次工程移行をブロックする。
+      rationale: 設計原則「検証可能性の強制：曖昧語を含む記述を品質ゲートで阻止」を実現する。
+      acceptance_criteria:
+        - criterion: テキスト入力後200ms以内に曖昧語検出アラートが表示される
+          verification_method: テスト
+        - criterion: 曖昧語検出数が1件以上のドキュメントはG1不合格となりDone遷移がブロックされる
+          verification_method: テスト
+        - criterion: 曖昧語検出時に具体的な代替表現の提案が3件以上表示される
+          verification_method: テスト
+      assumptions:
+        - 曖昧語リストは設定ファイルで管理され、追加・削除が可能である
+      risks:
+        - risk_description: 曖昧語リストが業務ドメインに合わず誤検知が頻発する
+          probability: 中
+          impact: 中
+          mitigation: gate_exemptフィールドによる個別除外機能を実装し、誤検知パターンを集計して定期的にリストを改訂する
+      derived_from: PLN-PLN-CONCEPT_PRINCIPLES-003
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: UI/UX
+      priority: Must
+      title: 段階的展開QAワークフローUI
+      description: |
+        工程選択 → タスク展開 → 観点/テンプレート表示 → 実施/判断記録 → 品質ゲート評価 →
+        トレーサビリティ確保の6ステップを段階的に展開して実行できるUIを提供する。
+        各ステップは前ステップの完了後に展開される（前ステップ未完了時は次ステップがロックされる）。
+      rationale: コンセプト「押せば展開されるQAワークフロー」を実現し、思考順序を固定することで属人化を防ぐ。
+      acceptance_criteria:
+        - criterion: 工程選択からトレーサビリティ確保までの6ステップが画面上で順番に展開される
+          verification_method: デモ
+        - criterion: 前ステップが未完了の場合に次ステップのボタンが非活性状態になる
+          verification_method: テスト
+        - criterion: 工程選択から品質ゲート評価完了まで3クリック以内で到達できる
+          verification_method: デモ
+      assumptions:
+        - UIはReact FlowまたはカスタムコンポーネントでNotebookLM風のマインドマップUIとして実装される
+      risks:
+        - risk_description: ワークフローの段階展開がユーザーの既存業務フローと合わず採用されない
+          probability: 中
+          impact: 高
+          mitigation: Phase 1パイロット時にユーザーフィードバックを収集し、展開ロジックを改訂する
+      derived_from: PLN-PLN-CONCEPT_CONCEPT-004
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: データ管理
+      priority: Must
+      title: 全判断への理由付与強制機能
+      description: |
+        全てのタスク状態遷移（Done・Abort）において、判断者・判断日時・判断要約（50文字以上）を
+        必須入力とする。入力が不完全な場合はDone/Abort遷移を許可しない。
+        設計・技術選択等の重要判断には判断ログ（decidedby・decidedat・decisionsummary・rationale等）を記録する。
+      rationale: 設計原則「判断根拠の記録義務：すべての決定に理由を付与」を実現し、保守時の意図不明を防ぐ。
+      acceptance_criteria:
+        - criterion: 判断者・判断日時・判断要約が未入力の場合にDone遷移ボタンが非活性状態になる
+          verification_method: テスト
+        - criterion: 判断要約が50文字未満の場合にバリデーションエラーが表示される
+          verification_method: テスト
+        - criterion: 記録された判断ログがSQLiteに保存されJSON形式でエクスポートできる
+          verification_method: テスト
+      assumptions:
+        - 判断者名はシステム設定で事前登録された承認者リストから選択する
+      risks:
+        - risk_description: 判断記録の入力負荷が高くAbortが記録されないまま放置される
+          probability: 中
+          impact: 高
+          mitigation: Abort理由の入力補助としてカテゴリ選択（4種）と記述テンプレートを提供し、入力時間を短縮する
+      derived_from: PLN-PLN-CONCEPT_PRINCIPLES-003
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 検証
+      priority: Must
+      title: 構造一貫性自動保証機能（Codex生成成果物検証）
+      description: |
+        AIが生成した成果物（YAML・JSON）がreq.schema.jsonに準拠していることをスキーマ検証で自動確認する。
+        スキーマ検証はG3品質ゲートとして実装し、不合格時は違反箇所と修正方法を返却する。
+        手動作成と自動生成の成果物が同一のスキーマで検証される。
+      rationale: 設計原則「構造の一貫性：Codexによる自動生成でも同じ構造を保証」を実現する。
+      acceptance_criteria:
+        - criterion: req.schema.jsonに違反するYAMLファイルに対してG3が不合格を返し、違反箇所をJSONで返却する
+          verification_method: テスト
+        - criterion: req.schema.json準拠のYAMLファイルに対してG3が合格（VALID）を返す
+          verification_method: テスト
+      assumptions:
+        - スキーマ検証はajvライブラリを使用して実装される
+      risks:
+        - risk_description: スキーマのバージョンアップ時に既存成果物が不合格になる
+          probability: 中
+          impact: 中
+          mitigation: スキーマをバージョン管理し、マイグレーションスクリプトを同時に提供する
+      derived_from: PLN-PLN-CONCEPT_PRINCIPLES-003
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  non_functional_requirements:
+    - req_id: PENDING
+      category: 操作性
+      priority: Must
+      title: 3クリック以内アクセス保証
+      description: |
+        工程選択から目的の情報（チェックリスト・テンプレート・プロンプト・評価結果）への
+        到達が3クリック以内で完了すること。
+        基本導線は「工程選択（1クリック）→ タスク展開（1クリック）→ 観点/テンプレート表示（1クリック）」とする。
+      rationale: コンセプト「3クリック以内で目的の情報にアクセス可能な操作で品質保証活動を実施できること」を実現する。
+      metrics:
+        - metric_name: 工程選択から目的情報への到達クリック数
+          target_value: ≤3クリック（基本導線における最大クリック数）
+          measurement_method: 新規ユーザーがREADMEを参照せずに工程選択から目的情報へ到達するまでのクリック数をPlaywrightで計測する
+          tool: Playwright
+      derived_from: PLN-PLN-CONCEPT_USABILITY_METRIC-005
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  constraints: []
+
+  data_requirements:
+    entities: []
+
+  integration_requirements: []
+
+  quality_gates:
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G1 曖昧語チェック
+      conditions:
+        - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+          automated: true
+          tool: ambiguous_checker.py
+      blocking: true
+      pass_criteria: 曖昧語検出数 = 0件
+      derived_from: PLN-PLN-QA_GATES-002
+      gate_exempt:
+        - G1
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G3 スキーマ検証
+      conditions:
+        - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+          automated: true
+          tool: validate_req.py
+      blocking: true
+      pass_criteria: validate_req.py の出力にVALIDを含む
+      derived_from: PLN-PLN-QA_GATES-002
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G5 トレーサビリティチェック
+      conditions:
+        - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+          automated: true
+          tool: verify_traceability.py
+      blocking: true
+      pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+      derived_from: PLN-PLN-QA_GATES-002
+
+  traceability:
+    concept_to_requirement:
+      - source_id: PLN-PLN-CONCEPT_PHILOSOPHY-001
+        target_ids: []
+      - source_id: PLN-PLN-CONCEPT_ROLE_SPLIT-002
+        target_ids: []
+      - source_id: PLN-PLN-CONCEPT_PRINCIPLES-003
+        target_ids: []
+      - source_id: PLN-PLN-CONCEPT_CONCEPT-004
+        target_ids: []
+      - source_id: PLN-PLN-CONCEPT_USABILITY_METRIC-005
+        target_ids: []
+    requirement_to_design:
+      - source_id: PENDING
+        target_ids: []
+    requirement_to_test:
+      - source_id: PENDING
+        target_ids: []
+
+  validation_summary:
+    total_requirements: 6
+    functional: 5
+    non_functional: 1
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

@@ -1,0 +1,250 @@
+meta:
+  artifact_id: TPL-OPS-RULES-003
+  file: TPL-OPS-RULES-003.yaml
+  author: '@juria.koga'
+  source_type: human
+  timestamp: 2026/02/27 8:44
+  content_hash: PENDING
+
+rules_doc:
+  id: TPL-OPS-RULES-003
+  title: YAML生成後スクリプト実行ルール
+  description: >
+    YAML ファイル生成後に実行する確認・修正スクリプト群の実行順序・合格条件・失敗時対処を定義する。
+    このルールは要件定義フェーズを主対象とするが、他フェーズの YAML にも準用できる。
+  scope:
+    tools:
+      - Cline
+      - Claude Code
+    applies_to:
+      - AIDD/requirements/yaml/**
+      - AIDD/planning/yaml/**
+    trigger: YAML ファイル生成直後（別セッションで実施）
+    reference_prompt: prompts/PRM-REQ-REVIEW-001.md
+
+  # ──────────────────────────────────────────────────────────────
+  # ハードルール（全Stepで共通遵守）
+  # ──────────────────────────────────────────────────────────────
+  hard_rules:
+    - id: HR-001
+      rule: 手採番 ID 禁止
+      detail: すべての ID は issue_id.py で発行し、id_issued_log.yaml に記録する
+    - id: HR-002
+      rule: 曖昧語ゼロ要求
+      detail: ambiguous_checker.py で検出数 = 0 でなければ次工程不可
+    - id: HR-003
+      rule: meta 情報必須
+      detail: stampingMeta.py 実行後、PENDING フィールドが残存していないこと
+    - id: HR-004
+      rule: 統合ゲート PASS 必須
+      detail: run_gates.py が PASS するまで次工程（設計）へ進まない
+    - id: HR-005
+      rule: トレーサビリティ完全性
+      detail: >
+        すべての要件が derived_from で企画書 ID にトレース可能であること
+        （verify_traceability.py check が PASS すること）
+
+  # ──────────────────────────────────────────────────────────────
+  # スクリプト実行ステップ定義
+  # ──────────────────────────────────────────────────────────────
+  steps:
+    - step: 2
+      name: ID 付与
+      hard_rule: HR-001
+      tool: AIDD/tools/id_registry/issue_id.py
+      command_template: >
+        python AIDD\tools\id_registry\issue_id.py
+          --prefix <PREFIX>
+          --phase <PHASE>
+          --purpose <PURPOSE>
+      examples:
+        - python AIDD\tools\id_registry\issue_id.py --prefix REQ --phase FUNC --purpose WF
+        - python AIDD\tools\id_registry\issue_id.py --prefix REQ --phase NFUNC --purpose USABILITY
+        - python AIDD\tools\id_registry\issue_id.py --prefix REQ --phase CONST --purpose TECH
+      rules:
+        - 要件ごとに個別実行する
+        - PHASE / PURPOSE は AIDD/tools/id_registry/id_rules_registry.yaml に従う
+        - 発行された ID を YAML に転記し PENDING を置き換える
+      pass_condition: YAML 内の全 ID フィールドに PENDING が残存しないこと
+
+    - step: 3
+      name: 曖昧語チェック
+      hard_rule: HR-002
+      tool: AIDD/tools/ambiguous_checker.py
+      command_template: >
+        python AIDD\tools\ambiguous_checker.py --file <YAML_PATH>
+      example: python AIDD\tools\ambiguous_checker.py --file requirements\yaml\requirements_v1\req_xxx_v1.yaml
+      ambiguous_examples:
+        - 適切に
+        - 十分に
+        - できるだけ
+        - なるべく
+        - 基本的に
+        - 一般的に
+        - 必要に応じて
+        - 適宜
+      pass_condition: 曖昧語検出数 = 0
+      fail_action:
+        - 検出された箇所を定量的・検証可能な表現に修正する
+        - 修正後に再実行する
+        - PASS するまで次工程へ進まない
+
+    - step: 4
+      name: スキーマ検証（G3）
+      tool: requirements/JSONScheme/validate_req.py
+      command_template: >
+        python requirements\JSONScheme\validate_req.py --file <YAML_PATH>
+      example: python requirements\JSONScheme\validate_req.py --file requirements\yaml\requirements_v1\req_xxx_v1.yaml
+      schema_registry: AIDD/RULES/schema_registry.yaml
+      pass_condition: 標準出力に "VALID" を含む
+      fail_action:
+        - エラーメッセージを確認し YAML 構造を修正して再実行する
+        - PASS するまで次工程へ進まない
+      common_fixes:
+        - issue: acceptance_criteria または metrics が空配列
+          fix: 最低 1 件追加する
+        - issue: automated / blocking / required が文字列
+          fix: true / false（ブール値）に修正する
+        - issue: priority が enum 外の値
+          fix: Must / Should / Could / Won't のいずれかに修正する
+        - issue: constraint.type が enum 外
+          fix: 技術的制約 / ビジネス制約 / 運用制約 / 法規制 / 組織ポリシー のいずれかに修正する
+
+    - step: 5
+      name: meta 情報スタンプ
+      hard_rule: HR-003
+      tool: AIDD/tools/stampingMeta.py
+      prerequisite: Step 4（スキーマ検証）が PASS していること
+      command_template: >
+        python AIDD\tools\stampingMeta.py
+          --file <YAML_PATH>
+          --prompt-id <PROMPT_ID>
+          --hash-script AIDD\hashtag\hashtag_generator.py
+      example: >
+        python AIDD\tools\stampingMeta.py
+          --file requirements\yaml\requirements_v1\req_xxx_v1.yaml
+          --prompt-id PRM-REQ-REVIEW-001
+          --hash-script AIDD\hashtag\hashtag_generator.py
+      pass_condition:
+        - meta.content_hash が PENDING でないこと（SHA-256 ハッシュ値が入っていること）
+        - meta.artifact_id がファイル名（拡張子除く）と一致すること
+
+    - step: 6
+      name: 統合品質ゲート実行
+      hard_rule: HR-004
+      tool: AIDD/tools/run_gates.py
+      when: すべての成果物生成・スキーマ検証・meta確定が完了した最後に 1 回実行する
+      command_template: >
+        python AIDD\tools\run_gates.py
+          --repo-root .
+          --target <TARGET_DIR>
+          --schema-registry AIDD\RULES\schema_registry.yaml
+          --report-out AIDD\reports\gate_report_<TARGET_SLUG>.json
+      example: >
+        python AIDD\tools\run_gates.py
+          --repo-root .
+          --target requirements\yaml\requirements_v1
+          --schema-registry AIDD\RULES\schema_registry.yaml
+          --report-out AIDD\reports\gate_report_requirements_v1.json
+      pass_condition: 標準出力に "GATES: PASS" を含む
+      fail_action:
+        - レポート JSON（AIDD/reports/gate_report_*.json）を確認する
+        - FAIL 原因（schema / meta / ID / 曖昧語）を修正する
+        - PASS になるまで再実行する
+        - PASS するまで次工程（設計フェーズ）へ進まない
+      report_naming:
+        rule: AIDD/reports/gate_report_<TARGET_SLUG>.json
+        target_slug_definition: >
+          対象ディレクトリの末尾要素を基本に、必要なら上位要素も連結して一意にする。
+          スラッシュは "_" に置換。
+        examples:
+          - target: AIDD/planning/yaml/planning_v2.2
+            report_out: AIDD/reports/gate_report_planning_v2.2.json
+          - target: AIDD/requirements/yaml/requirements_v1
+            report_out: AIDD/reports/gate_report_requirements_v1.json
+        hard_rule: report_out は必ず AIDD/reports/ 配下に出力し、最新の PASS 結果で上書きすること
+
+    - step: 7
+      name: トレーサビリティ検証（G5）
+      hard_rule: HR-005
+      tool: AIDD/tools/verify_traceability.py
+      subcommand_check:
+        command_template: >
+          python AIDD\tools\verify_traceability.py check
+            --dirs <UPSTREAM_DIR> <TARGET_DIR>
+            --report-out AIDD\reports\traceability_report_<VERSION>.json
+        example: >
+          python AIDD\tools\verify_traceability.py check
+            --dirs AIDD\planning\yaml\planning_v2.2 requirements\yaml\requirements_v1
+            --report-out AIDD\reports\traceability_report_v1.json
+        pass_condition: 標準出力に "TRACEABILITY: PASS" を含む
+      subcommand_fix_interactive:
+        description: PENDING な derived_from を対話的に修正する
+        command_template: >
+          python AIDD\tools\verify_traceability.py fix
+            --dirs <UPSTREAM_DIR> <TARGET_DIR>
+            --target <TARGET_DIR>
+        example: >
+          python AIDD\tools\verify_traceability.py fix
+            --dirs AIDD\planning\yaml\planning_v2.2 requirements\yaml\requirements_v1
+            --target requirements\yaml\requirements_v1
+      subcommand_fix_bulk:
+        description: 同一の上流 ID を全 PENDING に一括適用する（非対話）
+        command_template: >
+          python AIDD\tools\verify_traceability.py fix
+            --dirs <UPSTREAM_DIR> <TARGET_DIR>
+            --target <TARGET_DIR>
+            --set-derived-from <UPSTREAM_ID> [--dry-run]
+        example: >
+          python AIDD\tools\verify_traceability.py fix
+            --dirs AIDD\planning\yaml\planning_v2.2 requirements\yaml\requirements_v1
+            --target requirements\yaml\requirements_v1
+            --set-derived-from PLN-PLN-CONCEPT-005
+      fail_action:
+        - レポート JSON（AIDD/reports/traceability_report_*.json）で該当 ID を確認する
+        - fix コマンドで derived_from を修正する
+        - check を再実行して PASS を確認する
+        - PASS するまで次工程（設計フェーズ）へ進まない
+
+  # ──────────────────────────────────────────────────────────────
+  # ターミナル操作ルール
+  # ──────────────────────────────────────────────────────────────
+  terminal_rules:
+    platform: Windows PowerShell
+    must_not:
+      - python を引数なしで起動して REPL（>>>）に入らない
+      - bash のヒアドキュメント（<<）を使わない
+      - cmd / bash に切り替えない
+    recovery:
+      - '>>> が出たら exit() して PS> に戻る'
+
+  # ──────────────────────────────────────────────────────────────
+  # エラー対処
+  # ──────────────────────────────────────────────────────────────
+  error_handling:
+    - error: YAML syntax error
+      cause: インデント不正、コロン/ハイフン位置ミス
+      fix: YAML バリデーターで構文チェック、サンプルと比較
+    - error: Schema validation failed
+      cause: 必須フィールド欠落、型不一致
+      fix: エラーメッセージから該当箇所を特定、schema 定義と照合
+    - error: Ambiguous terms detected
+      cause: 曖昧語が残存
+      fix: 検出された用語を定量的・検証可能な表現に置換
+    - error: meta.content_hash is PENDING
+      cause: stampingMeta.py 未実行またはファイル保存後に再実行していない
+      fix: ファイル保存後、stampingMeta.py を再実行
+    - error: "GATES: FAIL"
+      cause: いずれかのゲート条件が不合格
+      fix: レポート JSON を確認し、FAIL の具体的原因（schema/meta/ID/曖昧語）を修正
+    - error: "TRACEABILITY: FAIL"
+      cause: derived_from が未設定または無効な ID を参照
+      fix: レポート JSON で該当 ID を確認し、verify_traceability.py fix で修正
+    - error: broken link 検出
+      cause: 参照先 ID が存在しない
+      fix: 参照先 YAML の --dirs への追加漏れを確認、または参照 ID を修正
+
+  change_policy:
+    authority: repo owner
+    process:
+      - 変更時は id_issued_log と合わせて追跡可能にする

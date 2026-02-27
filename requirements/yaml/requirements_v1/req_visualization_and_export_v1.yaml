@@ -1,0 +1,237 @@
+meta:
+  artifact_id: PENDING
+  file: req_visualization_and_export_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-003
+  model: PENDING
+  timestamp: PENDING
+  content_hash: PENDING
+
+requirements_document:
+  doc_id: PENDING
+  title: AIDD上流工程品質保証プラットフォーム — 可視化と報告機能 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-VIS-009
+
+  functional_requirements:
+    - req_id: PENDING
+      category: 可視化
+      priority: Must
+      title: 品質フロー図生成機能（React Flow形式）
+      description: |
+        実施したQAタスクの流れをReact Flow形式のJSONデータとして生成・表示する。
+        全タスクノード（Done/Abort含む）を表示し、ノード間の接続関係（親子関係・実施順序）を正しく表現する。
+        Abort分岐は点線で表示し、Abort理由要約をエッジラベルとして表示する。
+        ノードカラーはステータス別（ToDo: グレー・InProgress: 青・Done: 緑・Abort: オレンジ）に分ける。
+        レイアウトアルゴリズムはhierarchical（左→右方向）を使用する。
+      rationale: QA活動の流れを視覚化することで、レビュー・監査・改善サイクルの証跡として利用できる。
+      acceptance_criteria:
+        - criterion: 全タスクノード（Done・Abort含む）がReact Flowグラフ上に表示される
+          verification_method: テスト
+        - criterion: Abort分岐が点線エッジで表示されAbort理由要約がエッジラベルに表示される
+          verification_method: デモ
+        - criterion: ノードカラーがステータス別（4種）で正しく表示される
+          verification_method: テスト
+        - criterion: フロー図データがReact Flow互換のJSON形式でエクスポートできる
+          verification_method: テスト
+      assumptions:
+        - React Flowは最新安定版で実装される
+      risks:
+        - risk_description: タスク数が50件以上になるとフロー図のレンダリングが遅延する
+          probability: 中
+          impact: 中
+          mitigation: 表示対象をフィルタリング（工程・ステータス等）できる機能を提供し、表示件数を制御する
+      derived_from: PLN-PLN-VIS_WORKFLOW_PURPOSE-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: データ管理
+      priority: Should
+      title: スナップショット保存機能
+      description: |
+        プロジェクト状態の時点データをスナップショットとして保存する。
+        スナップショットIDはSNAP-YYYYMMDD-HHMMSSの形式で発行する。
+        保存データ：ID・作成日時・作成者・プロジェクト名・タスクサマリー（合計/Done/InProgress/Abort件数）・
+        品質メトリクス（Deep Evalスコア・曖昧語検出数・トレーサビリティカバレッジ）。
+      rationale: プロジェクト品質の時点記録を保存することで、改善効果の定量比較と報告に使用できる。
+      acceptance_criteria:
+        - criterion: スナップショット保存操作後にSNAP-YYYYMMDD-HHMMSSのIDが付与され保存される
+          verification_method: テスト
+        - criterion: 保存されたスナップショットに上記の全データが含まれている
+          verification_method: テスト
+        - criterion: スナップショット一覧が時系列で表示される
+          verification_method: デモ
+      assumptions:
+        - スナップショットはSQLiteのsnapshotsテーブルに保存される
+      risks:
+        - risk_description: スナップショットが大量に蓄積されSQLiteのファイルサイズが肥大化する
+          probability: 低
+          impact: 低
+          mitigation: スナップショットの保持期間を90日に設定し、古いデータを自動削除するバッチを実装する
+      derived_from: PLN-PLN-VIS_SNAPSHOT_EX-004
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: JSON/YAML/PDFエクスポート機能
+      description: |
+        プロジェクトデータ（タスクチケット・判断ログ・Abortログ・品質評価結果・スナップショット）を
+        JSON・YAML・PDF形式でエクスポートする。
+        JSONおよびYAML形式は全データを構造化して出力する。
+        PDF形式は品質保証報告書フォーマットとして出力する。
+      rationale: データのエクスポートにより、外部ツールとの連携や報告・アーカイブが可能になる。
+      acceptance_criteria:
+        - criterion: タスクチケット・判断ログ・Abortログの全データがJSON形式でエクスポートできる
+          verification_method: テスト
+        - criterion: エクスポートされたJSONはreq.schema.json準拠の構造を持つ
+          verification_method: テスト
+        - criterion: PDF形式でプロジェクトサマリーと品質メトリクスが出力できる
+          verification_method: デモ
+      assumptions:
+        - PDFエクスポートはブラウザのPrint APIまたはライブラリで実装される
+      risks:
+        - risk_description: 大量データのエクスポートがタイムアウトする
+          probability: 低
+          impact: 中
+          mitigation: エクスポート対象を期間・ステータスでフィルタリングできるオプションを提供する
+      derived_from: PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  non_functional_requirements:
+    - req_id: PENDING
+      category: 性能
+      priority: Must
+      title: フロー図レンダリング完了時間
+      description: |
+        30件以下のタスクを含むフロー図が、データ取得開始から3秒以内にレンダリング完了すること。
+        タスク件数が30件を超える場合はフィルタリング機能を使用して表示件数を絞る。
+      rationale: レンダリングが3秒を超えるとユーザーがページ離脱する可能性が高まるため、3秒以内を目標とする。
+      metrics:
+        - metric_name: フロー図レンダリング完了時間
+          target_value: ≤3秒（タスク件数30件以下）
+          measurement_method: Playwrightでフロー図表示ページへのナビゲーションからすべてのノードが表示されるまでの時間を計測する
+          tool: Playwright
+      derived_from: PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  constraints: []
+
+  data_requirements:
+    entities:
+      - entity_id: PENDING
+        entity_name: Snapshot
+        description: プロジェクト状態の時点データを保存するエンティティ。
+        attributes:
+          - attribute_name: id
+            data_type: string
+            required: true
+            default_value: ''
+            description: 'スナップショットID（形式: SNAP-YYYYMMDD-HHMMSS）'
+          - attribute_name: created_at
+            data_type: datetime
+            required: true
+            default_value: ''
+            description: スナップショット作成日時（ISO8601形式）
+          - attribute_name: created_by
+            data_type: string
+            required: true
+            default_value: ''
+            description: スナップショット作成者の氏名
+          - attribute_name: project_name
+            data_type: string
+            required: true
+            default_value: ''
+            description: プロジェクト名
+          - attribute_name: summary_json
+            data_type: text
+            required: true
+            default_value: ''
+            description: タスクサマリーと品質メトリクスのJSON文字列
+          - attribute_name: export_path
+            data_type: string
+            required: false
+            default_value: ''
+            description: エクスポートファイルのパス（任意）
+        relationships: []
+        validation_rules:
+          - rule: idはSNAP-YYYYMMDD-HHMMSS形式である
+            enforcement: application
+          - rule: summary_jsonは有効なJSON文字列である
+            enforcement: application
+        derived_from: PLN-PLN-VIS_SNAPSHOT_EX-004
+
+  integration_requirements: []
+
+  quality_gates:
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G1 曖昧語チェック
+      conditions:
+        - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+          automated: true
+          tool: ambiguous_checker.py
+      blocking: true
+      pass_criteria: 曖昧語検出数 = 0件
+      derived_from: PLN-PLN-QA_GATES-002
+      gate_exempt:
+        - G1
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G3 スキーマ検証
+      conditions:
+        - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+          automated: true
+          tool: validate_req.py
+      blocking: true
+      pass_criteria: validate_req.py の出力にVALIDを含む
+      derived_from: PLN-PLN-QA_GATES-002
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G5 トレーサビリティチェック
+      conditions:
+        - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+          automated: true
+          tool: verify_traceability.py
+      blocking: true
+      pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+      derived_from: PLN-PLN-QA_GATES-002
+
+  traceability:
+    concept_to_requirement:
+      - source_id: PLN-PLN-VIS_WORKFLOW_PURPOSE-001
+        target_ids: []
+      - source_id: PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002
+        target_ids: []
+      - source_id: PLN-PLN-VIS_SNAPSHOT_EX-004
+        target_ids: []
+    requirement_to_design:
+      - source_id: PENDING
+        target_ids: []
+    requirement_to_test:
+      - source_id: PENDING
+        target_ids: []
+
+  validation_summary:
+    total_requirements: 5
+    functional: 3
+    non_functional: 1
+    constraints: 0
+    data_entities: 1
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

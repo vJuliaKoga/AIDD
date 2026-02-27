@@ -1,0 +1,255 @@
+meta:
+  artifact_id: PENDING
+  file: req_execution_plan_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-003
+  model: PENDING
+  timestamp: PENDING
+  content_hash: PENDING
+
+requirements_document:
+  doc_id: PENDING
+  title: AIDD上流工程品質保証プラットフォーム — プロジェクト実行計画 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-PLAN-013
+
+  functional_requirements:
+    - req_id: PENDING
+      category: データ管理
+      priority: Must
+      title: Phase 0アプリケーション機能一式（7機能）の実装
+      description: |
+        Phase 0として以下7機能を実装する。
+        1. 3層ワークフロー表示（L1/L2/L3構造のタスク管理と表示）
+        2. タスクステータス管理（ToDo/InProgress/Done/Abort）
+        3. Abort理由記録（カテゴリ4種・50文字以上の理由必須）
+        4. 判断ログ記録（必須6項目の入力と保存）
+        5. トレーサビリティマトリクス（derived_from/traces_to/prompts_usedの管理）
+        6. JSON/YAMLエクスポート（全データの構造化出力）
+        7. 品質フロー図生成（React Flow形式のQA活動フロー図）
+        全機能がVitest単体テストとPlaywright E2Eテストで検証済みであること。
+      rationale: Phase 0の成果物としてアプリケーション機能を完成させることで、手法実証の前提環境を構築する。
+      acceptance_criteria:
+        - criterion: 上記7機能が各1件以上のPlaywright E2Eテストで動作確認されている
+          verification_method: テスト
+        - criterion: データの保存・読込が正常に動作する
+          verification_method: テスト
+        - criterion: JSON/YAMLエクスポートが実行でき、出力ファイルが開ける
+          verification_method: デモ
+      assumptions:
+        - 各機能の詳細仕様は専用要件定義書で定義される
+      risks:
+        - risk_description: 7機能全ての実装が1人開発体制では期間内に完了しない
+          probability: 中
+          impact: 高
+          mitigation: 機能間の依存関係を分析してMust機能（1〜5）を優先実装し、Could機能（6〜7）は後続で実装する
+      derived_from: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: Phase 0 CI/CD環境構築（6コンポーネント）
+      description: |
+        Phase 0としてGitHub Actionsで以下6コンポーネントを含むCI/CD環境を構築する。
+        1. GitHub Actions workflow（ci.yml）：テスト・Lint・品質ゲート自動実行
+        2. Deep Eval統合：OpenAI API経由でのDeep Eval自動評価
+        3. Promptfoo統合：プロンプト品質の定量評価
+        4. JSON Schemaスキーマ検証（ajv）：要件・設計YAMLの構造検証
+        5. Allure Report自動生成：テスト結果と品質メトリクスのレポート生成
+        6. スコア推移記録：Deep Eval/Promptfooスコアの時系列記録
+        全コンポーネントがPRマージ時に自動実行される。
+      rationale: CI/CD環境の構築により品質保証の自動化と証跡生成が実現し、手法実証の基盤となる。
+      acceptance_criteria:
+        - criterion: PRマージ時に6コンポーネント全てがGitHub Actionsで自動実行される
+          verification_method: テスト
+        - criterion: 全コンポーネントが合格した場合にAllure Reportが自動生成される
+          verification_method: テスト
+        - criterion: スコア推移がAllure Report上でグラフとして参照できる
+          verification_method: デモ
+      assumptions:
+        - GitHub ActionsのPUBLIC REPOSITORYの無料枠を使用する
+      risks:
+        - risk_description: OpenAI APIキーの有効期限切れでDeep Eval/Promptfoo統合が動作しなくなる
+          probability: 低
+          impact: 高
+          mitigation: GitHub ActionsのSecretsでAPIキーを管理し、有効期限前に更新するリマインダーを設定する
+      derived_from: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 品質保証
+      priority: Must
+      title: Phase 0コンテンツ作成（テンプレート・チェックリスト・プロンプト集）
+      description: |
+        Phase 0として以下のコンテンツを作成し、システムに格納する。
+        1. 要件定義ワークフローテンプレート（YAML形式、1種類以上）
+        2. 基本設計ワークフローテンプレート（YAML形式、1種類以上）
+        3. 詳細設計ワークフローテンプレート（YAML形式、1種類以上）
+        4. 曖昧語チェックリスト（1種類以上）
+        5. 検証可能性チェックリスト（1種類以上）
+        6. プロンプトテンプレート集（10種類以上）
+        各コンテンツはDeep Evalスコア0.8以上またはPromptfooスコア0.8以上を達成している。
+      rationale: コンテンツが揃っていないと品質ゲートの実用的な運用ができないため、Phase 0で最低限のコンテンツを整備する。
+      acceptance_criteria:
+        - criterion: 上記6カテゴリのコンテンツが各1種類以上存在する
+          verification_method: レビュー
+        - criterion: プロンプトテンプレート集が10種類以上存在する
+          verification_method: レビュー
+        - criterion: 全テンプレートとプロンプトのDeep Eval/Promptfooスコアが0.8以上である
+          verification_method: テスト
+      assumptions:
+        - コンテンツは人手で作成し、AIによる自動生成は補助的に使用する
+      risks:
+        - risk_description: コンテンツ作成の工数がアプリ実装を圧迫する
+          probability: 中
+          impact: 中
+          mitigation: アプリ実装を先行させ、コンテンツはPhase 0完了直前に集中して作成する計画を立てる
+      derived_from: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 保守性
+      priority: Must
+      title: Phase 0ドキュメント整備（5種類）
+      description: |
+        Phase 0として以下5種類のドキュメントを整備する。
+        1. README（クイックスタート）：第三者が1時間以内にセットアップできる手順書
+        2. アーキテクチャ設計書：システム構成とデータフローの説明
+        3. 品質ゲート解説：G1〜G5の詳細説明と合格基準
+        4. CI/CD設定ガイド：GitHub Actionsの設定方法と各ジョブの説明
+        5. トラブルシューティング：よくある問題と解決方法
+        全ドキュメントは日本語で記述する。
+      rationale: ドキュメントが整備されていないと第三者が手法を再現できず、実証としての価値が失われる。
+      acceptance_criteria:
+        - criterion: 上記5種類のドキュメントが全て存在する
+          verification_method: レビュー
+        - criterion: READMEに従い第三者が1時間以内にセットアップを完了できる
+          verification_method: デモ
+      assumptions:
+        - ドキュメントはMarkdown形式でGitHubリポジトリに格納される
+      risks:
+        - risk_description: ドキュメントとシステムの仕様が乖離して第三者のセットアップが失敗する
+          probability: 中
+          impact: 中
+          mitigation: ドキュメント更新をシステム変更の完了条件として定義し、変更なしでクローズできないルールを設ける
+      derived_from: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  non_functional_requirements:
+    - req_id: PENDING
+      category: 保守性
+      priority: Must
+      title: 第三者セットアップ所要時間（1時間以内）
+      description: |
+        本システムのGitHubリポジトリをクローンし、READMEの手順に従ってWindows 11環境で
+        全機能をセットアップする作業が1時間以内に完了すること。
+        JSON/YAML読み書きスキルを持つエンジニアが対象。
+      rationale: 再現可能性の担保として、第三者がセットアップできるドキュメントの品質を定量的に保証する。
+      metrics:
+        - metric_name: セットアップ所要時間
+          target_value: ≤60分（クローンから全機能の起動確認まで）
+          measurement_method: JSON/YAML読み書きスキルを持つエンジニア1名がREADMEのみを参照してセットアップを実施し、所要時間を計測する
+          tool: 手動計測
+      derived_from: PLN-PLN-PLAN_PHASE0_CRITERIA-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 信頼性
+      priority: Must
+      title: Phase 0全画面動作確認（設計通りの動作）
+      description: |
+        Phase 0で設計された全画面がPlaywright E2EテストでPASSすること。
+        テスト対象：タスク管理画面・ステータス遷移・Abort記録・判断ログ・トレーサビリティ・エクスポート・フロー図の各画面。
+      rationale: 全画面の動作を自動テストで確認することで、Phase 1パイロット開始前の品質を担保する。
+      metrics:
+        - metric_name: PlaywrightE2Eテスト通過率
+          target_value: 100%（設計された全画面に対して）
+          measurement_method: CI/CDでPlaywright E2Eテストスイートを実行し、全テストが通過することを確認する
+          tool: Playwright
+      derived_from: PLN-PLN-PLAN_PHASE0_CRITERIA-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  constraints: []
+
+  data_requirements:
+    entities: []
+
+  integration_requirements: []
+
+  quality_gates:
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G1 曖昧語チェック
+      conditions:
+        - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+          automated: true
+          tool: ambiguous_checker.py
+      blocking: true
+      pass_criteria: 曖昧語検出数 = 0件
+      derived_from: PLN-PLN-QA_GATES-002
+      gate_exempt:
+        - G1
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G3 スキーマ検証
+      conditions:
+        - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+          automated: true
+          tool: validate_req.py
+      blocking: true
+      pass_criteria: validate_req.py の出力にVALIDを含む
+      derived_from: PLN-PLN-QA_GATES-002
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G5 トレーサビリティチェック
+      conditions:
+        - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+          automated: true
+          tool: verify_traceability.py
+      blocking: true
+      pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+      derived_from: PLN-PLN-QA_GATES-002
+
+  traceability:
+    concept_to_requirement:
+      - source_id: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
+        target_ids: []
+      - source_id: PLN-PLN-PLAN_PHASE0_CRITERIA-002
+        target_ids: []
+      - source_id: PLN-PLN-PLAN_PHASES_OVERVIEW-003
+        target_ids: []
+    requirement_to_design:
+      - source_id: PENDING
+        target_ids: []
+    requirement_to_test:
+      - source_id: PENDING
+        target_ids: []
+
+  validation_summary:
+    total_requirements: 6
+    functional: 4
+    non_functional: 2
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

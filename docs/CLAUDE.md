@@ -21,88 +21,12 @@
 - 入力: 企画書 YAML（例: `PLN-PLN-CONCEPT-005`）
 - 出力: `requirements_draft.yaml`（ID/meta 未確定）
 
-### Step 2 — ID 付与
+### Step 2〜7 — スクリプト実行（確認・修正）
 
-```powershell
-python AIDD/tools/issue_id.py --prefix REQ --phase <PHASE> --purpose <PURPOSE>
-```
-
-- 要件ごとに**個別実行**する
-- PHASE / PURPOSE は `AIDD/RULES/id_rules_registry.yaml` に従う
-- 発行された ID を YAML に転記する
-
-**実行例:**
-```powershell
-python AIDD/tools/issue_id.py --prefix REQ --phase FUNC --purpose WF
-python AIDD/tools/issue_id.py --prefix REQ --phase NFUNC --purpose USABILITY
-python AIDD/tools/issue_id.py --prefix REQ --phase CONST --purpose TECH
-```
-
-### Step 3 — 曖昧語チェック
-
-```powershell
-python AIDD/tools/ambiguous_checker.py --file <YAML_PATH>
-```
-
-- **合格条件: 曖昧語検出数 = 0**
-- 検出された場合は定量的・検証可能な表現に修正し、再実行する
-- PASS するまで次工程へ進まない
-
-**曖昧語の例:** 適切に、十分に、できるだけ、なるべく、基本的に、一般的に、必要に応じて、適宜
-
-### Step 4 — スキーマ検証
-
-- スキーマ定義: `AIDD/RULES/schema_registry.yaml` の `requirements` キー
-- **合格条件: 標準出力に `VALID` を含む**
-- 失敗時はエラーメッセージを確認し YAML 構造を修正して再実行する
-
-### Step 5 — meta 情報スタンプ
-
-```powershell
-python AIDD/tools/stampingMeta.py --file <YAML_PATH>
-```
-
-- **スキーマ検証 PASS 後にのみ実行する**
-- 実行後に `meta.run_id` がファイル名と一致することを確認する
-- 実行後に `meta.content_hash` が `PENDING` でないことを確認する
-
-### Step 6 — 統合品質ゲート実行
-
-```powershell
-python AIDD\tools\run_gates.py --repo-root . --target AIDD/requirements/yaml/<VERSION_DIR> --schema-registry AIDD\RULES\schema_registry.yaml --report-out AIDD\reports\gate_report_requirements_<VERSION>.json
-```
-
-- **合格条件: 標準出力に `GATES: PASS` を含む**
-- **PASS するまで次工程（設計フェーズ）へ進まない**
-- 失敗時はレポート JSON (`AIDD/reports/gate_report_requirements_*.json`) を確認し原因を修正して再実行する
-- すべての成果物が完成した**最後に 1 回**実行する
-
-### Step 7 — トレーサビリティ検証
-
-```powershell
-python AIDD\tools\verify_traceability.py check ^
-    --dirs AIDD/planning/yaml/planning_v2.2 AIDD/requirements/yaml/<VERSION_DIR> ^
-    --report-out AIDD/reports/traceability_report_<VERSION>.json
-```
-
-- **合格条件: 標準出力に `TRACEABILITY: PASS` を含む**
-- **PASS するまで次工程（設計フェーズ）へ進まない**
-- 失敗時はレポート JSON (`AIDD/reports/traceability_report_*.json`) で原因を確認し、下記の `fix` コマンドで修正する
-
-**PENDING な `derived_from` を対話的に修正する場合:**
-```powershell
-python AIDD\tools\verify_traceability.py fix ^
-    --dirs AIDD/planning/yaml/planning_v2.2 AIDD/requirements/yaml/<VERSION_DIR> ^
-    --target AIDD/requirements/yaml/<VERSION_DIR>
-```
-
-**非対話的に一括設定する場合（同一の上流 ID を全 PENDING に適用）:**
-```powershell
-python AIDD\tools\verify_traceability.py fix ^
-    --dirs AIDD/planning/yaml/planning_v2.2 AIDD/requirements/yaml/<VERSION_DIR> ^
-    --target AIDD/requirements/yaml/<VERSION_DIR> ^
-    --set-derived-from PLN-PLN-CONCEPT-005 [--dry-run]
-```
+> **YAML 生成後のスクリプト実行（ID付与・曖昧語チェック・スキーマ検証・meta情報スタンプ・品質ゲート・トレーサビリティ確認）は、別セッションで実施する。**
+>
+> - ルール定義: `RULES/TPL-OPS-RULES-003.yaml`
+> - 実行プロンプト: `prompts/PRM-REQ-REVIEW-001.md`
 
 ---
 

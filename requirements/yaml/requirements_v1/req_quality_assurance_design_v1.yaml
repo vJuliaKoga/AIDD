@@ -1,0 +1,398 @@
+meta:
+  artifact_id: PENDING
+  file: req_quality_assurance_design_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-003
+  model: PENDING
+  timestamp: PENDING
+  content_hash: PENDING
+
+requirements_document:
+  doc_id: PENDING
+  title: AIDD上流工程品質保証プラットフォーム — 品質保証の核心設計 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-QA-007
+
+  functional_requirements:
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: G1 曖昧語チェック自動実行機能
+      description: |
+        成果物ファイル内の全テキストフィールドを対象に、曖昧語を正規表現で自動検出する。
+        検出対象語は設定ファイルで管理し、検出数・検出箇所・該当テキストをJSON形式で返却する。
+        検出数が1件以上の場合はG1不合格とし、次工程への移行をブロックする。
+      rationale: 品質ゲート設計思想「構造の逸脱を機械的に検知し、次工程への進行をブロック」を実現する最初のゲートである。
+      acceptance_criteria:
+        - criterion: 曖昧語を含むYAMLファイルに対してG1が不合格を返し、検出語・行番号・テキスト断片を返却する
+          verification_method: テスト
+        - criterion: 曖昧語を含まないYAMLファイルに対してG1が合格を返す
+          verification_method: テスト
+        - criterion: gate_exempt設定が付与されたフィールドは曖昧語チェックの対象外になる
+          verification_method: テスト
+      assumptions:
+        - 曖昧語リストはambiguous_checker.py内の設定ファイルで管理される
+      risks:
+        - risk_description: 誤検知により問題のないドキュメントがブロックされる
+          probability: 中
+          impact: 中
+          mitigation: gate_exemptフィールドで個別除外を可能にし、誤検知パターンを記録して定期的に曖昧語リストを見直す
+      derived_from: PLN-PLN-QA_GATES-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+      gate_exempt:
+        - G1
+
+    - req_id: PENDING
+      category: 検証
+      priority: Must
+      title: G2 検証可能性チェック機能
+      description: |
+        全機能要件にacceptance_criteriaが1件以上存在すること、
+        全非機能要件にmetricsが1件以上かつtarget_valueに定量値が含まれることを確認する。
+        条件を満たさない要件をリストアップし、G2不合格として返却する。
+      rationale: 検証不能な要件から設計・テストを開始するとテスト工数が増大するため、上流で検証可能性を担保する必要がある。
+      acceptance_criteria:
+        - criterion: acceptance_criteriaが0件の機能要件に対してG2が不合格を返し、該当req_idを返却する
+          verification_method: テスト
+        - criterion: target_valueに定量値（数値・比率・閾値）を含まないmetricsに対してG2が不合格を返す
+          verification_method: テスト
+        - criterion: 全要件が検証可能性要件を満たす場合にG2が合格を返す
+          verification_method: テスト
+      assumptions: []
+      risks:
+        - risk_description: 定量値の定義基準が曖昧でG2チェックが機能しない
+          probability: 低
+          impact: 中
+          mitigation: target_valueのフォーマット基準（例: ≤200ms、≥99.9%、=0件等）をドキュメントに明記する
+      derived_from: PLN-PLN-QA_GATES-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: G3 JSON Schemaスキーマ検証機能
+      description: |
+        成果物YAML/JSONファイルをreq.schema.jsonに対してスキーマ検証する。
+        検証にはajvライブラリを使用し、スキーマ違反箇所をJSON形式で返却する。
+        100%準拠の場合にG3合格（VALID）を返す。
+      rationale: スキーマ検証により、手動作成とAI自動生成の両方で構造一貫性が保証される。
+      acceptance_criteria:
+        - criterion: req.schema.json違反のYAMLファイルに対してG3が不合格を返し、違反パスと原因をJSON形式で返却する
+          verification_method: テスト
+        - criterion: req.schema.json完全準拠のYAMLファイルに対してG3がVALIDを返す
+          verification_method: テスト
+        - criterion: G3検証はCI/CDでPR作成時に自動実行される
+          verification_method: テスト
+      assumptions:
+        - ajvはNode.js LTS環境にインストール済みである
+      risks:
+        - risk_description: スキーマ更新後に既存ファイルが大量に不合格になる
+          probability: 低
+          impact: 高
+          mitigation: スキーマ変更時は既存ファイルへの影響範囲を事前に確認し、マイグレーション手順を同時に提供する
+      derived_from: PLN-PLN-QA_GATES-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: G4 Deep Eval AI品質評価機能
+      description: |
+        成果物をDeep Evalで評価し、以下4指標の加重平均スコアを算出する。
+        Contextual Relevancy（重み0.25）・Faithfulness（重み0.25）・
+        Contextual Precision（重み0.25）・Answer Relevancy（重み0.25）。
+        スコア0.8以上でG4合格、0.75〜0.8でアラート警告、0.75未満でG4不合格とする。
+      rationale: AI生成成果物のハルシネーション・文脈逸脱・関連性低下を定量的に検知するために必要。
+      acceptance_criteria:
+        - criterion: G4評価実行後に4指標のスコアと加重平均スコアがJSON形式で返却される
+          verification_method: テスト
+        - criterion: スコア0.8以上でG4合格、0.75未満でG4不合格が返却される
+          verification_method: テスト
+        - criterion: G4評価はCI/CDのPRマージ時に自動実行される
+          verification_method: テスト
+      assumptions:
+        - OpenAI APIキーが設定された環境でDeep Evalが実行される
+      risks:
+        - risk_description: OpenAI API障害によりG4評価が実行できずCI/CDがブロックされる
+          probability: 低
+          impact: 高
+          mitigation: G4評価失敗時は警告メッセージを出力し、人手による代替評価フローを定義する
+      derived_from: PLN-PLN-QA_DEEPEVAL_THRESHOLD-003
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: G5 トレーサビリティ自動検証機能
+      description: |
+        全要件のderived_fromが有効なIDを参照していることを確認する。
+        broken_links（参照先が存在しないID）・pending_derived（PENDING状態のderived_from）を
+        それぞれカウントし、両方が0件の場合にG5合格とする。
+        verify_traceability.pyで実行する。
+      rationale: トレーサビリティの欠落は影響分析を不可能にし、品質保証の意味をなくすため、完全性を自動検証する。
+      acceptance_criteria:
+        - criterion: broken_links > 0の場合にG5が不合格を返し、対象IDリストを返却する
+          verification_method: テスト
+        - criterion: pending_derived > 0の場合にG5が不合格を返し、対象req_idリストを返却する
+          verification_method: テスト
+        - criterion: broken_links = 0かつpending_derived = 0の場合にG5が合格を返す
+          verification_method: テスト
+      assumptions:
+        - verify_traceability.pyはPython環境で動作する
+      risks:
+        - risk_description: 企画書YAMLのIDが変更されると大量のbroken_linksが発生する
+          probability: 低
+          impact: 高
+          mitigation: 企画書YAMLのID変更時はverify_traceability.py fixコマンドで一括修正するフローを定義する
+      derived_from: PLN-PLN-QA_GATES-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Must
+      title: Abort理由記述品質強制機能（4カテゴリ・50文字以上）
+      description: |
+        Abort実行時に以下の品質基準を強制する。
+        カテゴリ選択（4種から1つ）・詳細理由（50文字以上）・代替措置（任意）・承認者（任意）。
+        「スコープ外のため」のみでは不可とし、具体的な判断根拠の記述を強制する。
+        50文字未満でAbortを実行しようとした場合はバリデーションエラーを表示する。
+      rationale: Abort理由の品質基準を強制することで、将来の再検討に使える記録を担保する。
+      acceptance_criteria:
+        - criterion: Abort理由が50文字未満の場合にUI上でバリデーションエラーが表示されAbortが実行されない
+          verification_method: テスト
+        - criterion: カテゴリ未選択のままAbortを実行しようとした場合にバリデーションエラーが表示される
+          verification_method: テスト
+      assumptions: []
+      risks:
+        - risk_description: Abort理由入力の手間がAbort自体の回避につながり形骸化する
+          probability: 中
+          impact: 中
+          mitigation: カテゴリ選択後に理由テンプレートを自動挿入し、修正のみで基準を満たせるよう支援する
+      derived_from: PLN-PLN-QA_DATA_QUALITY_ABORT-007
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Should
+      title: CI/CDデータ整合性自動チェック機能（5種チェック）
+      description: |
+        CI/CDで以下5種のデータ整合性チェックを自動実行する。
+        1. Abort Log Completeness: AbortステータスのタスクにAbortログが存在するか
+        2. Decision Log Minimum Length: 判断ログのdecision_summaryが50文字以上か
+        3. ID Uniqueness: 全IDが一意か
+        4. Traceability Integrity: 参照されているIDが全て存在するか
+        5. Date Format Validation: 日時がISO8601形式か
+      rationale: データ整合性の破綻を人手チェックに依存せず機械的に検知することで品質を継続的に維持する。
+      acceptance_criteria:
+        - criterion: 上記5種のチェックがCI/CDのPRマージ時に自動実行される
+          verification_method: テスト
+        - criterion: いずれかのチェックが不合格の場合にCI/CDがブロックされ不合格内容が出力される
+          verification_method: テスト
+      assumptions: []
+      risks:
+        - risk_description: チェックの実行時間が長くなりCI/CDのフィードバックが遅延する
+          probability: 低
+          impact: 中
+          mitigation: チェック対象を差分ファイルのみに限定し、全件チェックは夜間バッチで実行する
+      derived_from: PLN-PLN-QA_DATA_QUALITY_CHECKS-009
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 自動化
+      priority: Should
+      title: 品質劣化自動アラート機能
+      description: |
+        以下の条件を検知した場合に自動アラートを発行する。
+        - Deep Eval Score < 0.75が3回連続: CI/CDブロックとビルド警告出力
+        - 曖昧語検出数 > 0: ビルド警告出力
+        - JSON Schemaスキーマ検証失敗: ビルドエラー出力
+        - トレーサビリティカバレッジ < 95%: レビュー要求出力
+      rationale: AIモデル変動やプロンプト改善の影響による品質変化を早期検知するために自動監視が必要。
+      acceptance_criteria:
+        - criterion: Deep Eval Score < 0.75が3回連続の場合にCI/CDがブロックされビルド警告メッセージが出力される
+          verification_method: テスト
+        - criterion: スキーマ検証失敗の場合にビルドエラーが出力される
+          verification_method: テスト
+      assumptions:
+        - スコア推移はAllure Reportに記録される
+      risks:
+        - risk_description: アラートが頻発し警告疲れが生じて無視されるようになる
+          probability: 中
+          impact: 高
+          mitigation: アラート閾値を段階的に設定し、ビルドブロックは重大な条件（スキーマ失敗等）のみに限定する
+      derived_from: PLN-PLN-QA_DEGRADATION_DETECTION-011
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  non_functional_requirements:
+    - req_id: PENDING
+      category: 性能
+      priority: Must
+      title: Deep Eval評価スコア閾値（≥0.8）
+      description: |
+        本システムで生成・評価する成果物のDeep Evalスコアが0.8以上であること。
+        合格ラインは0.8、アラート閾値は0.75とする。
+        4指標（Contextual Relevancy・Faithfulness・Contextual Precision・Answer Relevancy）の
+        加重平均スコアで判定する。
+      rationale: 品質ゲートG4の合格基準として企画書で定義された閾値を非機能要件として明示する。
+      metrics:
+        - metric_name: Deep Eval加重平均スコア
+          target_value: ≥0.8（4指標の加重平均、各重み0.25）
+          measurement_method: CI/CDでDeep Evalを実行し、4指標スコアの加重平均を算出して0.8以上であることを確認する
+          tool: Deep Eval
+      derived_from: PLN-PLN-QA_DEEPEVAL_THRESHOLD-003
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 性能
+      priority: Should
+      title: Promptfoo評価スコア閾値（≥0.8）
+      description: |
+        プロンプトテンプレートのPromptfooスコアが0.8以上であること。
+        accuracy・consistency・completenessの3指標で評価する。
+        スコアが0.8未満のプロンプトはシステムに格納しない。
+      rationale: 品質ゲートの確実な実行のためにプロンプト品質を定量保証する。
+      metrics:
+        - metric_name: Promptfoo評価スコア
+          target_value: ≥0.8（accuracy・consistency・completenessの平均）
+          measurement_method: Promptfooを実行し、3指標の平均スコアを算出して0.8以上であることを確認する
+          tool: Promptfoo
+      derived_from: PLN-PLN-QA_PROMPTFOO-012
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 性能
+      priority: Must
+      title: スキーマ検証通過率100%
+      description: |
+        システムに格納される全成果物のJSON Schemaスキーマ検証通過率が100%であること。
+        スキーマ違反の成果物はデータベースに保存されない。
+      rationale: 構造一貫性を完全に保証するために、スキーマ違反ゼロを要件として設定する。
+      metrics:
+        - metric_name: スキーマ検証通過率
+          target_value: 100%（直近100件の検証結果に対して）
+          measurement_method: CI/CDでvalidate_req.pyを実行し、全成果物のスキーマ検証結果から通過率を算出する
+          tool: validate_req.py（ajv）
+      derived_from: PLN-PLN-QA_GATES-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 性能
+      priority: Must
+      title: 曖昧語検出数ゼロ
+      description: |
+        システムに格納される全成果物の曖昧語検出数が0件であること。
+        曖昧語が1件でも残存する成果物はデータベースに保存されない。
+      rationale: G1品質ゲートの合格基準「曖昧語0件」を非機能要件として明示する。
+      metrics:
+        - metric_name: 曖昧語検出数
+          target_value: 0件（全成果物の全テキストフィールドにわたって）
+          measurement_method: CI/CDでambiguous_checker.pyを実行し、検出された曖昧語の件数が0であることを確認する
+          tool: ambiguous_checker.py
+      derived_from: PLN-PLN-QA_GATES-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  constraints: []
+
+  data_requirements:
+    entities: []
+
+  integration_requirements: []
+
+  quality_gates:
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G1 曖昧語チェック
+      conditions:
+        - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+          automated: true
+          tool: ambiguous_checker.py
+      blocking: true
+      pass_criteria: 曖昧語検出数 = 0件
+      derived_from: PLN-PLN-QA_GATES-002
+      gate_exempt:
+        - G1
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G3 スキーマ検証
+      conditions:
+        - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+          automated: true
+          tool: validate_req.py
+      blocking: true
+      pass_criteria: validate_req.py の出力にVALIDを含む
+      derived_from: PLN-PLN-QA_GATES-002
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G5 トレーサビリティチェック
+      conditions:
+        - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+          automated: true
+          tool: verify_traceability.py
+      blocking: true
+      pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+      derived_from: PLN-PLN-QA_GATES-002
+
+  traceability:
+    concept_to_requirement:
+      - source_id: PLN-PLN-QA_GATE_PHILOSOPHY-001
+        target_ids: []
+      - source_id: PLN-PLN-QA_GATES-002
+        target_ids: []
+      - source_id: PLN-PLN-QA_DEEPEVAL_THRESHOLD-003
+        target_ids: []
+      - source_id: PLN-PLN-QA_MANDATORY_CHECKS-004
+        target_ids: []
+      - source_id: PLN-PLN-QA_DATA_QUALITY_ABORT-007
+        target_ids: []
+      - source_id: PLN-PLN-QA_DATA_QUALITY_CHECKS-009
+        target_ids: []
+      - source_id: PLN-PLN-QA_DEGRADATION_DETECTION-011
+        target_ids: []
+      - source_id: PLN-PLN-QA_PROMPTFOO-012
+        target_ids: []
+    requirement_to_design:
+      - source_id: PENDING
+        target_ids: []
+    requirement_to_test:
+      - source_id: PENDING
+        target_ids: []
+
+  validation_summary:
+    total_requirements: 15
+    functional: 8
+    non_functional: 4
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

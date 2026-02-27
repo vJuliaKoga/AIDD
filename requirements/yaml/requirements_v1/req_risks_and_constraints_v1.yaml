@@ -1,0 +1,238 @@
+meta:
+  artifact_id: PENDING
+  file: req_risks_and_constraints_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-003
+  model: PENDING
+  timestamp: PENDING
+  content_hash: PENDING
+
+requirements_document:
+  doc_id: PENDING
+  title: AIDD上流工程品質保証プラットフォーム — リスクと制約の明確化 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-RISK-014
+
+  functional_requirements:
+    - req_id: PENDING
+      category: 品質保証
+      priority: Could
+      title: マルチモデル対応を考慮したAIクライアント抽象化設計
+      description: |
+        OpenAI APIクライアントをインターフェース層で抽象化し、将来的な他のLLMプロバイダーへの
+        切替えに対応できる設計とする。
+        Phase 0ではOpenAI APIのみを実装するが、インターフェースは汎用化する。
+        切替時の変更範囲はインターフェース実装クラスのみとし、業務ロジックに変更が不要な設計とする。
+      rationale: OpenAI API制約（現時点では唯一使用可能なAI API）の軽減策として、将来のマルチモデル化に備えた抽象化が必要。
+      acceptance_criteria:
+        - criterion: AIクライアントがインターフェース経由で呼び出されており、実装クラスを差し替えてもビジネスロジックが変更不要である
+          verification_method: レビュー
+        - criterion: インターフェース定義にOpenAI固有のAPIキーや型が含まれていない
+          verification_method: レビュー
+      assumptions:
+        - Phase 0ではOpenAI API実装クラスのみを作成する
+      risks:
+        - risk_description: 抽象化が過度に複雑になり実装コストが増大する
+          probability: 低
+          impact: 中
+          mitigation: インターフェースは最小限（1〜2メソッド）に絞り、不要な汎用化は行わない
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 品質保証
+      priority: Should
+      title: 自動テスト充実によるコードレビュー人手不足補完
+      description: |
+        1人開発体制のコードレビュー不足を補うため、以下の自動テストを実装する。
+        単体テスト（Vitest）：関数・コンポーネント単位のロジック検証、カバレッジ70%以上。
+        統合テスト（Vitest）：API・データベースの結合動作検証、主要パス全件。
+        E2Eテスト（Playwright）：ユーザー操作シナリオの自動実行、主要ユーザーストーリー全件。
+      rationale: 1人開発体制の制約（コードレビューの人的リソースが存在しない）を自動テストで補う。
+      acceptance_criteria:
+        - criterion: Vitestの単体テストカバレッジが70%以上である
+          verification_method: テスト
+        - criterion: PlaywrightのE2Eテストが主要ユーザーストーリー全件をカバーしている
+          verification_method: レビュー
+        - criterion: 全テストがCI/CDで自動実行される
+          verification_method: テスト
+      assumptions:
+        - テストカバレッジはVitestの組み込みカバレッジレポートで計測する
+      risks:
+        - risk_description: テスト作成のコストが実装コストを上回りPhase 0の完成が遅延する
+          probability: 中
+          impact: 中
+          mitigation: Must機能のテストを優先し、Could機能のテストは後続で追加するスケジュールを立てる
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  non_functional_requirements:
+    - req_id: PENDING
+      category: 保守性
+      priority: Must
+      title: OSSのみを使用したコスト制約対応
+      description: |
+        月額10万円以内の予算制約を満たすために、主要コンポーネントはOSSのみを使用する。
+        有料ツール・有料クラウドサービスは使用しない（OpenAI APIの利用料を除く）。
+        GitHub Actions無料枠・SQLite・Allure Report OSS・Vitest・Playwrightを使用する。
+      rationale: 月額10万円以内の予算制約に対応するため、ランニングコストをOpenAI API利用料のみに限定する。
+      metrics:
+        - metric_name: 月額ランニングコスト（OpenAI API除く）
+          target_value: 0円（OSSのみを使用）
+          measurement_method: 使用しているツール・サービスのライセンス費用を月次で確認し、有料サービスがないことを確認する
+          tool: 手動確認
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  constraints:
+    - constraint_id: PENDING
+      type: 技術的制約
+      title: OpenAI APIのみ使用可能（他LLMプロバイダー禁止）
+      description: |
+        AI機能の実装にはOpenAI APIのみを使用する。
+        Anthropic・Google Gemini・Mistral・Meta Llama等の他プロバイダーのAPIは使用しない。
+        Deep EvalおよびPromptfooの評価もOpenAI APIを経由する。
+      rationale: 技術制約として企画書で明示されており、他プロバイダーへの対応コストを現フェーズでは掛けない。
+      impact: 他のLLMとの比較検証ができず、OpenAI APIの障害・価格変動がシステム全体に影響する。
+      mitigation: AIクライアントをインターフェースで抽象化し、将来的なプロバイダー切替えに対応できる設計とする。
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+
+    - constraint_id: PENDING
+      type: 技術的制約
+      title: Windows環境専用（Mac/Linux未対応）
+      description: |
+        動作保証はWindows 11 Home環境のみとする。
+        macOS・Linux環境での動作確認は実施しない。
+        コンテナ化（Docker）は将来検討事項とし、Phase 0では実施しない。
+      rationale: 開発者環境がWindows 11 Homeであり、クロスプラットフォーム対応コストをPhase 0では掛けない。
+      impact: macOS・Linux環境のエンジニアはWSL2またはWindows VMを用意しないとセットアップできない。
+      mitigation: 将来のPhase 1以降でDockerコンテナ化を検討し、クロスプラットフォーム対応を段階的に進める。
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+
+    - constraint_id: PENDING
+      type: 組織ポリシー
+      title: 1人開発体制制約（Phase 0期間）
+      description: |
+        Phase 0期間中はエンジニア1名（古賀）が開発・検証を担当する。
+        外部レビューは自動テストとCI/CDで代替する。
+        開発速度と品質レビューの深さには1人体制としての上限が存在する。
+      rationale: リソース制約として企画書で定義されており、外部エンジニアの調達はPhase 0完了後に検討する。
+      impact: 開発速度が制限され、コードレビューの観点が1名分に限定される。
+      mitigation: Vitestカバレッジ70%以上とPlaywright E2E全シナリオカバーで自動検証を充実させ、人手レビュー不足を補う。
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+
+    - constraint_id: PENDING
+      type: ビジネス制約
+      title: サンプルプロジェクト規模制約（実運用課題の未検証リスク）
+      description: |
+        Phase 0はサンプルプロジェクトとしての完成度を優先する。
+        実運用特有の課題（マルチユーザー・大規模データ・SLA・セキュリティ強化等）は
+        Phase 0のスコープ外とする。
+        Phase 1のパイロットで実運用課題を初めて発見する可能性がある。
+      rationale: サンプルプロジェクトとして手法実証を優先するため、実運用機能はスコープ外とする。
+      impact: Phase 1パイロット時に実運用課題が発見され、Phase 2以降での再設計が必要になる可能性がある。
+      mitigation: Phase 1パイロットの規模を小規模（1〜2週間・専任QA1名）に限定して実運用課題を早期発見する。
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
+
+    - constraint_id: PENDING
+      type: ビジネス制約
+      title: 月額予算制約（10万円以内）
+      description: |
+        月額ランニングコスト（OpenAI API利用料を含む全費用）を10万円以内に維持する。
+        OpenAI API利用料の月次目標上限は8万円とし、その他ツール・サービス費用を2万円以内に収める。
+      rationale: 個人プロジェクト規模としての予算上限が設定されており、費用対効果を維持する。
+      impact: Deep EvalとPromptfooの評価頻度が予算によって制限される。
+      mitigation: 評価対象を差分ファイルのみに限定し、APIコールバック数を制御してコストをモニタリングする。
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
+
+    - constraint_id: PENDING
+      type: 技術的制約
+      title: JSON/YAMLスキル必須制約（ユーザー前提条件）
+      description: |
+        本システムのユーザーはJSON・YAMLの構造を読み書きできることを前提とする。
+        このスキルを持たないユーザーへの利用サポートはPhase 0のスコープ外とする。
+        GUIによる補助はPhase 1以降の優先機能として将来計画に記録する。
+      rationale: テンプレートと成果物の内容理解に最低限のJSON/YAMLリテラシーが必要であり、前提スキルとして明示する。
+      impact: JSON/YAMLに不慣れなエンジニアへの展開が困難になる。
+      mitigation: GUIによる補助機能とエラーメッセージの充実を将来計画として記録し、Phase 1以降で対応する。
+      derived_from: PLN-PLN-RISK_CONSTRAINTS_SKILL-003
+
+  data_requirements:
+    entities: []
+
+  integration_requirements: []
+
+  quality_gates:
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G1 曖昧語チェック
+      conditions:
+        - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+          automated: true
+          tool: ambiguous_checker.py
+      blocking: true
+      pass_criteria: 曖昧語検出数 = 0件
+      derived_from: PLN-PLN-QA_GATES-002
+      gate_exempt:
+        - G1
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G3 スキーマ検証
+      conditions:
+        - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+          automated: true
+          tool: validate_req.py
+      blocking: true
+      pass_criteria: validate_req.py の出力にVALIDを含む
+      derived_from: PLN-PLN-QA_GATES-002
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G5 トレーサビリティチェック
+      conditions:
+        - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+          automated: true
+          tool: verify_traceability.py
+      blocking: true
+      pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+      derived_from: PLN-PLN-QA_GATES-002
+
+  traceability:
+    concept_to_requirement:
+      - source_id: PLN-PLN-RISK_CONSTRAINTS_TECH-001
+        target_ids: []
+      - source_id: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
+        target_ids: []
+      - source_id: PLN-PLN-RISK_CONSTRAINTS_SKILL-003
+        target_ids: []
+      - source_id: PLN-PLN-RISK_CAPABILITIES-004
+        target_ids: []
+      - source_id: PLN-PLN-RISK_NONCAPABILITIES-005
+        target_ids: []
+    requirement_to_design:
+      - source_id: PENDING
+        target_ids: []
+    requirement_to_test:
+      - source_id: PENDING
+        target_ids: []
+
+  validation_summary:
+    total_requirements: 9
+    functional: 2
+    non_functional: 1
+    constraints: 6
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

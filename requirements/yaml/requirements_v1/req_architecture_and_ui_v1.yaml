@@ -1,0 +1,271 @@
+meta:
+  artifact_id: PENDING
+  file: req_architecture_and_ui_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-003
+  model: PENDING
+  timestamp: PENDING
+  content_hash: PENDING
+
+requirements_document:
+  doc_id: PENDING
+  title: AIDD上流工程品質保証プラットフォーム — アーキテクチャとUI設計 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-ARCH-008
+
+  functional_requirements:
+    - req_id: PENDING
+      category: 検証
+      priority: Should
+      title: UI統一性自動検証機能（Visual Regression Testing）
+      description: |
+        工程スイッチ・タスクチケット・親子関係表現・オーバーレイの4種のUI要素について、
+        Visual Regression TestingとE2Eテストでデザインシステムとの整合性を自動検証する。
+        工程スイッチ・タスクチケットはStorybookとChromatic、オーバーレイはPlaywrightで検証する。
+      rationale: UI統一性の検証を品質保証の対象とすることで、Codex自動生成時でも一貫したUIが維持されることを保証する。
+      acceptance_criteria:
+        - criterion: 工程スイッチのサイズ・配色・アイコン配置がデザインシステム定義と一致することをVisual Regressionで確認できる
+          verification_method: テスト
+        - criterion: タスクチケットのレイアウトとステータス表示がStorybookスナップショットと一致することを確認できる
+          verification_method: テスト
+        - criterion: オーバーレイの表示タイミングと閉じ方がPlaywright E2EテストでPASSする
+          verification_method: テスト
+      assumptions:
+        - StorybookとChromatic、Playwrightが開発環境にセットアップ済みである
+      risks:
+        - risk_description: Visual Regressionテストのスナップショット更新が煩雑でテスト維持コストが高くなる
+          probability: 中
+          impact: 中
+          mitigation: スナップショット更新を半自動化するスクリプトを用意し、承認ワークフローを定義する
+      derived_from: PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: UI/UX
+      priority: Must
+      title: リアルタイム誤り検知・警告機能（6種エラーパターン）
+      description: |
+        以下6種の誤りパターンをリアルタイムで検知し、ガイドを表示する。
+        1. 曖昧語入力：テキスト入力時（200ms以内）に検出し具体的代替表現を提示
+        2. 必須項目未入力でDone遷移試行：Done遷移時に未完了チェックリスト項目をハイライト
+        3. Abort理由50文字未満：Abort実行時にカウンターで残文字数を表示
+        4. トレーサビリティ欠落：工程完了時に未紐付け要件リストを表示
+        5. 同一ID重複：ID入力時に既存IDと一致した場合に警告表示
+        6. JSON/YAML構文エラー：テンプレート編集時にエラー箇所と行番号をハイライト
+      rationale: |
+        エラーを早期に検知し具体的なガイドを提示することで、入力後のG1〜G5ゲート不合格による
+        修正コストを削減する。
+      acceptance_criteria:
+        - criterion: テキスト入力から200ms以内に曖昧語アラートが表示される
+          verification_method: テスト
+        - criterion: 6種のエラーパターン全てに対してガイドメッセージが表示される
+          verification_method: テスト
+        - criterion: ID重複警告が表示されても入力操作が阻害されない（送信時にブロック）
+          verification_method: テスト
+      assumptions:
+        - 曖昧語リストはフロントエンドでZod + 正規表現で実装される
+      risks:
+        - risk_description: リアルタイム検知の処理がUIの入力レスポンスを低下させる
+          probability: 低
+          impact: 中
+          mitigation: デバウンス処理（200ms）を実装し、Vitestでパフォーマンステストを実施する
+      derived_from: PLN-PLN-ARCH_INTERACTION_WARNINGS-004
+      traces_to: []
+      dependencies: []
+      notes: ''
+      gate_exempt:
+        - G1
+
+    - req_id: PENDING
+      category: UI/UX
+      priority: Should
+      title: 段階的情報開示機能（初心者/熟練者モード切替）
+      description: |
+        初心者モードと熟練者モードを切替えられるUIを提供する。
+        初心者モード：ガイドツールチップ表示・サンプル記入例常時表示・各項目ヘルプアイコン・推奨アクション順の番号表示。
+        熟練者モード：ガイド非表示・キーボードショートカット有効・一括操作機能解放。
+        モード設定はローカルストレージに保存し、次回アクセス時に引き継ぐ。
+      rationale: JSON/YAMLスキルを持つユーザーの習熟度に応じたUXを提供し、初心者の学習コストと熟練者の操作コストを同時に低減する。
+      acceptance_criteria:
+        - criterion: モード切替ボタンで初心者/熟練者モードが即座に切替わる
+          verification_method: デモ
+        - criterion: モード設定がローカルストレージに保存され、ブラウザ再起動後も維持される
+          verification_method: テスト
+        - criterion: 熟練者モードで全機能がキーボードショートカットで操作できる
+          verification_method: デモ
+      assumptions:
+        - モード設定の管理にlocalStorageを使用する
+      risks:
+        - risk_description: 熟練者モードのショートカット定義がユーザー間で統一されず混乱を招く
+          probability: 低
+          impact: 低
+          mitigation: ショートカット一覧をヘルプダイアログに常時表示し、カスタマイズは将来対応とする
+      derived_from: PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: データ管理
+      priority: Must
+      title: 自動バックアップ機能（毎日深夜2時実行）
+      description: |
+        プロジェクトデータ（SQLiteデータベース）を毎日深夜2時にローカルディスクへ自動バックアップする。
+        バックアップは30日間保持する。バックアップ完了後にバックアップログを記録する。
+        バックアップ失敗時はアプリケーションログにエラーを記録する。
+      rationale: ローカルSQLite環境でのデータ保全を担保するために、定期バックアップを自動化する。
+      acceptance_criteria:
+        - criterion: 毎日深夜2時にSQLiteのバックアップが自動実行される
+          verification_method: テスト
+        - criterion: バックアップファイルが30日分保持され、31日目のファイルが自動削除される
+          verification_method: テスト
+        - criterion: バックアップ実施履歴がログファイルに記録される
+          verification_method: テスト
+      assumptions:
+        - バックアップの自動実行はNode.jsのスケジューラー（node-cron等）で実装される
+      risks:
+        - risk_description: バックアップ失敗が検知されず長期間データが保護されない
+          probability: 低
+          impact: 高
+          mitigation: バックアップ失敗時にアプリケーションログへエラー記録し、起動時に最終バックアップ日時を確認する
+      derived_from: PLN-PLN-ARCH_BACKUP_POLICY-008
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  non_functional_requirements:
+    - req_id: PENDING
+      category: 保守性
+      priority: Must
+      title: 技術スタック準拠（フロントエンド/バックエンド）
+      description: |
+        フロントエンドはReact + TypeScript（最新安定版）・Zustand・Tailwind CSS + shadcn/ui・Zod・React Flowで実装する。
+        バックエンドはNode.js LTS + Express・SQLite・js-yamlで実装する。
+        ビルドツールはVite、テストはVitest（UT/IT）+ Playwright（E2E）を使用する。
+        上記以外の主要フレームワークへの変更は設計変更として管理する。
+      rationale: 技術スタックを固定することで、1人開発体制での技術的負債を抑制し、保守性を維持する。
+      metrics:
+        - metric_name: 規定技術スタック準拠率
+          target_value: 100%（主要レイヤーで規定外のフレームワークを使用しない）
+          measurement_method: package.jsonのdependenciesを規定技術スタックリストと照合し、規定外パッケージがないことを確認する
+          tool: 手動レビュー
+      derived_from: PLN-PLN-ARCH_TECH_STACK-006
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+    - req_id: PENDING
+      category: 可用性
+      priority: Must
+      title: リカバリ時間目標（レベル別）
+      description: |
+        障害レベル別のリカバリ時間目標（RTO）を以下の通り設定する。
+        レベル1（データベース破損）：RTOは15分以内（バックアップからリストア→最新JSONエクスポートとマージ→トレーサビリティ再検証）。
+        レベル2（CI/CD環境破壊）：RTOは30分以内（設定ファイル復元→シークレット再設定→テスト実行確認）。
+        レベル3（完全なデータ損失）：RTOは2時間以内（テンプレートのGit復元→最終エクスポートからデータ復元）。
+      rationale: リカバリ手順と時間目標を事前に定義することで、障害発生時の対応品質を担保する。
+      metrics:
+        - metric_name: レベル1リカバリ所要時間
+          target_value: ≤15分
+          measurement_method: バックアップからのリストア手順をREADMEの通りに実施し、所要時間を計測する
+          tool: 手動計測
+        - metric_name: レベル2リカバリ所要時間
+          target_value: ≤30分
+          measurement_method: CI/CD設定ファイルの復元手順をREADMEの通りに実施し、所要時間を計測する
+          tool: 手動計測
+      derived_from: PLN-PLN-ARCH_RECOVERY_PROCEDURES-009
+      traces_to: []
+      dependencies: []
+      notes: ''
+
+  constraints:
+    - constraint_id: PENDING
+      type: 技術的制約
+      title: 規定技術スタック変更禁止（Phase 0期間中）
+      description: |
+        Phase 0期間中は技術スタックの主要フレームワーク（React・Node.js・SQLite・GitHub Actions）を変更しない。
+        マイナーパッケージの追加は許可するが、主要フレームワークの変更は変更管理プロセスに従う。
+      rationale: 1人開発体制で技術スタックを途中変更すると、設計・実装・テストのやり直しが発生し、Phase 0が完了しない。
+      impact: 技術的負債や性能課題が発見されても、Phase 0期間中は規定スタック内で解決する。
+      mitigation: 課題は設計ドキュメントに記録し、Phase 1以降の技術選定に反映する。
+      derived_from: PLN-PLN-ARCH_TECH_STACK-006
+
+  data_requirements:
+    entities: []
+
+  integration_requirements: []
+
+  quality_gates:
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G1 曖昧語チェック
+      conditions:
+        - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+          automated: true
+          tool: ambiguous_checker.py
+      blocking: true
+      pass_criteria: 曖昧語検出数 = 0件
+      derived_from: PLN-PLN-QA_GATES-002
+      gate_exempt:
+        - G1
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G3 スキーマ検証
+      conditions:
+        - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+          automated: true
+          tool: validate_req.py
+      blocking: true
+      pass_criteria: validate_req.py の出力にVALIDを含む
+      derived_from: PLN-PLN-QA_GATES-002
+
+    - gate_id: PENDING
+      phase: 要件定義（本ファイル）
+      title: G5 トレーサビリティチェック
+      conditions:
+        - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+          automated: true
+          tool: verify_traceability.py
+      blocking: true
+      pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+      derived_from: PLN-PLN-QA_GATES-002
+
+  traceability:
+    concept_to_requirement:
+      - source_id: PLN-PLN-ARCH_UI_QA_PURPOSE-001
+        target_ids: []
+      - source_id: PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002
+        target_ids: []
+      - source_id: PLN-PLN-ARCH_INTERACTION_WARNINGS-004
+        target_ids: []
+      - source_id: PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005
+        target_ids: []
+      - source_id: PLN-PLN-ARCH_TECH_STACK-006
+        target_ids: []
+      - source_id: PLN-PLN-ARCH_BACKUP_POLICY-008
+        target_ids: []
+      - source_id: PLN-PLN-ARCH_RECOVERY_PROCEDURES-009
+        target_ids: []
+    requirement_to_design:
+      - source_id: PENDING
+        target_ids: []
+    requirement_to_test:
+      - source_id: PENDING
+        target_ids: []
+
+  validation_summary:
+    total_requirements: 8
+    functional: 4
+    non_functional: 2
+    constraints: 1
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING
