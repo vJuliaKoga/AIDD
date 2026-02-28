@@ -1,0 +1,260 @@
+meta:
+  artifact_id: REQ-REQ-DOC-004
+  file: req_conclusion_next_steps_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-004
+  title: AIDD上流工程品質保証プラットフォーム — 結論と次のステップ 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-END-015
+  functional_requirements:
+  - req_id: REQ-FUNC-REQTPL-001
+    category: 品質保証
+    priority: Must
+    title: 要件定義ワークフローテンプレート作成・管理機能
+    description: 'systemは、要件定義へ進むための準備として、企画書を機械可読な要件定義書に変換した成果物（deliverable: requirements.yaml）を作成できること。
+
+      また、要件定義作業のワークフローテンプレート（deliverable: templates/requirement_workflow.yaml）を作成できること。
+
+      これらの成果物は品質ゲート（曖昧語チェック、検証可能性）で合否判定できること。
+
+      '
+    rationale: 要件定義ワークフローテンプレートが品質ゲートを通過することを実証することで、提案手法の有効性を証明する。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: requirements.yaml（要件定義ワークフローテンプレート）がシステムに格納されている'
+      verification_method: レビュー
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 格納されたテンプレートがG1（曖昧語チェック）とG3（スキーマ検証）を通過する'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: テンプレートに従って作成した要件定義書がG2（検証可能性チェック）を通過する'
+      verification_method: テスト
+    assumptions:
+    - テンプレートはYAML形式で記述される
+    risks:
+    - risk_description: テンプレートが実際の要件定義作業に合わず使われなくなる
+      probability: 中
+      impact: 高
+      mitigation: Phase 1パイロット時に実際の要件定義作業でテンプレートを使用し、フィードバックを収集して改訂する
+    derived_from: PLN-PLN-END_IMMEDIATE_ACTIONS-004
+    traces_to:
+    - REQ-REQ-DOC-004
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-ARCHDOC-001
+    category: 品質保証
+    priority: Must
+    title: アーキテクチャ設計書管理機能（architecture.yaml）
+    description: 'システムのアーキテクチャ設計をarchitecture.yaml形式で作成してシステムに格納する。
+
+      格納内容：技術スタック確定情報・コンポーネント構成・データモデル設計・JSON Schemaとの連携仕様。
+
+      architecture.yamlはJSON Schemaのスキーマ検証を通過した形式で格納する。
+
+      '
+    rationale: アーキテクチャ設計の成果物をシステムで管理することで、要件定義との一貫性をトレーサビリティで確認できる。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: architecture.yamlがシステムに格納されている'
+      verification_method: レビュー
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: architecture.yamlのスキーマ検証がVALIDを返す'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: architecture.yamlが要件定義書の対応要件にtraces_toで紐付けられている'
+      verification_method: テスト
+    assumptions:
+    - architecture.yamlのスキーマは別途定義する
+    risks:
+    - risk_description: アーキテクチャ設計がスキーマ検証の対象外となり構造品質が低下する
+      probability: 低
+      impact: 中
+      mitigation: アーキテクチャ設計書専用のJSONスキーマを要件定義と並行して作成する
+    derived_from: PLN-PLN-END_IMMEDIATE_ACTIONS-004
+    traces_to:
+    - REQ-REQ-DOC-004
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-CICD-002
+    category: 自動化
+    priority: Must
+    title: CI/CD初期設定機能（CI/CD）
+    description: 'systemは、deliverable：.github/workflows/qa.yml（CI/CD品質保証ワークフロー）。
+
+      qa.ymlにはAI評価統合・プロンプト評価統合・JSON Schemaスキーマ検証・曖昧語チェック・
+
+      トレーサビリティチェック・品質レポート生成の6種を含める。
+
+      PRマージ時に全ジョブが自動実行される設定とする。
+
+      '
+    rationale: CI/CD初期設定の完了がPhase 0の完了基準であり、手法実証の基盤として最優先で整備する。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: .github/workflows/qa.ymlが存在し、6種のジョブが定義されている'
+      verification_method: レビュー
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: PRマージ時に全ジョブが自動実行される'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 全ジョブ合格後に品質レポートが自動生成される'
+      verification_method: テスト
+    assumptions:
+    - CI/CDのsecretsにOPENAI_API_KEYが設定済みである
+    risks:
+    - risk_description: secrets設定漏れによりCI/CDジョブがエラーで停止する
+      probability: 中
+      impact: 高
+      mitigation: secretsの設定手順をREADMEに明記し、セットアップ後にCI/CDの初回実行で確認する手順を設ける
+    derived_from: PLN-PLN-END_IMMEDIATE_ACTIONS-004
+    traces_to:
+    - REQ-REQ-DOC-004
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-CONTENT-001
+    category: 品質保証
+    priority: Must
+    title: コンテンツ管理機能（テンプレート・チェックリスト・プロンプト集格納）
+    description: 'systemは、以下のコンテンツをシステムに格納・管理する。
+
+      1. 要件定義ワークフローテンプレート（YAML形式）
+
+      2. 曖昧語チェックリスト（Yes/No判定可能な項目で構成）
+
+      3. 検証可能性チェックリスト（Yes/No判定可能な項目で構成）
+
+      4. プロンプトテンプレート集（10種類以上、プロンプト評価スコア0.8以上）
+
+      各コンテンツにはバージョン履歴を記録し、過去バージョンを参照できる。
+
+      '
+    rationale: 品質保証活動の実施に必要なコンテンツを一元管理することで、属人化を防ぎ再利用性を高める。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 上記4種のコンテンツがシステムに格納されている'
+      verification_method: レビュー
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 各コンテンツのバージョン履歴が参照できる'
+      verification_method: デモ
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: プロンプトテンプレートのプロンプト評価スコアが0.8以上である'
+      verification_method: テスト
+    assumptions:
+    - チェックリストの各項目はYes/No判定可能な形式で記述される
+    risks:
+    - risk_description: コンテンツのバージョン管理が煩雑になり更新が放置される
+      probability: 中
+      impact: 中
+      mitigation: Gitでバージョン管理し、コンテンツ変更はPRで管理してCI/CDで品質検証する
+    derived_from: PLN-PLN-END_IMMEDIATE_ACTIONS-004
+    traces_to:
+    - REQ-REQ-DOC-004
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-SELFPROOF-001
+    category: 信頼性
+    priority: Must
+    title: 品質保証手法の自己実証（AIDDで開発しAI評価 ≥ 0.8達成）
+    description: 'systemは、本システム自体をAIDDで開発し、AI評価スコア ≥ 0.8かつトレーサビリティ100%を達成することで
+
+      品質保証手法の有効性を実証する。
+
+      実証の証跡はCI/CDログと品質レポートとして公開する。
+
+      「判断と責任は人間が担い、構造とログでQAを支える」という設計哲学を体現する。
+
+      '
+    rationale: 「提案する品質保証手法を、このアプリの開発に適用する」という自己実証によって手法の信頼性を担保する。
+    metrics:
+    - metric_name: Deep Eval評価スコア（自己実証）
+      target_value: ≥0.8（本システムのAI生成成果物に対して）
+      measurement_method: CI/CDでAI評価を実行し、本システムの要件定義・設計ドキュメントに対するスコアを計測する
+      tool: AI評価
+    - metric_name: トレーサビリティ完全性（自己実証）
+      target_value: 100%（要件→設計→テストの全紐付けが完了）
+      measurement_method: verify_traceability.pyを実行し、broken_links = 0かつpending_derived = 0であることを確認する
+      tool: verify_traceability.py
+    derived_from: PLN-PLN-END_VALUE-001
+    traces_to:
+    - REQ-REQ-DOC-004
+    dependencies: []
+    notes: ''
+  constraints: []
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-004
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-004
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-004
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-END_VALUE-001
+      target_ids:
+      - REQ-NFUNC-SELFPROOF-001
+    - source_id: PLN-PLN-END_INNOVATIONS-002
+      target_ids: []
+    - source_id: PLN-PLN-END_SUCCESS_CRITERIA-003
+      target_ids: []
+    - source_id: PLN-PLN-END_IMMEDIATE_ACTIONS-004
+      target_ids:
+      - REQ-FUNC-REQTPL-001
+      - REQ-FUNC-ARCHDOC-001
+      - REQ-FUNC-CICD-002
+      - REQ-FUNC-CONTENT-001
+    - source_id: PLN-PLN-END_SUMMARY-005
+      target_ids: []
+    requirement_to_design:
+    - source_id: REQ-FUNC-REQTPL-001
+      target_ids: []
+    - source_id: REQ-FUNC-ARCHDOC-001
+      target_ids: []
+    - source_id: REQ-FUNC-CICD-002
+      target_ids: []
+    - source_id: REQ-FUNC-CONTENT-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-REQTPL-001
+      target_ids: []
+    - source_id: REQ-FUNC-ARCHDOC-001
+      target_ids: []
+    - source_id: REQ-FUNC-CICD-002
+      target_ids: []
+    - source_id: REQ-FUNC-CONTENT-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 5
+    functional: 4
+    non_functional: 1
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

@@ -1,0 +1,1058 @@
+meta:
+  artifact_id: REQ-REQ-DOC-001
+  file: requirements_document_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-26 8:47
+  content_hash: 01d195549f8852f3d5a8001960f266d257df52749eb6386320bafecccde5d513
+requirements_document:
+  doc_id: REQ-REQ-DOC-001
+  title: AIDD上流工程品質保証プラットフォーム Phase 0 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-CONCEPT-005
+  functional_requirements:
+  - req_id: REQ-FUNC-QG-001
+    category: 品質保証
+    priority: Must
+    title: 品質ゲート一括実行機能（G1〜G5）
+    description: '指定した成果物（YAML/JSONファイル）に対してG1〜G5の5つの品質ゲートを順次実行し、
+
+      各ゲートのPASS/FAIL判定と詳細エラー情報をJSON形式で返す機能。
+
+      G1（曖昧語検出数=0件）、G2（受入基準1件以上）、G3（JSONスキーマ100%パス）、
+
+      G4（Deep Evalスコア≥0.8）、G5（トレーサビリティカバレッジ100%）を評価する。
+
+      いずれかのゲートがFAILの場合、次工程移行をブロックし修正ガイドを提示する。
+
+      '
+    rationale: 仕様書の妥当性を機械的に検証し、仕様と実装の乖離リスクを低減するため
+    acceptance_criteria:
+    - criterion: G1〜G5の全ゲートが実行され、各ゲートのPASS/FAILと詳細エラーがJSON形式で返却される
+      verification_method: テスト
+    - criterion: G4のDeep Evalスコアが0.8以上の場合にG4=PASSと判定される
+      verification_method: テスト
+    - criterion: いずれかのゲートがFAILの場合、次工程移行がブロックされ修正ガイドが表示される
+      verification_method: テスト
+    assumptions:
+    - OpenAI APIキーが環境変数OPENAI_API_KEYとして設定済みであること
+    - 対象ファイルがYAMLまたはJSON形式であること
+    risks:
+    - risk_description: OpenAI API障害時にG4ゲートが実行不可能となる
+      probability: 低
+      impact: 中
+      mitigation: G4障害時はスキップ可能にしWARNINGをログに記録する
+    derived_from: PLN-PLN-QA-007
+    traces_to: []
+    dependencies: []
+    notes: PRD F-001に対応
+  - req_id: REQ-FUNC-TASK-001
+    category: タスク管理
+    priority: Must
+    title: 3層タスクチケット管理機能
+    description: '工程（L1：REQ/BAS/DET）、タスク（L2：REQ-T001等）、詳細（L3：チェック観点/テンプレート/プロンプト）
+
+      の3層構造でタスクチケットを管理する機能。
+
+      各チケットはtitle、purpose、checkpoints、acceptance_criteriaを持ち、
+
+      PREFIX-PHASE-PURPOSE-NNN形式のIDを持つ。
+
+      UI上で工程選択→タスク展開→詳細表示のドリルダウン操作が可能であること。
+
+      '
+    rationale: QAワークフローを段階的に展開可能な構造とし、QA観点の漏れを防ぐため
+    acceptance_criteria:
+    - criterion: L1工程→L2タスク→L3詳細の順にドリルダウン表示できる
+      verification_method: テスト
+    - criterion: 各チケットのIDがPREFIX-PHASE-PURPOSE-NNN形式でない場合にバリデーションエラーが表示される
+      verification_method: テスト
+    - criterion: 工程切り替え後、当該工程のタスク一覧が画面に表示される
+      verification_method: デモ
+    assumptions:
+    - 工程はREQ（要件定義）、BAS（基本設計）、DET（詳細設計）の3種類とする
+    risks:
+    - risk_description: 3層構造の深さにより、UIの操作フローが複雑化してユーザーが迷う
+      probability: 中
+      impact: 中
+      mitigation: 3層固定とし、それ以上の階層を追加しない。パンくずリストで現在位置を表示する
+    derived_from: PLN-PLN-SYS-006
+    traces_to: []
+    dependencies: []
+    notes: PRD F-002に対応
+  - req_id: REQ-FUNC-STATUS-001
+    category: タスク管理
+    priority: Must
+    title: タスクステータス管理機能
+    description: 'タスクチケットのステータスをToDo→InProgress→DoneまたはToDo→InProgress→Abort
+
+      の遷移規則で管理する機能。
+
+      Done遷移はチェックリスト全項目の完了を条件とし、
+
+      Abort遷移はAbort理由の記録完了（カテゴリ選択＋50文字以上の理由）を条件とする。
+
+      '
+    rationale: QAプロセスの実施状況を追跡し、チェックリスト未完了のままDone化する形骸化を防止するため
+    acceptance_criteria:
+    - criterion: ToDo/InProgress/Done/Abortの4状態がUI上で表示・変更できる
+      verification_method: テスト
+    - criterion: チェックリスト未完了の状態でDone遷移を試みた場合、遷移がブロックされ未完了項目が強調表示される
+      verification_method: テスト
+    - criterion: Abort理由が50文字未満の場合、Abort遷移がブロックされ字数カウンターと入力ガイドが表示される
+      verification_method: テスト
+    assumptions: []
+    risks:
+    - risk_description: ステータス遷移のバリデーションをフロントエンドのみで実装した場合、APIを直接呼び出すことで回避される
+      probability: 低
+      impact: 高
+      mitigation: バックエンドAPIでもステータス遷移条件を検証する
+    derived_from: PLN-PLN-SYS-006
+    traces_to: []
+    dependencies: []
+    notes: PRD F-003に対応
+  - req_id: REQ-FUNC-ABORT-001
+    category: 品質記録
+    priority: Must
+    title: Abort理由記録機能
+    description: 'タスクをAbortする際に以下4項目の入力を必須とする機能。
+
+      （1）reason_category：scopeout / prerequisite_missing / delegated / not_applicable の4種から選択
+
+      （2）reason_detail：50文字以上の具体的な判断根拠
+
+      （3）alternative_action：代替措置の内容
+
+      （4）approved_by：判断を承認した責任者の氏名
+
+      すべての必須項目が入力済みの場合にのみAbort遷移を許可する。
+
+      '
+    rationale: Abortを正式な品質判断として記録し、形骸化防止と将来の再検討を可能にするため
+    acceptance_criteria:
+    - criterion: 4つの必須フィールドが未入力の場合、保存がブロックされ未入力フィールドが強調表示される
+      verification_method: テスト
+    - criterion: reason_detailが50文字未満の場合、字数カウンターとエラーメッセージが表示される
+      verification_method: テスト
+    - criterion: 保存されたAbort記録がタスクIDで検索・取得可能であること
+      verification_method: テスト
+    assumptions:
+    - 承認者はシステム外部のユーザーも含むため、氏名を手入力で記録する
+    risks:
+    - risk_description: reason_detailに形式的な文言（例：スコープ外のため）のみが50文字に水増しして入力される
+      probability: 高
+      impact: 中
+      mitigation: CI/CDで最低50文字を自動検証する。内容の妥当性は週次レビューで確認する
+    derived_from: PLN-PLN-QA-007
+    traces_to: []
+    dependencies: []
+    notes: PRD F-004に対応
+  - req_id: REQ-FUNC-DEC-001
+    category: 品質記録
+    priority: Must
+    title: 判断ログ記録機能
+    description: '設計上の判断を記録する際に以下4項目の入力を必須とする機能。
+
+      （1）decided_by：判断者の氏名
+
+      （2）decided_at：ISO8601形式の日時（例：2026-02-25T10:00:00+09:00）
+
+      （3）decision_summary：50文字以上の判断内容の要約
+
+      （4）rationale：判断根拠（代替案と選択理由を含む）
+
+      オプション項目：evidence（参照ドキュメントID）、risks_mitigation（リスクと軽減策）
+
+      重要度High指定時は判断理由200文字以上＋代替案2つ以上を必須とする。
+
+      '
+    rationale: 判断根拠を記録して保守時の意図不明を防ぎ、同じ議論の繰り返しを排除するため
+    acceptance_criteria:
+    - criterion: 必須4項目が未入力の場合、保存がブロックされる
+      verification_method: テスト
+    - criterion: decided_atがISO8601形式でない場合、バリデーションエラーが表示される
+      verification_method: テスト
+    - criterion: decision_summaryが50文字未満の場合、字数カウンターとエラーメッセージが表示される
+      verification_method: テスト
+    - criterion: 保存された判断ログがタスクIDで検索・取得可能であること
+      verification_method: テスト
+    assumptions:
+    - 重要度はHigh/Medium/Lowの3段階とする
+    risks:
+    - risk_description: 判断ログの記述量基準が形骸化し、最低文字数のみの記録が増加する
+      probability: 中
+      impact: 中
+      mitigation: CI/CDでdecision_summaryの50文字以上を自動チェックする
+    derived_from: PLN-PLN-QA-007
+    traces_to: []
+    dependencies: []
+    notes: PRD F-005に対応
+  - req_id: REQ-FUNC-TRACE-001
+    category: トレーサビリティ
+    priority: Must
+    title: トレーサビリティ管理機能
+    description: '全成果物（要件・設計・テスト）にIDを付与し、derived_from（上流参照）とtraces_to（下流参照）
+
+      の双方向リンクを管理する機能。
+
+      企画→要件→設計→テストの全工程でID紐付けが追跡可能であること。
+
+      参照先IDが存在しないbroken linkを検出し、UI上でアラートを表示する。
+
+      '
+    rationale: 変更影響分析を可能にし、要件と実装の乖離を自動検知するため
+    acceptance_criteria:
+    - criterion: derived_fromに存在しないIDを設定した場合、broken linkエラーが検出されUI上に表示される
+      verification_method: テスト
+    - criterion: 企画書IDから要件→設計→テストまでのトレースリンクがUIで一覧表示できる
+      verification_method: デモ
+    - criterion: トレーサビリティカバレッジが100%の場合にG5がPASSとなる
+      verification_method: テスト
+    assumptions:
+    - IDはissue_id.pyで発行され、id_issued_log.yamlに記録済みであること
+    risks:
+    - risk_description: ID変更時にderived_from/traces_toのリンク切れが多数発生する
+      probability: 中
+      impact: 高
+      mitigation: ID変更時にすべての参照をスキャンしてbroken linkを一覧表示する
+    derived_from: PLN-PLN-SYS-006
+    traces_to: []
+    dependencies: []
+    notes: PRD F-006に対応
+  - req_id: REQ-FUNC-AMB-001
+    category: UI/UX
+    priority: Must
+    title: 曖昧語リアルタイム検出機能
+    description: 'ユーザーがテキストフィールドに入力した内容に対し、「適切に」「十分に」「できるだけ」
+
+      「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」
+
+      等の曖昧語を正規表現で検出し、入力から300ms以内に警告メッセージと具体的な代替表現例を表示する。
+
+      '
+    rationale: AIが誤解釈する曖昧語を入力時点で除去し、要件定義の品質を前倒しで向上させるため
+    acceptance_criteria:
+    - criterion: 対象曖昧語を含むテキストを入力後300ms以内に警告が表示される
+      verification_method: テスト
+    - criterion: 警告には検出された曖昧語名と具体的な代替表現例が含まれる
+      verification_method: テスト
+    - criterion: 曖昧語を含まないテキストでは警告が表示されない
+      verification_method: テスト
+    assumptions: []
+    risks:
+    - risk_description: 正規表現の誤検知により正常な日本語表現が曖昧語として検出される
+      probability: 中
+      impact: 低
+      mitigation: ユーザーが警告を個別に無視できる選択肢を提供する
+    derived_from: PLN-PLN-ARCH-008
+    traces_to: []
+    dependencies: []
+    notes: PRD F-007に対応
+    gate_exempt:
+    - G1
+  - req_id: REQ-FUNC-EXPORT-001
+    category: データ管理
+    priority: Must
+    title: JSON/YAML/PDFエクスポート機能
+    description: 'プロジェクトの成果物（タスクチケット、判断ログ、品質ゲート結果、トレーサビリティ情報）を
+
+      JSON形式、YAML形式、PDF形式の3種類でエクスポートする機能。
+
+      エクスポート対象は工程単位（REQ/BAS/DET）または全工程を選択可能とする。
+
+      PDF形式にはG1〜G5品質ゲート合否サマリーと品質フロー図を含める。
+
+      '
+    rationale: 成果物を既存ドキュメント管理ツールと連携させ、レビュー・監査での利用を可能にするため
+    acceptance_criteria:
+    - criterion: JSON/YAML形式でエクスポートしたファイルを同じシステムにインポートして元データと一致することを確認できる
+      verification_method: テスト
+    - criterion: PDF形式でエクスポートしたファイルにG1〜G5品質ゲート合否サマリーが含まれる
+      verification_method: デモ
+    - criterion: 工程単位と全工程の選択がUI上で可能であること
+      verification_method: テスト
+    assumptions: []
+    risks:
+    - risk_description: PDF生成ライブラリがWindows 11 Home環境で動作しない
+      probability: 低
+      impact: 中
+      mitigation: Windows対応のpuppeteer等を使用し、CI環境で事前検証する
+    derived_from: PLN-PLN-VIS-009
+    traces_to: []
+    dependencies: []
+    notes: PRD F-008に対応
+  - req_id: REQ-FUNC-SNAP-001
+    category: データ管理
+    priority: Must
+    title: スナップショット保存機能
+    description: 'プロジェクトの品質状態（タスク進捗サマリー、Deep Evalスコア、曖昧語検出数、
+
+      トレーサビリティカバレッジ）を任意の時点でスナップショットとして保存する機能。
+
+      スナップショットIDはSNAP-YYYYMMDD-HHMMSS形式とし、
+
+      作成者・プロジェクト名・ステータスサマリー・品質メトリクスを含める。
+
+      保存後はJSON/YAML/PDFの3形式でエクスポート可能とする。
+
+      '
+    rationale: 品質改善サイクルの証跡として特定時点の状態を保存し、改善前後の比較を可能にするため
+    acceptance_criteria:
+    - criterion: スナップショット作成後にSNAP-YYYYMMDD-HHMMSS形式のIDが付与される
+      verification_method: テスト
+    - criterion: 保存されたスナップショットにDeep Evalスコア・曖昧語検出数・トレーサビリティカバレッジの数値が含まれる
+      verification_method: テスト
+    - criterion: スナップショットからJSON/YAML/PDFの3形式でエクスポートできる
+      verification_method: テスト
+    assumptions: []
+    risks:
+    - risk_description: スナップショットの蓄積によりストレージを圧迫する
+      probability: 低
+      impact: 低
+      mitigation: 保存期間を30日とし、それ以前のスナップショットを自動削除する
+    derived_from: PLN-PLN-VIS-009
+    traces_to: []
+    dependencies: []
+    notes: PRD F-009に対応
+  - req_id: REQ-FUNC-GRAPH-001
+    category: 品質保証
+    priority: Must
+    title: 品質スコア推移グラフ表示機能
+    description: 'Deep EvalスコアをAllure Reportに連携し、時系列で品質スコアの推移を可視化する機能。
+
+      グラフはDeep Evalスコア（時系列）、曖昧語検出数（時系列）、
+
+      スキーマ検証パス率（割合）、トレーサビリティカバレッジ（割合）の4指標を表示する。
+
+      Deep Evalスコアが0.75を下回った場合にアラートをUI上に表示する。
+
+      '
+    rationale: AIモデル変動やプロンプト改善による品質変化を時系列で観測し、品質劣化を早期検知するため
+    acceptance_criteria:
+    - criterion: Deep Evalスコアが0.75を下回った場合に赤色警告アラートがUI上に表示される
+      verification_method: テスト
+    - criterion: Allure Report画面から品質スコア推移グラフが参照可能であること
+      verification_method: デモ
+    - criterion: グラフに4指標（Deep Evalスコア・曖昧語数・スキーマパス率・トレーサビリティ）が表示される
+      verification_method: デモ
+    assumptions:
+    - Allure Reportが実行環境にセットアップ済みであること
+    risks:
+    - risk_description: Deep Eval評価のAPIコスト超過により月額予算10万円を超過する
+      probability: 中
+      impact: 中
+      mitigation: Deep Eval評価はPRマージ時にのみ自動実行し、開発中は手動実行とする
+    derived_from: PLN-PLN-QA-007
+    traces_to: []
+    dependencies: []
+    notes: PRD F-010に対応
+  - req_id: REQ-FUNC-CICD-001
+    category: 品質保証
+    priority: Must
+    title: CI/CDパイプライン品質自動検証機能
+    description: 'GitHub Actionsを使用してmainブランチへのpushおよびpull_requestをトリガーに
+
+      以下の検証を自動実行する機能。
+
+      （1）YAML/JSON構文チェック
+
+      （2）JSONスキーマ検証（G3）
+
+      （3）曖昧語チェック（G1）
+
+      （4）トレーサビリティチェック（G5）
+
+      （5）Deep Eval評価（G4、pull_requestイベントのみ）
+
+      全検証がパスしない場合はマージをブロックし修正ガイドを提示する。
+
+      overrideマージ（Branch protection rulesの無効化）は設定上許可しない。
+
+      '
+    rationale: 品質ゲートの形骸化を防ぎ、品質基準を満たさない成果物が本流に混入しないようにするため
+    acceptance_criteria:
+    - criterion: G1・G3・G5の検証がpushイベントで自動実行され、FAILの場合はCIが失敗する
+      verification_method: テスト
+    - criterion: G4（Deep Eval）がpull_requestイベントでのみ実行され、スコア0.8未満の場合はCIが失敗する
+      verification_method: テスト
+    - criterion: Allure Reportがテスト実行後に自動生成され、GitHub Pages等で参照可能である
+      verification_method: デモ
+    assumptions:
+    - GitHubリポジトリのBranch protection rulesでstatus checksが必須設定されていること
+    risks:
+    - risk_description: CI/CDの実行時間が長くなり開発サイクルが遅延する
+      probability: 中
+      impact: 中
+      mitigation: G4はpull_requestのみ実行し、G1/G3/G5はキャッシュを活用して実行時間を短縮する
+    derived_from: PLN-PLN-VALID-011
+    traces_to: []
+    dependencies: []
+    notes: PRD F-011（CI/CD統合）に対応
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-UX-001
+    category: 操作性
+    priority: Must
+    title: 目的情報への3クリック以内アクセス
+    description: '工程選択→タスク展開→観点/テンプレート表示の基本導線において、
+
+      目的の情報に3クリック以内でアクセスできること。
+
+      '
+    rationale: 品質保証活動の認知負荷を低減し、実施率の向上を図るため
+    metrics:
+    - metric_name: 目的情報へのクリック数（基本導線）
+      target_value: ≤3クリック
+      measurement_method: 工程選択→タスク展開→観点表示のE2Eテストでクリック数を計測
+      tool: Playwright
+    derived_from: PLN-PLN-CONCEPT-005
+    traces_to: []
+    dependencies: []
+  - req_id: REQ-NFUNC-PERF-001
+    category: 性能
+    priority: Must
+    title: APIレスポンスタイム
+    description: 'バックエンドAPIの全エンドポイントが同時接続1ユーザーの条件下で
+
+      リクエスト送信から応答受信まで3秒以内に完了すること。
+
+      G4（Deep Eval）評価エンドポイントは例外とし、60秒以内とする。
+
+      '
+    rationale: ユーザーの待機時間を抑制しQAワークフローの中断を防ぐため
+    metrics:
+    - metric_name: APIレスポンスタイム（通常エンドポイント）
+      target_value: ≤3秒（P95）
+      measurement_method: Playwrightのネットワーク計測でP95を記録
+      tool: Playwright
+    - metric_name: APIレスポンスタイム（Deep Eval評価エンドポイント）
+      target_value: ≤60秒（P95）
+      measurement_method: Deep Eval実行のエンドツーエンド時間をGitHub Actionsログから計測
+      tool: GitHub Actions ログ
+    derived_from: PLN-PLN-PLAN-013
+    traces_to: []
+    dependencies: []
+  - req_id: REQ-NFUNC-AVAIL-001
+    category: 可用性
+    priority: Must
+    title: ローカル環境起動成功率
+    description: 'フロントエンド（localhost:5173）とバックエンド（localhost:3001）が
+
+      README記載のセットアップ手順を1回実行した後に正常起動すること。
+
+      起動成功率は10回の連続起動試験で10回成功（100%）を達成すること。
+
+      '
+    rationale: 個人開発環境で常時稼働できることを保証し、開発・評価の中断を防ぐため
+    metrics:
+    - metric_name: 起動成功率
+      target_value: 100%（10回中10回成功）
+      measurement_method: npm run dev実行後にlocalhost:5173とlocalhost:3001がHTTP 200を返すことをPlaywrightで確認
+      tool: Playwright
+    derived_from: PLN-PLN-PLAN-013
+    traces_to: []
+    dependencies: []
+  - req_id: REQ-NFUNC-MAINT-001
+    category: 保守性
+    priority: Must
+    title: CI/CD経由の自動ビルド
+    description: 'mainブランチへのpushにより、GitHub Actionsのワークフローが自動的に実行され、
+
+      G1・G3・G5の品質ゲート検証をパスした場合にビルドが完了すること。
+
+      ビルド完了後のデプロイは手動ステップなしでローカル環境に反映されること。
+
+      '
+    rationale: デプロイのオーバーヘッドを排除し、品質ゲートの形骸化を防ぐため
+    metrics:
+    - metric_name: CI/CDパイプライン成功率
+      target_value: ≥90%（直近10回の実行）
+      measurement_method: GitHub Actionsの実行履歴から成功・失敗件数を集計し割合を算出
+      tool: GitHub Actions
+    derived_from: PLN-PLN-VALID-011
+    traces_to: []
+    dependencies: []
+  - req_id: REQ-NFUNC-BACKUP-001
+    category: データ保全
+    priority: Must
+    title: SQLiteデータベース自動バックアップ
+    description: 'SQLiteデータベースを毎日深夜2時にローカルディスクと外部ストレージの両方へ自動バックアップし、
+
+      30日間保持すること。バックアップ完了後にバックアップログへタイムスタンプと
+
+      対象ファイルサイズを記録する。バックアップ失敗時はログにエラー情報を記録する。
+
+      '
+    rationale: データ損失リスクを低減し、障害時に最大1日分の作業損失でリカバリできるようにするため
+    metrics:
+    - metric_name: バックアップ実行成功率
+      target_value: ≥99%（直近30日間）
+      measurement_method: バックアップログの成功・失敗レコードから割合を算出
+      tool: バックアップスクリプトログ
+    - metric_name: バックアップ保持期間
+      target_value: 30日
+      measurement_method: バックアップディレクトリのファイル一覧で最古ファイルの日付を確認
+      tool: ファイルシステム確認スクリプト
+    derived_from: PLN-PLN-ARCH-008
+    traces_to: []
+    dependencies: []
+  - req_id: REQ-NFUNC-STABLE-001
+    category: 品質安定性
+    priority: Should
+    title: Deep Evalスコア安定性
+    description: '同一のプロンプトセットに対するDeep Evalスコアの標準偏差が0.05未満であること。
+
+      Promptfoo評価を週次で実行し、スコアが0.8を下回った場合にアラートを自動発出すること。
+
+      '
+    rationale: AIモデルのバージョン変動によるスコアの不安定性を検知し、プロンプト品質を維持するため
+    metrics:
+    - metric_name: Deep Evalスコア標準偏差
+      target_value: σ < 0.05
+      measurement_method: 同一プロンプトセットを10回実行しスコアの標準偏差をPythonスクリプトで算出
+      tool: Deep Eval + Python
+    - metric_name: Promptfooスコア
+      target_value: ≥0.8
+      measurement_method: Promptfoo評価を週次実行しスコアをAllure Reportに記録
+      tool: Promptfoo
+    derived_from: PLN-PLN-MEASURE-012
+    traces_to: []
+    dependencies: []
+  - req_id: REQ-NFUNC-SEC-001
+    category: セキュリティ
+    priority: Must
+    title: APIキーの環境変数管理
+    description: 'OpenAI APIキーを含む機密情報をソースコード内に直接記述せず、
+
+      環境変数（.envファイル）で管理すること。
+
+      .envファイルは.gitignoreに登録しリポジトリにコミットしないこと。
+
+      GitHub Actionsではシークレット（GitHub Secrets）を使用すること。
+
+      '
+    rationale: APIキー漏洩によるOpenAI料金の不正使用リスクを排除するため
+    metrics:
+    - metric_name: .envファイルのgit追跡件数
+      target_value: 0件
+      measurement_method: git ls-filesコマンドで.envが追跡対象でないことを確認
+      tool: git
+    derived_from: PLN-PLN-RISK-014
+    traces_to: []
+    dependencies: []
+  constraints:
+  - constraint_id: REQ-CONST-AI-001
+    type: 技術的制約
+    title: AI基盤はOpenAI APIのみ使用可能
+    description: '本システムで使用するAI評価機能（Deep Eval、Promptfoo）のバックエンドは
+
+      OpenAI API（gpt-4o等）のみ使用可能とする。
+
+      Anthropic・Google等の他プロバイダーへの変更は設計変更が必要。
+
+      '
+    rationale: 契約上の制約により使用可能なAI APIはOpenAIのみに限定されている
+    impact: 他のLLMとの比較検証ができない。将来的なマルチモデル対応には設計変更が必要
+    mitigation: OpenAI APIのモデルバージョンをピン留めし、バージョン変更による影響範囲を低減する
+    derived_from: PLN-PLN-TERM-004
+  - constraint_id: REQ-CONST-OS-001
+    type: 技術的制約
+    title: 動作確認環境はWindows 11 Homeのみ
+    description: '本システムの動作確認環境はWindows 11 Home（PowerShell環境）のみとする。
+
+      Linux/macOSでの動作は保証対象外とする。
+
+      '
+    rationale: 開発者の手元環境がWindows 11 Homeであり、他OS環境での検証リソースがない
+    impact: Mac/Linux環境での動作が未検証。コンテナ化なしでは他OS対応不可
+    mitigation: 将来のPhase 2でDocker対応を検討する
+    derived_from: PLN-PLN-TERM-004
+  - constraint_id: REQ-CONST-TEAM-001
+    type: 組織ポリシー
+    title: 開発体制は1人での実施
+    description: '本プロジェクトの開発・検証は1人で実施する。
+
+      外部レビュアーへの依頼は任意とするが、日常的な承認フローは設けない。
+
+      '
+    rationale: 個人プロジェクトとして予算・体制が1人分のみ確保されている
+    impact: 開発速度の上限と品質レビューの深さに制限がある
+    mitigation: 自動テスト（Vitest/Playwright）の充実により人的レビューを補完する
+    derived_from: PLN-PLN-TERM-004
+  - constraint_id: REQ-CONST-BROWSER-001
+    type: 技術的制約
+    title: 対応ブラウザはEdgeとChromeのみ
+    description: '本システムの動作確認ブラウザはMicrosoft EdgeとGoogle Chromeのみとする。
+
+      Firefox・Safari・モバイルブラウザは対象外とする。
+
+      '
+    rationale: Windows 11 Homeの標準環境で利用可能なブラウザに限定し、テスト対象ブラウザ数を2種類に絞り込む
+    impact: Firefox/Safariユーザーは本システムを利用できない
+    mitigation: 将来の拡張時にPlaywrightのクロスブラウザテストを追加する
+    derived_from: PLN-PLN-TERM-004
+  - constraint_id: REQ-CONST-COST-001
+    type: ビジネス制約
+    title: 月額運用コストは10万円以内
+    description: 'OpenAI API使用料・クラウドサービス費用を含む月額運用コストの合計を10万円以内とする。
+
+      Deep Eval評価はpull_requestマージ時のみ実行してコストを制御する。
+
+      '
+    rationale: 個人プロジェクト規模の予算制約として月額10万円が上限と設定されている
+    impact: 有料ツールやサービスの選択肢が限定される。大規模なAPI実行は予算超過リスクがある
+    mitigation: OSSの最大活用、Deep EvalのAPIコール回数をpull_requestマージ時に限定する
+    derived_from: PLN-PLN-TERM-004
+  - constraint_id: REQ-CONST-SKILL-001
+    type: 組織ポリシー
+    title: ユーザーはJSON/YAML読み書きスキルを前提とする
+    description: '本システムのユーザーはJSON/YAMLの構造を読み書きできるスキルを前提とする。
+
+      GUIのみでの操作完結は目標とせず、テンプレートの内容理解と
+
+      人による最終判断の実施を前提とする。
+
+      '
+    rationale: AIによる自動判断を行わない設計哲学に基づき、人間の判断の質を担保するために必要
+    impact: JSON/YAML未経験者はシステムを利用できない。ユーザー層が限定される
+    mitigation: UIによる補助（構文チェック表示・サンプル記入例の常時表示）を提供する
+    derived_from: PLN-PLN-TERM-004
+  - constraint_id: REQ-CONST-DB-001
+    type: 技術的制約
+    title: データ保存はローカルSQLiteのみ（Phase 0）
+    description: 'プロジェクトデータの永続化はローカルのSQLiteデータベースのみとする。
+
+      クラウドデータベースへの同期はPhase 0では対象外とする。
+
+      同時接続ユーザー数は1人とする。
+
+      '
+    rationale: ローカル完結・ポータビリティを優先し、インターネット接続なしでの動作を保証するため
+    impact: 複数ユーザーの同時利用は不可。クラウドバックアップはエクスポート機能で代替する
+    mitigation: Phase 3以降でクラウドSQLiteオプションの追加を検討する
+    derived_from: PLN-PLN-ARCH-008
+  data_requirements:
+    entities:
+    - entity_id: REQ-DATA-TASK-001
+      entity_name: Task
+      description: L1/L2/L3の3層タスクチケット。工程・タスク・詳細の各層を表す
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 'PREFIX-PHASE-PURPOSE-NNN形式のID（例: REQ-T001）'
+      - attribute_name: phase_id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 所属工程ID（REQ/BAS/DET）
+      - attribute_name: title
+        data_type: string
+        required: true
+        default_value: ''
+        description: タスクの名称
+      - attribute_name: status
+        data_type: string
+        required: true
+        default_value: ToDo
+        description: タスクステータス（ToDo/InProgress/Done/Abort）
+      - attribute_name: layer
+        data_type: string
+        required: true
+        default_value: ''
+        description: タスク層（L1/L2/L3）
+      - attribute_name: created_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: 作成日時（ISO8601形式）
+      - attribute_name: updated_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: 最終更新日時（ISO8601形式）
+      relationships:
+      - related_entity: AbortLog
+        relationship_type: 1対多
+        description: 1つのTaskに複数のAbortLogが存在する
+      - related_entity: DecisionLog
+        relationship_type: 1対多
+        description: 1つのTaskに複数のDecisionLogが存在する
+      - related_entity: QualityResult
+        relationship_type: 1対多
+        description: 1つのTaskに複数の品質評価結果が存在する（実行履歴）
+      validation_rules:
+      - rule: idはPREFIX-PHASE-PURPOSE-NNN形式に準拠すること
+        enforcement: both
+      - rule: statusはToDo/InProgress/Done/Abortの4値のみ許容
+        enforcement: both
+      derived_from: PLN-PLN-SYS-006
+    - entity_id: REQ-DATA-ABORT-001
+      entity_name: AbortLog
+      description: タスクのAbort記録。カテゴリ・詳細理由・代替措置・承認者を格納する
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: AbortLogの一意ID
+      - attribute_name: task_id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 対象タスクのID（外部キー）
+      - attribute_name: aborted_by
+        data_type: string
+        required: true
+        default_value: ''
+        description: Abort実施者の氏名
+      - attribute_name: aborted_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: Abort実施日時（ISO8601形式）
+      - attribute_name: reason_category
+        data_type: string
+        required: true
+        default_value: ''
+        description: Abort理由カテゴリ（scopeout/prerequisite_missing/delegated/not_applicable）
+      - attribute_name: reason_detail
+        data_type: text
+        required: true
+        default_value: ''
+        description: 詳細理由（50文字以上）
+      - attribute_name: alternative_action
+        data_type: text
+        required: true
+        default_value: ''
+        description: 代替措置の内容
+      - attribute_name: approved_by
+        data_type: string
+        required: true
+        default_value: ''
+        description: 承認者の氏名
+      relationships:
+      - related_entity: Task
+        relationship_type: 1対多
+        description: 複数のAbortLogが1つのTaskに紐付く
+      validation_rules:
+      - rule: reason_detailは50文字以上であること
+        enforcement: both
+      - rule: reason_categoryはscopeout/prerequisite_missing/delegated/not_applicableのいずれかであること
+        enforcement: both
+      derived_from: PLN-PLN-QA-007
+    - entity_id: REQ-DATA-DEC-001
+      entity_name: DecisionLog
+      description: 設計上の判断記録。判断者・日時・判断内容・根拠を格納する
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: DecisionLogの一意ID
+      - attribute_name: task_id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 対象タスクのID（外部キー）
+      - attribute_name: decided_by
+        data_type: string
+        required: true
+        default_value: ''
+        description: 判断者の氏名
+      - attribute_name: decided_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: 判断日時（ISO8601形式）
+      - attribute_name: decision_summary
+        data_type: text
+        required: true
+        default_value: ''
+        description: 判断内容の要約（50文字以上）
+      - attribute_name: rationale
+        data_type: text
+        required: true
+        default_value: ''
+        description: 判断根拠（代替案と選択理由を含む）
+      - attribute_name: importance
+        data_type: string
+        required: true
+        default_value: Medium
+        description: 重要度（High/Medium/Low）
+      relationships:
+      - related_entity: Task
+        relationship_type: 1対多
+        description: 複数のDecisionLogが1つのTaskに紐付く
+      validation_rules:
+      - rule: decision_summaryは50文字以上であること
+        enforcement: both
+      - rule: decided_atはISO8601形式であること
+        enforcement: application
+      derived_from: PLN-PLN-QA-007
+    - entity_id: REQ-DATA-QR-001
+      entity_name: QualityResult
+      description: 品質ゲート評価結果。G1〜G5の合否とG4スコアを格納する
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 評価結果の一意ID
+      - attribute_name: task_id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 対象タスクのID（外部キー）
+      - attribute_name: evaluated_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: 評価実施日時（ISO8601形式）
+      - attribute_name: g1_pass
+        data_type: boolean
+        required: true
+        default_value: 'false'
+        description: G1（曖昧語チェック）合否
+      - attribute_name: g4_score
+        data_type: float
+        required: false
+        default_value: ''
+        description: G4（Deep Eval）スコア（0.0〜1.0）
+      - attribute_name: overall_pass
+        data_type: boolean
+        required: true
+        default_value: 'false'
+        description: 全ゲート総合合否
+      relationships:
+      - related_entity: Task
+        relationship_type: 1対多
+        description: 複数の評価結果が1つのTaskに紐付く（実行履歴として保持）
+      validation_rules:
+      - rule: g4_scoreは0.0以上1.0以下の値であること
+        enforcement: application
+      derived_from: PLN-PLN-QA-007
+    - entity_id: REQ-DATA-SNAP-001
+      entity_name: Snapshot
+      description: プロジェクトの品質状態の時点保存。品質メトリクスサマリーを格納する
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: スナップショットID（SNAP-YYYYMMDD-HHMMSS形式）
+      - attribute_name: created_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: 作成日時（ISO8601形式）
+      - attribute_name: created_by
+        data_type: string
+        required: true
+        default_value: ''
+        description: 作成者の氏名
+      - attribute_name: project_name
+        data_type: string
+        required: true
+        default_value: ''
+        description: プロジェクト名
+      - attribute_name: summary_json
+        data_type: text
+        required: true
+        default_value: ''
+        description: 品質メトリクスサマリーのJSON文字列（Deep Evalスコア・曖昧語数・トレーサビリティ等）
+      relationships:
+      - related_entity: Task
+        relationship_type: 多対多
+        description: スナップショット作成時点のタスク状態を参照
+      validation_rules:
+      - rule: idはSNAP-YYYYMMDD-HHMMSS形式であること
+        enforcement: application
+      derived_from: PLN-PLN-VIS-009
+  integration_requirements:
+  - integration_id: REQ-INTEG-OPENAI-001
+    title: OpenAI API連携（Deep Eval評価）
+    target_system: OpenAI API
+    interface_type: REST API
+    data_format: JSON
+    protocol: HTTPS
+    frequency: pull_requestマージ時（自動）および手動実行時
+    authentication: API Key（環境変数OPENAI_API_KEYから読み込む）
+    error_handling: APIタイムアウト（60秒）またはエラー発生時はG4をスキップしWARNINGをログに記録する
+    rationale: Deep EvalによるLLM出力の品質評価でG4ゲートを自動実行するため
+    assumptions:
+    - OpenAI APIキーは環境変数として設定済みであること
+    risks:
+    - risk_description: OpenAI API料金体系の変更により月額コストが10万円を超過する
+      probability: 低
+      impact: 高
+      mitigation: 月次でAPIコスト推移を確認し超過の見込みがある場合は実行頻度を削減する
+    derived_from: PLN-PLN-QA-007
+  - integration_id: REQ-INTEG-CICD-001
+    title: GitHub Actions CI/CD統合
+    target_system: GitHub Actions
+    interface_type: その他
+    data_format: YAML
+    protocol: HTTPS
+    frequency: pushおよびpull_requestイベント時（自動）
+    authentication: GitHub Token（GITHUB_TOKEN）
+    error_handling: Workflow失敗時はマージをブロックし失敗ログをActionsタブに記録する
+    rationale: 品質ゲートをCI/CDに統合し形骸化を防止するため
+    assumptions:
+    - GitHubリポジトリが作成済みでBranch protection rulesが設定されていること
+    derived_from: PLN-PLN-VALID-011
+  - integration_id: REQ-INTEG-ALLURE-001
+    title: Allure Report統合（品質スコア可視化）
+    target_system: Allure Report
+    interface_type: File
+    data_format: JSON
+    protocol: その他
+    frequency: テスト実行毎（自動）
+    authentication: 認証不要（ローカルレポート生成）
+    error_handling: レポート生成失敗時はエラーをログに出力し前回のレポートを保持する
+    rationale: 品質スコア推移を可視化しDeep Eval安定性の経時変化を監視するため
+    assumptions:
+    - allure-commandlineがシステムにセットアップ済みであること
+    derived_from: PLN-PLN-QA-007
+  quality_gates:
+  - gate_id: REQ-QG-G1-001
+    phase: 要件定義・設計・テスト（全工程）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 対象成果物のテキストフィールドに曖昧語（「適切に」「十分に」「できるだけ」「なるべく」「基本的に」「一般的に」「必要に応じて」「適宜」「柔軟に」「簡単に」「最適に」等）が0件であること
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA-007
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G2-001
+    phase: 要件定義（機能要件・非機能要件）
+    title: G2 検証可能性チェック
+    conditions:
+    - condition: 全機能要件にacceptance_criteriaが1件以上存在すること
+      automated: true
+      tool: validate_req.py
+    - condition: 全非機能要件にmetricsが1件以上存在しtarget_valueに定量値が含まれること
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: 全機能要件のacceptance_criteria ≥ 1 かつ 全非機能要件のmetrics ≥ 1（target_valueに数値または比率を含む）
+    derived_from: PLN-PLN-QA-007
+  - gate_id: REQ-QG-G3-001
+    phase: 要件定義・設計・テスト（全工程）
+    title: G3 構造一貫性チェック（JSONスキーマ検証）
+    conditions:
+    - condition: 成果物YAMLがreq.schema.jsonのスキーマ検証を100%パスすること
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py実行結果の標準出力にVALIDが含まれること
+    derived_from: PLN-PLN-QA-007
+  - gate_id: REQ-QG-G4-001
+    phase: 要件定義・設計（pull_requestマージ時）
+    title: G4 AI評価スコア（Deep Eval）
+    conditions:
+    - condition: Deep EvalによるContextual Relevancy・Faithfulness・Contextual Precision・Answer Relevancyの加重平均スコアが0.8以上であること
+      automated: true
+      tool: run_gates.py（Deep Eval統合）
+    blocking: true
+    pass_criteria: Deep Evalスコア（4指標の加重平均）≥ 0.8
+    derived_from: PLN-PLN-QA-007
+  - gate_id: REQ-QG-G5-001
+    phase: 要件定義・設計・テスト（全工程）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに有効な上流ID（PENDING以外）が設定されていること
+      automated: true
+      tool: verify_traceability.py
+    - condition: 参照先IDが全て存在しbroken linkが0件であること
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: トレーサビリティカバレッジ = 100%（全要件のderived_from設定済み、broken link = 0件）
+    derived_from: PLN-PLN-SYS-006
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-EXEC-001
+      target_ids:
+      - REQ-REQ-DOC-001
+    - source_id: PLN-PLN-BG-002
+      target_ids:
+      - REQ-REQ-DOC-001
+    - source_id: PLN-PLN-TERM-004
+      target_ids:
+      - REQ-CONST-AI-001
+      - REQ-CONST-OS-001
+      - REQ-CONST-TEAM-001
+      - REQ-CONST-BROWSER-001
+      - REQ-CONST-COST-001
+      - REQ-CONST-SKILL-001
+      - REQ-CONST-DB-001
+    - source_id: PLN-PLN-CONCEPT-005
+      target_ids:
+      - REQ-NFUNC-UX-001
+    - source_id: PLN-PLN-SYS-006
+      target_ids:
+      - REQ-FUNC-TASK-001
+      - REQ-FUNC-STATUS-001
+      - REQ-FUNC-TRACE-001
+      - REQ-DATA-TASK-001
+      - REQ-QG-G5-001
+    - source_id: PLN-PLN-QA-007
+      target_ids:
+      - REQ-FUNC-QG-001
+      - REQ-FUNC-ABORT-001
+      - REQ-FUNC-DEC-001
+      - REQ-FUNC-GRAPH-001
+      - REQ-FUNC-CICD-001
+      - REQ-NFUNC-BACKUP-001
+      - REQ-NFUNC-STABLE-001
+      - REQ-INTEG-OPENAI-001
+      - REQ-INTEG-ALLURE-001
+      - REQ-QG-G1-001
+      - REQ-QG-G2-001
+      - REQ-QG-G3-001
+      - REQ-QG-G4-001
+    - source_id: PLN-PLN-ARCH-008
+      target_ids:
+      - REQ-FUNC-AMB-001
+      - REQ-NFUNC-BACKUP-001
+      - REQ-CONST-DB-001
+    - source_id: PLN-PLN-VIS-009
+      target_ids:
+      - REQ-FUNC-EXPORT-001
+      - REQ-FUNC-SNAP-001
+      - REQ-DATA-SNAP-001
+    - source_id: PLN-PLN-VALID-011
+      target_ids:
+      - REQ-FUNC-CICD-001
+      - REQ-NFUNC-MAINT-001
+      - REQ-INTEG-CICD-001
+    - source_id: PLN-PLN-MEASURE-012
+      target_ids:
+      - REQ-NFUNC-STABLE-001
+    - source_id: PLN-PLN-PLAN-013
+      target_ids:
+      - REQ-NFUNC-PERF-001
+      - REQ-NFUNC-AVAIL-001
+    - source_id: PLN-PLN-RISK-014
+      target_ids:
+      - REQ-NFUNC-SEC-001
+    requirement_to_design: []
+    requirement_to_test: []
+  validation_summary:
+    total_requirements: 25
+    functional: 11
+    non_functional: 7
+    constraints: 7
+    data_entities: 5
+    integrations: 3
+    quality_gates: 5
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

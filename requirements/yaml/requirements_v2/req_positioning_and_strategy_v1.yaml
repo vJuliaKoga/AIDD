@@ -1,0 +1,335 @@
+meta:
+  artifact_id: REQ-REQ-DOC-009
+  file: req_positioning_and_strategy_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-009
+  title: AIDD上流工程品質保証プラットフォーム — プロジェクトの位置づけと戦略的意義 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-POS-003
+  functional_requirements:
+  - req_id: REQ-FUNC-QA4AIDD-001
+    category: 品質保証
+    priority: Must
+    title: QA4AIDD実践手法実証機能
+    description: 'systemは、このアプリ自体をAIDDで開発することで、提案する品質保証手法が技術的に動作することを
+
+      実証する機能を提供する。AI評価評価・スキーマ検証・トレーサビリティチェックを
+
+      CI/CDで自動実行し、結果をCI/CDログおよび品質レポートとして公開する。
+
+      '
+    rationale: 'QA4AIDDの一次目的はAIDD品質保証手法の確立と実証であり、
+
+      提案する手法を自らに適用することで有効性を客観的に証明する必要がある。
+
+      '
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: CI/CD実行後にAI評価 Scoreが0.8以上であることを品質レポートで確認できる'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 品質レポートに品質ゲート（G1〜G5）通過履歴が記録され、公開URLで参照できる'
+      verification_method: デモ
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: トレーサビリティチェック（G5）が100%を示すレポートが生成されている'
+      verification_method: テスト
+    assumptions:
+    - CI/CD環境はCI/CDで構築される
+    - OpenAI APIキーが有効な状態で設定されている
+    risks:
+    - risk_description: AIモデルの変動によりAI評価スコアが閾値0.8を下回る
+      probability: 中
+      impact: 高
+      mitigation: アラート閾値を0.75に設定し、3回連続低下時にCI/CDをブロックして原因調査を促す
+    derived_from: PLN-PLN-POS_NATURE-001
+    traces_to:
+    - REQ-REQ-DOC-009
+    dependencies: []
+    notes: PLN-PLN-VALID-011（メタ品質保証）と連携
+  - req_id: REQ-FUNC-PRMTPL-001
+    category: 品質保証
+    priority: Must
+    title: 構造化プロンプトテンプレート提供機能
+    description: 'AIに正しい指示を与えるための構造化プロンプトテンプレートを10種類以上提供する。
+
+      各テンプレートは期待する出力形式と制約条件を明記し、Promptfooスコア0.8以上を
+
+      達成したバージョンをシステムに格納する。
+
+      '
+    rationale: 'QA4AIDDの定義「AIに正しく指示を与える」を実現するには、
+
+      再利用可能な構造化プロンプトテンプレートが不可欠である。
+
+      '
+    acceptance_criteria:
+    - criterion: 要件定義・基本設計・詳細設計の各フェーズにプロンプトテンプレートが各3種類以上存在する
+      verification_method: レビュー
+    - criterion: 格納されている全テンプレートのPromptfooスコアが0.8以上であることをCI/CDで確認できる
+      verification_method: テスト
+    assumptions:
+    - テンプレートの初期バージョンは人手で作成する
+    risks:
+    - risk_description: テンプレートのPromptfooスコアがAIモデル更新後に0.8を下回る
+      probability: 中
+      impact: 中
+      mitigation: AIモデル更新時にPromptfoo再評価を実施し、スコア低下を検知した場合はテンプレートを改訂する
+    derived_from: PLN-PLN-POS_QA4AIDD_IMPL-004
+    traces_to:
+    - REQ-REQ-DOC-009
+    dependencies: []
+    notes: is_timeout_related=true
+  - req_id: REQ-FUNC-QAVERIFY-001
+    category: 品質保証
+    priority: Must
+    title: 品質ゲートによるAI出力遵守確認機能
+    description: 'AIが生成した成果物がJSON Schema・Deep Eval・曖昧語チェック・構造一貫性テストを
+
+      通過することを確認する。通過しない場合は具体的なエラー箇所と修正方法を返却する。
+
+      G1〜G5の品質ゲートを1操作で一括実行できるエンドポイントを提供する。
+
+      '
+    rationale: 'QA4AIDDの定義「指示が守られていることを確認する」を実現するには、
+
+      AIが生成した成果物の品質を機械的に検証する機能が必要である。
+
+      '
+    acceptance_criteria:
+    - criterion: G1〜G5の品質ゲートを1回のAPI呼び出しで一括実行できる
+      verification_method: テスト
+    - criterion: ゲート不合格時に不合格ゲート名・エラー内容・修正対象箇所が返却される
+      verification_method: テスト
+    - criterion: 全ゲート合格時に"PASS"ステータスと合格スコアが返却される
+      verification_method: テスト
+    assumptions:
+    - 品質ゲートの実行対象はYAML形式の成果物ファイルである
+    risks:
+    - risk_description: 品質ゲートの誤検知により正常な成果物がブロックされる
+      probability: 低
+      impact: 中
+      mitigation: gate_exemptフィールドで個別除外を可能にし、誤検知ルールを定期的にレビューする
+    derived_from: PLN-PLN-POS_QA4AIDD_IMPL-004
+    traces_to:
+    - REQ-REQ-DOC-009
+    dependencies: []
+    notes: is_timeout_related=true | PLN-PLN-QA-007（品質保証核心設計）と連携
+  - req_id: REQ-FUNC-ALLUREREPORT-001
+    category: 可視化
+    priority: Should
+    title: Allure Report品質スコア時系列可視化機能
+    description: 'Deep Evalスコア・Promptfooスコア・曖昧語検出数・スキーマ検証通過率の時系列推移を
+
+      Allure Reportに記録し、グラフとして表示する。
+
+      スコア推移グラフは7日以上の期間を表示対象とする。
+
+      '
+    rationale: 'QA4AIDDの「品質の可視化」を実現するには、品質指標の推移をグラフで確認できる
+
+      仕組みが必要である。品質劣化の早期検知にも使用する。
+
+      '
+    acceptance_criteria:
+    - criterion: Deep Evalスコアの時系列グラフがAllure Report上で参照できる
+      verification_method: デモ
+    - criterion: スコアが7日以上の期間にわたって記録・表示されている
+      verification_method: テスト
+    assumptions:
+    - Allure ReportはGitHub Actions経由で自動生成される
+    risks:
+    - risk_description: Allure Reportの生成が失敗し品質推移が記録されない
+      probability: 低
+      impact: 中
+      mitigation: CI/CDにAllure Report生成の成否チェックステップを追加し、失敗時はSlack通知を送る
+    derived_from: PLN-PLN-POS_QA4AIDD_IMPL-004
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-PROMPTFOO-001
+    category: 品質保証
+    priority: Should
+    title: Promptfoo評価・改善サイクル実行機能
+    description: 'Promptfooによりプロンプトの品質を定量評価し、スコアが0.8未満のプロンプトを検出する。
+
+      評価はCI/CDのPRマージ時に自動実行され、スコア0.8未満検出時にビルド警告を出力する。
+
+      '
+    rationale: 'QA4AIDDの「継続的改善」を実現するには、プロンプト品質の定量評価と
+
+      改善サイクルを自動化する機能が必要である。
+
+      '
+    acceptance_criteria:
+    - criterion: Promptfoo評価がCI/CDのPRマージ時に自動実行される
+      verification_method: テスト
+    - criterion: スコア0.8未満のプロンプトが検出された場合にビルド警告メッセージが出力される
+      verification_method: テスト
+    assumptions:
+    - PromptfooはGitHub Actions環境にインストール済みである
+    risks:
+    - risk_description: Promptfoo評価のAPIコストが月額予算10万円を超過する
+      probability: 低
+      impact: 高
+      mitigation: 評価対象プロンプトをPRごとに差分のみに限定し、コストをモニタリングする
+    derived_from: PLN-PLN-POS_QA4AIDD_IMPL-004
+    traces_to: []
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-SETUP-002
+    category: 保守性
+    priority: Must
+    title: 再現可能性（第三者セットアップ1時間以内）
+    description: '第三者がGitHubリポジトリをクローンし、READMEの手順に従って
+
+      CI/CD環境を含む全機能を1時間以内にセットアップできること。
+
+      セットアップ手順はWindows 11環境でのみ動作を保証する。
+
+      '
+    rationale: 'プロジェクトの戦略的価値「再現可能性：CI/CD環境ごと提示し、
+
+      他プロジェクトへの適用を容易にする」を実現するために必要。
+
+      '
+    metrics:
+    - metric_name: セットアップ所要時間（第三者実測）
+      target_value: ≤60分
+      measurement_method: JSON/YAML読み書きスキルを持つエンジニア1名がREADMEのみを参照してセットアップを実施し、所要時間を計測する
+      tool: 手動計測
+    derived_from: PLN-PLN-POS_STRATEGIC_VALUE-002
+    traces_to: []
+    dependencies: []
+    notes: Windows 11環境でのみ動作を保証する
+  - req_id: REQ-NFUNC-PUBPROOF-001
+    category: 信頼性
+    priority: Must
+    title: 実証可能性（証跡の公開）
+    description: '公開されたAllure ReportとCI/CDログにより、第三者がDeep Evalスコア≥0.8かつ
+
+      トレーサビリティ100%達成を確認できること。
+
+      CI/CDログ・Allure Report・品質スコア推移グラフの3種を公開する。
+
+      '
+    rationale: 'プロジェクトの戦略的価値「実証可能性：提案する手法が実際に機能することを示す」を
+
+      実現するために、機械的に検証可能な証跡が必要。
+
+      '
+    metrics:
+    - metric_name: 公開証跡の種類数
+      target_value: 3種（CI/CDログ・Allure Report・品質スコア推移グラフが全て公開）
+      measurement_method: 公開URLへのアクセスで3種の証跡が参照可能であることを確認する
+      tool: ブラウザ手動確認
+    derived_from: PLN-PLN-POS_STRATEGIC_VALUE-002
+    traces_to: []
+    dependencies: []
+    notes: ''
+  constraints:
+  - constraint_id: REQ-CONST-SAMPSCOPE-001
+    type: ビジネス制約
+    title: サンプルプロジェクト位置づけ制約
+    description: '本プロジェクトはAIDDの品質保証手法実証を一次目的とするサンプルプロジェクトである。
+
+      現場への本番導入は二次目的として位置づけ、Phase 1以降で段階的に進める。
+
+      マルチユーザー対応・大規模データ処理・SLA要件はPhase 0のスコープ外とする。
+
+      '
+    rationale: 手法の実効性を証明するためには、本番運用のプレッシャーなしに品質保証プロセスを完全適用できるサンプル環境が必要。
+    impact: 実運用特有の課題（マルチユーザー・大規模データ・SLA要件等）はPhase 0スコープ外となる。
+    mitigation: Phase 1で小規模パイロットを実施し、実運用課題を早期に発見して次バージョンへ反映する。
+    derived_from: PLN-PLN-POS_NATURE-001
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-009
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-009
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-009
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-POS_NATURE-001
+      target_ids:
+      - REQ-FUNC-QA4AIDD-001
+      - REQ-CONST-SAMPSCOPE-001
+    - source_id: PLN-PLN-POS_STRATEGIC_VALUE-002
+      target_ids:
+      - REQ-NFUNC-SETUP-002
+      - REQ-NFUNC-PUBPROOF-001
+    - source_id: PLN-PLN-POS_QA4AIDD_DEF-003
+      target_ids: []
+    - source_id: PLN-PLN-POS_QA4AIDD_IMPL-004
+      target_ids:
+      - REQ-FUNC-PRMTPL-001
+      - REQ-FUNC-QAVERIFY-001
+      - REQ-FUNC-ALLUREREPORT-001
+      - REQ-FUNC-PROMPTFOO-001
+    requirement_to_design:
+    - source_id: REQ-FUNC-QA4AIDD-001
+      target_ids: []
+    - source_id: REQ-FUNC-PRMTPL-001
+      target_ids: []
+    - source_id: REQ-FUNC-QAVERIFY-001
+      target_ids: []
+    - source_id: REQ-FUNC-ALLUREREPORT-001
+      target_ids: []
+    - source_id: REQ-FUNC-PROMPTFOO-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-QA4AIDD-001
+      target_ids: []
+    - source_id: REQ-FUNC-PRMTPL-001
+      target_ids: []
+    - source_id: REQ-FUNC-QAVERIFY-001
+      target_ids: []
+    - source_id: REQ-FUNC-ALLUREREPORT-001
+      target_ids: []
+    - source_id: REQ-FUNC-PROMPTFOO-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 8
+    functional: 5
+    non_functional: 2
+    constraints: 1
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

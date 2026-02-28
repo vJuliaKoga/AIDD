@@ -1,0 +1,2964 @@
+{
+  "generated_at": "2026-02-28T21:33:35",
+  "overall_pass": true,
+  "summary": {
+    "files_scanned": 35,
+    "ids_found": 235,
+    "references_found": 365,
+    "broken_links": 0,
+    "pending_derived_from": 0,
+    "orphan_ids": 154
+  },
+  "broken_links": [],
+  "pending_derived_from": [],
+  "orphan_ids": [
+    "PLN-PLN-APP-016",
+    "PLN-PLN-APP_GLOSSARY_RECAP-002",
+    "PLN-PLN-APP_REFERENCES-001",
+    "PLN-PLN-ARCH_DATAFLOW-007",
+    "PLN-PLN-ARCH_UI_PATTERNS-003",
+    "PLN-PLN-ARCH_UI_QA_PURPOSE-001",
+    "PLN-PLN-BG_CONTEXT-001",
+    "PLN-PLN-BG_CULTURE_RISK-005",
+    "PLN-PLN-BG_OBSERVED_PROBLEMS-002",
+    "PLN-PLN-CONCEPT_PHILOSOPHY-001",
+    "PLN-PLN-DOC-001",
+    "PLN-PLN-END_INNOVATIONS-002",
+    "PLN-PLN-END_SUCCESS_CRITERIA-003",
+    "PLN-PLN-END_SUMMARY-005",
+    "PLN-PLN-EXEC-001",
+    "PLN-PLN-EXEC_OVERVIEW-001",
+    "PLN-PLN-EXEC_POSITION-002",
+    "PLN-PLN-EXEC_SCOPE-004",
+    "PLN-PLN-EXEC_VALUEPROP-003",
+    "PLN-PLN-ITEM_XXXX-001",
+    "PLN-PLN-MEASURE_QA_EFFORT_ASSUMPTION-002",
+    "PLN-PLN-MEASURE_QUALITATIVE-004",
+    "PLN-PLN-MEASURE_SECONDARY_BENEFITS-003",
+    "PLN-PLN-PLAN_PHASES_OVERVIEW-003",
+    "PLN-PLN-POS_QA4AIDD_DEF-003",
+    "PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013",
+    "PLN-PLN-QA_DATA_QUALITY_DECISIONLOG-008",
+    "PLN-PLN-QA_GATE_PHILOSOPHY-001",
+    "PLN-PLN-QA_MANDATORY_CHECKS-004",
+    "PLN-PLN-QA_MONITORING-006",
+    "PLN-PLN-QA_REVIEW_ACCEPTANCE-005",
+    "PLN-PLN-QA_RISK_TABLE-010",
+    "PLN-PLN-RISK_CAPABILITIES-004",
+    "PLN-PLN-RISK_NONCAPABILITIES-005",
+    "PLN-PLN-ROLL_NODE_COUNT_RULE-006",
+    "PLN-PLN-ROLL_PHASE1_RATIONALE-003",
+    "PLN-PLN-ROLL_PHASE1_SCOPE-005",
+    "PLN-PLN-ROLL_PHASES-002",
+    "PLN-PLN-ROLL_TOOL_INTEGRATION-008",
+    "PLN-PLN-SEC_XXXX-001",
+    "PLN-PLN-SYS_ID_EXAMPLES-004",
+    "PLN-PLN-SYS_PLN_TO_REQ_TRACE-006",
+    "PLN-PLN-SYS_TASK_TICKET_EX-007",
+    "PLN-PLN-SYS_TRACEABILITY_MATRIX_EX-005",
+    "PLN-PLN-TERM_GLOSSARY-001",
+    "PLN-PLN-VALID_IMPROVEMENT_CYCLE-006",
+    "PLN-PLN-VALID_META_QA-002",
+    "PLN-PLN-VALID_SELF_REFERENTIAL-001",
+    "PLN-PLN-VIS_DAILY_REPORT_FORMAT-005",
+    "PLN-PLN-VIS_WORKFLOW_ELEMENTS-003",
+    "REQ-FUNC-3LAYERWF-001",
+    "REQ-FUNC-ABORT-001",
+    "REQ-FUNC-ABORTQUAL-001",
+    "REQ-FUNC-ABORTREC-001",
+    "REQ-FUNC-AIABSTRACT-001",
+    "REQ-FUNC-ALLUREREPORT-001",
+    "REQ-FUNC-AMB-001",
+    "REQ-FUNC-AMB-002",
+    "REQ-FUNC-ARCHDOC-001",
+    "REQ-FUNC-AUTOBACKUP-001",
+    "REQ-FUNC-AUTOTEST-001",
+    "REQ-FUNC-CICD-001",
+    "REQ-FUNC-CICD-002",
+    "REQ-FUNC-CICD-003",
+    "REQ-FUNC-CICDPIPELINE-001",
+    "REQ-FUNC-CONTENT-001",
+    "REQ-FUNC-CONTENTQUAL-001",
+    "REQ-FUNC-DATAINTEG-001",
+    "REQ-FUNC-DEC-001",
+    "REQ-FUNC-DECLOG-001",
+    "REQ-FUNC-DEPLOYBLOCK-001",
+    "REQ-FUNC-EXPORT-001",
+    "REQ-FUNC-EXPORT-002",
+    "REQ-FUNC-FLOWCHART-001",
+    "REQ-FUNC-G1AUTO-001",
+    "REQ-FUNC-G2VERIFY-001",
+    "REQ-FUNC-G3SCHEMA-001",
+    "REQ-FUNC-G4DEEPEVAL-001",
+    "REQ-FUNC-G5TRACE-001",
+    "REQ-FUNC-GRAPH-001",
+    "REQ-FUNC-JUDGELOG-001",
+    "REQ-FUNC-KPITRACK-001",
+    "REQ-FUNC-OBS-001",
+    "REQ-FUNC-ONBOARD-001",
+    "REQ-FUNC-PHASE0APP-001",
+    "REQ-FUNC-PHASE0CTN-001",
+    "REQ-FUNC-PHASE0DOC-001",
+    "REQ-FUNC-PHASE0ROLLOUT-001",
+    "REQ-FUNC-PRMTPL-001",
+    "REQ-FUNC-PROCINTEG-001",
+    "REQ-FUNC-PROGDISC-001",
+    "REQ-FUNC-PROMPTFOO-001",
+    "REQ-FUNC-QA4AIDD-001",
+    "REQ-FUNC-QADEGALT-001",
+    "REQ-FUNC-QASTR-001",
+    "REQ-FUNC-QAVERIFY-001",
+    "REQ-FUNC-QAWFUI-001",
+    "REQ-FUNC-QG-001",
+    "REQ-FUNC-QPROOF-001",
+    "REQ-FUNC-REQTPL-001",
+    "REQ-FUNC-ROLEUI-001",
+    "REQ-FUNC-RTWARN-001",
+    "REQ-FUNC-SCHEMAVAL-001",
+    "REQ-FUNC-SCOPEIN-001",
+    "REQ-FUNC-SCOPEOUT-001",
+    "REQ-FUNC-SNAP-001",
+    "REQ-FUNC-SNAP-002",
+    "REQ-FUNC-STATUS-001",
+    "REQ-FUNC-STATUS-002",
+    "REQ-FUNC-TASK-001",
+    "REQ-FUNC-TRACE-001",
+    "REQ-FUNC-TRACEID-001",
+    "REQ-FUNC-UIVITEST-001",
+    "REQ-FUNC-VALID-001",
+    "REQ-FUNC-WFVALIDATION-001",
+    "REQ-NFUNC-AMBZERO-001",
+    "REQ-NFUNC-AVAIL-001",
+    "REQ-NFUNC-BACKUP-001",
+    "REQ-NFUNC-BROWSER-001",
+    "REQ-NFUNC-BUGREDUCE-001",
+    "REQ-NFUNC-E2EPASS-001",
+    "REQ-NFUNC-EVALSCORE-001",
+    "REQ-NFUNC-FLOWRENDER-001",
+    "REQ-NFUNC-GATEPASS-001",
+    "REQ-NFUNC-IDUNIQ-001",
+    "REQ-NFUNC-KPI-001",
+    "REQ-NFUNC-MAINT-001",
+    "REQ-NFUNC-OSSCOST-001",
+    "REQ-NFUNC-PERF-001",
+    "REQ-NFUNC-PHASE1EFFECT-001",
+    "REQ-NFUNC-PROMTFOOSCORE-001",
+    "REQ-NFUNC-PUBPROOF-001",
+    "REQ-NFUNC-RTO-001",
+    "REQ-NFUNC-SCHEMAPASS-001",
+    "REQ-NFUNC-SEC-001",
+    "REQ-NFUNC-SELFPROOF-001",
+    "REQ-NFUNC-SETUP-001",
+    "REQ-NFUNC-SETUP-002",
+    "REQ-NFUNC-STABLE-001",
+    "REQ-NFUNC-STABLE-002",
+    "REQ-NFUNC-TECHSTACK-001",
+    "REQ-NFUNC-TPLSCORE-001",
+    "REQ-NFUNC-UX-001",
+    "REQ-NFUNC-UX-002",
+    "REQ-NFUNC-WFSCHEMPASS-001",
+    "REQ-NFUNC-WINDOWS-001",
+    "REQ-NFUNC-WORKFLOWCHANGE-001",
+    "REQ-REQ-DOC-001",
+    "REQ-REQ-DOC-010",
+    "REQ-REQ-DOC-011",
+    "REQ-REQ-DOC-012",
+    "REQ-REQ-DOC-013",
+    "REQ-REQ-DOC-014",
+    "REQ-REQ-DOC-015"
+  ],
+  "id_registry": {
+    "PLN-PLN-DOC-001": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-EXEC-001": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-BG-002": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-POS-003": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-TERM-004": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-CONCEPT-005": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-SYS-006": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-QA-007": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-ARCH-008": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-VIS-009": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-ROLL-010": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-VALID-011": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-MEASURE-012": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-PLAN-013": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-RISK-014": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-END-015": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-APP-016": "planning/yaml/planning_v2.2/00_index.yaml",
+    "PLN-PLN-EXEC_OVERVIEW-001": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+    "PLN-PLN-EXEC_POSITION-002": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+    "PLN-PLN-EXEC_VALUEPROP-003": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+    "PLN-PLN-EXEC_SCOPE-004": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+    "PLN-PLN-BG_CONTEXT-001": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_OBSERVED_PROBLEMS-002": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_METRICS-003": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_ROOT_CAUSES-004": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_CULTURE_RISK-005": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_PRIMARY_GOAL-006": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_SECONDARY_GOALS-007": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-BG_DECISION_RULES-008": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "PLN-PLN-POS_NATURE-001": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+    "PLN-PLN-POS_STRATEGIC_VALUE-002": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+    "PLN-PLN-POS_QA4AIDD_DEF-003": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+    "PLN-PLN-POS_QA4AIDD_IMPL-004": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+    "PLN-PLN-TERM_GLOSSARY-001": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "PLN-PLN-TERM_TECH_CONSTRAINTS-002": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "PLN-PLN-TERM_PROJECT_CONSTRAINTS-003": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "PLN-PLN-TERM_USER_CONSTRAINTS-004": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "PLN-PLN-TERM_SCOPE_IN-005": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "PLN-PLN-TERM_SCOPE_OUT-006": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "PLN-PLN-CONCEPT_PHILOSOPHY-001": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+    "PLN-PLN-CONCEPT_ROLE_SPLIT-002": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+    "PLN-PLN-CONCEPT_PRINCIPLES-003": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+    "PLN-PLN-CONCEPT_CONCEPT-004": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+    "PLN-PLN-CONCEPT_USABILITY_METRIC-005": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+    "PLN-PLN-SYS_LAYERS-001": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_TRACEABILITY_POLICY-002": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_ID_CONVENTION-003": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_ID_EXAMPLES-004": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_TRACEABILITY_MATRIX_EX-005": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_PLN_TO_REQ_TRACE-006": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_TASK_TICKET_EX-007": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_STATUS-008": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_ABORT_PHILOSOPHY-009": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-SYS_ABORT_CATEGORIES-010": "planning/yaml/planning_v2.2/06_system_design.yaml",
+    "PLN-PLN-QA_GATE_PHILOSOPHY-001": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_GATES-002": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_DEEPEVAL_THRESHOLD-003": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_MANDATORY_CHECKS-004": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_REVIEW_ACCEPTANCE-005": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_MONITORING-006": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_DATA_QUALITY_ABORT-007": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_DATA_QUALITY_DECISIONLOG-008": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_DATA_QUALITY_CHECKS-009": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_RISK_TABLE-010": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_DEGRADATION_DETECTION-011": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_PROMPTFOO-012": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "PLN-PLN-ARCH_UI_QA_PURPOSE-001": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_UI_PATTERNS-003": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_INTERACTION_WARNINGS-004": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_TECH_STACK-006": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_DATAFLOW-007": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_BACKUP_POLICY-008": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-ARCH_RECOVERY_PROCEDURES-009": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "PLN-PLN-VIS_WORKFLOW_PURPOSE-001": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+    "PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+    "PLN-PLN-VIS_WORKFLOW_ELEMENTS-003": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+    "PLN-PLN-VIS_SNAPSHOT_EX-004": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+    "PLN-PLN-VIS_DAILY_REPORT_FORMAT-005": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+    "PLN-PLN-ROLL_BLOCKER-001": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_PHASES-002": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_PHASE1_RATIONALE-003": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_PHASE1_METRICS-004": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_PHASE1_SCOPE-005": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_NODE_COUNT_RULE-006": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_PROCESS_INTEGRATION-007": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_TOOL_INTEGRATION-008": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-ROLL_ONBOARDING-009": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "PLN-PLN-VALID_SELF_REFERENTIAL-001": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_META_QA-002": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_WORKFLOW_VALIDATION-003": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_CONTENT_QUALITY-005": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_IMPROVEMENT_CYCLE-006": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_CICD_PIPELINE-007": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-VALID_DEPLOYMENT_GATE-008": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "PLN-PLN-MEASURE_METRICS_TABLE-001": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+    "PLN-PLN-MEASURE_QA_EFFORT_ASSUMPTION-002": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+    "PLN-PLN-MEASURE_SECONDARY_BENEFITS-003": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+    "PLN-PLN-MEASURE_QUALITATIVE-004": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+    "PLN-PLN-MEASURE_PROOF_STRUCTURE-005": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+    "PLN-PLN-PLAN_PHASE0_DELIVERABLES-001": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+    "PLN-PLN-PLAN_PHASE0_CRITERIA-002": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+    "PLN-PLN-PLAN_PHASES_OVERVIEW-003": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+    "PLN-PLN-RISK_CONSTRAINTS_TECH-001": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+    "PLN-PLN-RISK_CONSTRAINTS_PROJECT-002": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+    "PLN-PLN-RISK_CONSTRAINTS_SKILL-003": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+    "PLN-PLN-RISK_CAPABILITIES-004": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+    "PLN-PLN-RISK_NONCAPABILITIES-005": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+    "PLN-PLN-END_VALUE-001": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+    "PLN-PLN-END_INNOVATIONS-002": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+    "PLN-PLN-END_SUCCESS_CRITERIA-003": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+    "PLN-PLN-END_IMMEDIATE_ACTIONS-004": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+    "PLN-PLN-END_SUMMARY-005": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+    "PLN-PLN-APP_REFERENCES-001": "planning/yaml/planning_v2.2/16_appendix.yaml",
+    "PLN-PLN-APP_GLOSSARY_RECAP-002": "planning/yaml/planning_v2.2/16_appendix.yaml",
+    "PRD-DOC-AIDD-001": "planning/yaml/planning_v2.2/_prd_root.yaml",
+    "PRM-PLN-YAML-002": "planning/yaml/planning_v2.2/_prompt_registry.yaml",
+    "PRM-REQ-YAML-002": "planning/yaml/planning_v2.2/_prompt_registry.yaml",
+    "PLN-PLN-SEC_XXXX-001": "planning/yaml/planning_v2.2/planning.template.yaml",
+    "PLN-PLN-ITEM_XXXX-001": "planning/yaml/planning_v2.2/planning.template.yaml",
+    "REQ-REQ-DOC-003": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-FUNC-UIVITEST-001": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-FUNC-RTWARN-001": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-FUNC-PROGDISC-001": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-FUNC-AUTOBACKUP-001": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-NFUNC-TECHSTACK-001": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-NFUNC-RTO-001": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+    "REQ-REQ-DOC-002": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+    "REQ-FUNC-VALID-001": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+    "REQ-FUNC-QASTR-001": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+    "REQ-FUNC-OBS-001": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+    "REQ-NFUNC-KPI-001": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+    "REQ-REQ-DOC-004": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+    "REQ-FUNC-REQTPL-001": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+    "REQ-FUNC-ARCHDOC-001": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+    "REQ-FUNC-CICD-002": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+    "REQ-FUNC-CONTENT-001": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+    "REQ-NFUNC-SELFPROOF-001": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+    "REQ-REQ-DOC-005": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-FUNC-ROLEUI-001": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-FUNC-AMB-002": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-FUNC-QAWFUI-001": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-FUNC-JUDGELOG-001": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-FUNC-SCHEMAVAL-001": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-NFUNC-UX-002": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+    "REQ-REQ-DOC-006": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-FUNC-PHASE0APP-001": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-FUNC-CICD-003": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-FUNC-PHASE0CTN-001": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-FUNC-PHASE0DOC-001": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-NFUNC-SETUP-001": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-NFUNC-E2EPASS-001": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+    "REQ-REQ-DOC-007": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+    "REQ-FUNC-SCOPEIN-001": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+    "REQ-FUNC-SCOPEOUT-001": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+    "REQ-NFUNC-BROWSER-001": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+    "REQ-NFUNC-WINDOWS-001": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+    "REQ-REQ-DOC-008": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+    "REQ-FUNC-KPITRACK-001": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+    "REQ-FUNC-QPROOF-001": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+    "REQ-NFUNC-GATEPASS-001": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+    "REQ-NFUNC-STABLE-002": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+    "REQ-NFUNC-BUGREDUCE-001": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+    "REQ-REQ-DOC-009": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-FUNC-QA4AIDD-001": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-FUNC-PRMTPL-001": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-FUNC-QAVERIFY-001": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-FUNC-ALLUREREPORT-001": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-FUNC-PROMPTFOO-001": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-NFUNC-SETUP-002": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-NFUNC-PUBPROOF-001": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+    "REQ-REQ-DOC-010": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-G1AUTO-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-G2VERIFY-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-G3SCHEMA-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-G4DEEPEVAL-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-G5TRACE-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-ABORTQUAL-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-DATAINTEG-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-FUNC-QADEGALT-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-NFUNC-EVALSCORE-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-NFUNC-PROMTFOOSCORE-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-NFUNC-SCHEMAPASS-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-NFUNC-AMBZERO-001": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+    "REQ-REQ-DOC-011": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+    "REQ-FUNC-AIABSTRACT-001": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+    "REQ-FUNC-AUTOTEST-001": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+    "REQ-NFUNC-OSSCOST-001": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+    "REQ-REQ-DOC-012": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+    "REQ-FUNC-PHASE0ROLLOUT-001": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+    "REQ-FUNC-PROCINTEG-001": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+    "REQ-FUNC-ONBOARD-001": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+    "REQ-NFUNC-PHASE1EFFECT-001": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+    "REQ-NFUNC-WORKFLOWCHANGE-001": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+    "REQ-REQ-DOC-013": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-FUNC-3LAYERWF-001": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-FUNC-TRACEID-001": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-FUNC-STATUS-002": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-FUNC-ABORTREC-001": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-FUNC-DECLOG-001": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-NFUNC-IDUNIQ-001": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+    "REQ-REQ-DOC-014": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-FUNC-CICDPIPELINE-001": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-FUNC-DEPLOYBLOCK-001": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-FUNC-WFVALIDATION-001": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-FUNC-CONTENTQUAL-001": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-NFUNC-WFSCHEMPASS-001": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-NFUNC-TPLSCORE-001": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+    "REQ-REQ-DOC-015": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+    "REQ-FUNC-FLOWCHART-001": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+    "REQ-FUNC-SNAP-002": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+    "REQ-FUNC-EXPORT-002": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+    "REQ-NFUNC-FLOWRENDER-001": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+    "REQ-REQ-DOC-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-QG-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-TASK-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-STATUS-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-ABORT-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-DEC-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-TRACE-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-AMB-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-EXPORT-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-SNAP-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-GRAPH-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-FUNC-CICD-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-UX-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-PERF-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-AVAIL-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-MAINT-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-BACKUP-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-STABLE-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+    "REQ-NFUNC-SEC-001": "requirements/yaml/requirements_v2/requirements_document_v1.yaml"
+  },
+  "references": [
+    {
+      "source_file": "planning/yaml/planning_v2.2/00_index.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+      "source_id": "PLN-PLN-EXEC_OVERVIEW-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+      "source_id": "PLN-PLN-EXEC_POSITION-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+      "source_id": "PLN-PLN-EXEC_VALUEPROP-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/01_executive_summary.yaml",
+      "source_id": "PLN-PLN-EXEC_SCOPE-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_CONTEXT-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_OBSERVED_PROBLEMS-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_METRICS-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_ROOT_CAUSES-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_CULTURE_RISK-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_PRIMARY_GOAL-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_SECONDARY_GOALS-007",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+      "source_id": "PLN-PLN-BG_DECISION_RULES-008",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+      "source_id": "PLN-PLN-POS_NATURE-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+      "source_id": "PLN-PLN-POS_STRATEGIC_VALUE-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+      "source_id": "PLN-PLN-POS_QA4AIDD_DEF-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+      "source_id": "PLN-PLN-POS_QA4AIDD_IMPL-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "PLN-PLN-TERM_GLOSSARY-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "PLN-PLN-TERM_TECH_CONSTRAINTS-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "PLN-PLN-TERM_PROJECT_CONSTRAINTS-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "PLN-PLN-TERM_USER_CONSTRAINTS-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "PLN-PLN-TERM_SCOPE_IN-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+      "source_id": "PLN-PLN-TERM_SCOPE_OUT-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+      "source_id": "PLN-PLN-CONCEPT_PHILOSOPHY-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+      "source_id": "PLN-PLN-CONCEPT_ROLE_SPLIT-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+      "source_id": "PLN-PLN-CONCEPT_PRINCIPLES-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+      "source_id": "PLN-PLN-CONCEPT_CONCEPT-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+      "source_id": "PLN-PLN-CONCEPT_USABILITY_METRIC-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_LAYERS-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_TRACEABILITY_POLICY-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_ID_CONVENTION-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_ID_EXAMPLES-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_TRACEABILITY_MATRIX_EX-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_PLN_TO_REQ_TRACE-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_TASK_TICKET_EX-007",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_STATUS-008",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_ABORT_PHILOSOPHY-009",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/06_system_design.yaml",
+      "source_id": "PLN-PLN-SYS_ABORT_CATEGORIES-010",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_GATE_PHILOSOPHY-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_GATES-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_DEEPEVAL_THRESHOLD-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_MANDATORY_CHECKS-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_REVIEW_ACCEPTANCE-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_MONITORING-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_DATA_QUALITY_ABORT-007",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_DATA_QUALITY_DECISIONLOG-008",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_DATA_QUALITY_CHECKS-009",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_RISK_TABLE-010",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_DEGRADATION_DETECTION-011",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_PROMPTFOO-012",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+      "source_id": "PLN-PLN-QA_AMBIGUOUS_EXAMPLES-013",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_UI_QA_PURPOSE-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_UI_PATTERNS-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_INTERACTION_WARNINGS-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_TECH_STACK-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_DATAFLOW-007",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_BACKUP_POLICY-008",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+      "source_id": "PLN-PLN-ARCH_RECOVERY_PROCEDURES-009",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+      "source_id": "PLN-PLN-VIS_WORKFLOW_PURPOSE-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+      "source_id": "PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+      "source_id": "PLN-PLN-VIS_WORKFLOW_ELEMENTS-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+      "source_id": "PLN-PLN-VIS_SNAPSHOT_EX-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+      "source_id": "PLN-PLN-VIS_DAILY_REPORT_FORMAT-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_BLOCKER-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_PHASES-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_PHASE1_RATIONALE-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_PHASE1_METRICS-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_PHASE1_SCOPE-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_NODE_COUNT_RULE-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_PROCESS_INTEGRATION-007",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_TOOL_INTEGRATION-008",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+      "source_id": "PLN-PLN-ROLL_ONBOARDING-009",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_SELF_REFERENTIAL-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_META_QA-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_WORKFLOW_VALIDATION-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_CONTENT_QUALITY-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_IMPROVEMENT_CYCLE-006",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_CICD_PIPELINE-007",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+      "source_id": "PLN-PLN-VALID_DEPLOYMENT_GATE-008",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+      "source_id": "PLN-PLN-MEASURE_METRICS_TABLE-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+      "source_id": "PLN-PLN-MEASURE_QA_EFFORT_ASSUMPTION-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+      "source_id": "PLN-PLN-MEASURE_SECONDARY_BENEFITS-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+      "source_id": "PLN-PLN-MEASURE_QUALITATIVE-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+      "source_id": "PLN-PLN-MEASURE_PROOF_STRUCTURE-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+      "source_id": "PLN-PLN-PLAN_PHASE0_DELIVERABLES-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+      "source_id": "PLN-PLN-PLAN_PHASE0_CRITERIA-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/13_execution_plan.yaml",
+      "source_id": "PLN-PLN-PLAN_PHASES_OVERVIEW-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+      "source_id": "PLN-PLN-RISK_CONSTRAINTS_TECH-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+      "source_id": "PLN-PLN-RISK_CONSTRAINTS_PROJECT-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+      "source_id": "PLN-PLN-RISK_CONSTRAINTS_SKILL-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+      "source_id": "PLN-PLN-RISK_CAPABILITIES-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+      "source_id": "PLN-PLN-RISK_NONCAPABILITIES-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+      "source_id": "PLN-PLN-END_VALUE-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+      "source_id": "PLN-PLN-END_INNOVATIONS-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+      "source_id": "PLN-PLN-END_SUCCESS_CRITERIA-003",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+      "source_id": "PLN-PLN-END_IMMEDIATE_ACTIONS-004",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+      "source_id": "PLN-PLN-END_SUMMARY-005",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/16_appendix.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/16_appendix.yaml",
+      "source_id": "PLN-PLN-APP_REFERENCES-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/16_appendix.yaml",
+      "source_id": "PLN-PLN-APP_GLOSSARY_RECAP-002",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/planning.template.yaml",
+      "source_id": "",
+      "field": "prompt_id",
+      "ref_id": "PRM-PLN-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "planning/yaml/planning_v2.2/planning.template.yaml",
+      "source_id": "PLN-PLN-ITEM_XXXX-001",
+      "field": "derivedfrom",
+      "ref_id": "PRD-DOC-AIDD-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-REQ-DOC-003",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-REQ-DOC-003",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-UIVITEST-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-UIVITEST-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-003",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-RTWARN-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_INTERACTION_WARNINGS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-RTWARN-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-003",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-PROGDISC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-PROGDISC-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-003",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-AUTOBACKUP-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_BACKUP_POLICY-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-FUNC-AUTOBACKUP-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-003",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-NFUNC-TECHSTACK-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_TECH_STACK-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-NFUNC-TECHSTACK-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-003",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-NFUNC-RTO-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_RECOVERY_PROCEDURES-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-NFUNC-RTO-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-003",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-REQ-DOC-003",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH_TECH_STACK-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-REQ-DOC-003",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-REQ-DOC-003",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_architecture_and_ui_v1.yaml",
+      "source_id": "REQ-REQ-DOC-003",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-REQ-DOC-002",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-REQ-DOC-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-BG-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-FUNC-VALID-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-BG_PRIMARY_GOAL-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-FUNC-VALID-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-002",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-FUNC-QASTR-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-BG_SECONDARY_GOALS-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-FUNC-QASTR-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-002",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-FUNC-OBS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-BG_ROOT_CAUSES-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-FUNC-OBS-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-002",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-NFUNC-KPI-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-BG_METRICS-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-NFUNC-KPI-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-002",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-REQ-DOC-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-BG_DECISION_RULES-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-REQ-DOC-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-REQ-DOC-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_background_and_problem_v1.yaml",
+      "source_id": "REQ-REQ-DOC-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-REQ-DOC-004",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-REQ-DOC-004",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-END-015",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-REQTPL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-END_IMMEDIATE_ACTIONS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-REQTPL-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-004",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-ARCHDOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-END_IMMEDIATE_ACTIONS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-ARCHDOC-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-004",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-CICD-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-END_IMMEDIATE_ACTIONS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-CICD-002",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-004",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-CONTENT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-END_IMMEDIATE_ACTIONS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-FUNC-CONTENT-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-004",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-NFUNC-SELFPROOF-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-END_VALUE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-NFUNC-SELFPROOF-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-004",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-REQ-DOC-004",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-REQ-DOC-004",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_conclusion_next_steps_v1.yaml",
+      "source_id": "REQ-REQ-DOC-004",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-REQ-DOC-005",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-REQ-DOC-005",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-ROLEUI-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT_ROLE_SPLIT-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-ROLEUI-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-005",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-AMB-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT_PRINCIPLES-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-AMB-002",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-005",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-QAWFUI-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT_CONCEPT-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-QAWFUI-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-005",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-JUDGELOG-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT_PRINCIPLES-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-JUDGELOG-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-005",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-SCHEMAVAL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT_PRINCIPLES-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-FUNC-SCHEMAVAL-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-005",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-NFUNC-UX-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT_USABILITY_METRIC-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-NFUNC-UX-002",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-005",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-REQ-DOC-005",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-REQ-DOC-005",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_core_concepts_v1.yaml",
+      "source_id": "REQ-REQ-DOC-005",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-006",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-006",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN-013",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0APP-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN_PHASE0_DELIVERABLES-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0APP-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-006",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-CICD-003",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN_PHASE0_DELIVERABLES-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-CICD-003",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-006",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0CTN-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN_PHASE0_DELIVERABLES-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0CTN-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-006",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN_PHASE0_DELIVERABLES-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0DOC-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-006",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-NFUNC-SETUP-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN_PHASE0_CRITERIA-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-NFUNC-SETUP-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-006",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-NFUNC-E2EPASS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN_PHASE0_CRITERIA-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-NFUNC-E2EPASS-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-006",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-006",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-006",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_execution_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-006",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-FUNC-SCOPEIN-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_SCOPE_IN-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-FUNC-SCOPEIN-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-007",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-FUNC-SCOPEOUT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_SCOPE_OUT-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-FUNC-SCOPEOUT-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-007",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-NFUNC-BROWSER-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_TECH_CONSTRAINTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-NFUNC-BROWSER-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-007",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-NFUNC-WINDOWS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_TECH_CONSTRAINTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-NFUNC-WINDOWS-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-007",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_TECH_CONSTRAINTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_TECH_CONSTRAINTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_USER_CONSTRAINTS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_PROJECT_CONSTRAINTS-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM_TECH_CONSTRAINTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_glossary_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-007",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-REQ-DOC-008",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-REQ-DOC-008",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE-012",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-FUNC-KPITRACK-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE_METRICS_TABLE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-FUNC-KPITRACK-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-008",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-FUNC-QPROOF-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE_PROOF_STRUCTURE-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-FUNC-QPROOF-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-008",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-NFUNC-GATEPASS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE_METRICS_TABLE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-NFUNC-GATEPASS-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-008",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-NFUNC-STABLE-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE_METRICS_TABLE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-NFUNC-STABLE-002",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-008",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-NFUNC-BUGREDUCE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE_METRICS_TABLE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-NFUNC-BUGREDUCE-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-008",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-REQ-DOC-008",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-REQ-DOC-008",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_measurement_and_kpi_v1.yaml",
+      "source_id": "REQ-REQ-DOC-008",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-REQ-DOC-009",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-REQ-DOC-009",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-QA4AIDD-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_NATURE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-QA4AIDD-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-009",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-PRMTPL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_QA4AIDD_IMPL-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-PRMTPL-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-009",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-QAVERIFY-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_QA4AIDD_IMPL-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-QAVERIFY-001",
+      "field": "traces_to",
+      "ref_id": "REQ-REQ-DOC-009",
+      "direction": "downstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-ALLUREREPORT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_QA4AIDD_IMPL-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-FUNC-PROMPTFOO-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_QA4AIDD_IMPL-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-NFUNC-SETUP-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_STRATEGIC_VALUE-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-NFUNC-PUBPROOF-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_STRATEGIC_VALUE-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-REQ-DOC-009",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-POS_NATURE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-REQ-DOC-009",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-REQ-DOC-009",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_positioning_and_strategy_v1.yaml",
+      "source_id": "REQ-REQ-DOC-009",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-010",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-010",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-G1AUTO-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-G2VERIFY-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-G3SCHEMA-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-G4DEEPEVAL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_DEEPEVAL_THRESHOLD-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-G5TRACE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-ABORTQUAL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_DATA_QUALITY_ABORT-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-DATAINTEG-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_DATA_QUALITY_CHECKS-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-FUNC-QADEGALT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_DEGRADATION_DETECTION-011",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-NFUNC-EVALSCORE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_DEEPEVAL_THRESHOLD-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-NFUNC-PROMTFOOSCORE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_PROMPTFOO-012",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-NFUNC-SCHEMAPASS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-NFUNC-AMBZERO-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-010",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-010",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_quality_assurance_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-010",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK-014",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-FUNC-AIABSTRACT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_TECH-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-FUNC-AUTOTEST-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_TECH-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-NFUNC-OSSCOST-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_PROJECT-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_TECH-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_TECH-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_TECH-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_PROJECT-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_PROJECT-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK_CONSTRAINTS_SKILL-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_risks_and_constraints_v1.yaml",
+      "source_id": "REQ-REQ-DOC-011",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-012",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-012",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ROLL-010",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PHASE0ROLLOUT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ROLL_BLOCKER-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-FUNC-PROCINTEG-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ROLL_PROCESS_INTEGRATION-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-FUNC-ONBOARD-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ROLL_ONBOARDING-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-NFUNC-PHASE1EFFECT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ROLL_PHASE1_METRICS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-NFUNC-WORKFLOWCHANGE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ROLL_PHASE1_METRICS-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-012",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-012",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_rollout_plan_v1.yaml",
+      "source_id": "REQ-REQ-DOC-012",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-FUNC-3LAYERWF-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_LAYERS-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-FUNC-TRACEID-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_TRACEABILITY_POLICY-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-FUNC-STATUS-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_STATUS-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-FUNC-ABORTREC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_ABORT_PHILOSOPHY-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-FUNC-DECLOG-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_TRACEABILITY_POLICY-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-NFUNC-IDUNIQ-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_ID_CONVENTION-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_LAYERS-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS_ABORT_CATEGORIES-010",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_system_design_v1.yaml",
+      "source_id": "REQ-REQ-DOC-013",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-REQ-DOC-014",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-REQ-DOC-014",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID-011",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-FUNC-CICDPIPELINE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID_CICD_PIPELINE-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-FUNC-DEPLOYBLOCK-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID_DEPLOYMENT_GATE-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-FUNC-WFVALIDATION-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID_WORKFLOW_VALIDATION-003",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-FUNC-CONTENTQUAL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID_CONTENT_QUALITY-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-NFUNC-WFSCHEMPASS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-NFUNC-TPLSCORE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID_CONTENT_QUALITY-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-REQ-DOC-014",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-REQ-DOC-014",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_validation_and_meta_quality_v1.yaml",
+      "source_id": "REQ-REQ-DOC-014",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-REQ-DOC-015",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-REQ-DOC-015",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-FUNC-FLOWCHART-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS_WORKFLOW_PURPOSE-001",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-FUNC-SNAP-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS_SNAPSHOT_EX-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-FUNC-EXPORT-002",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-NFUNC-FLOWRENDER-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-REQ-DOC-015",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS_SNAPSHOT_EX-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-REQ-DOC-015",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-REQ-DOC-015",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/req_visualization_and_export_v1.yaml",
+      "source_id": "REQ-REQ-DOC-015",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA_GATES-002",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "prompt_id",
+      "ref_id": "PRM-REQ-YAML-002",
+      "direction": "prompt"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-QG-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-TASK-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-STATUS-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-ABORT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-DEC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-TRACE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-AMB-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-EXPORT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-SNAP-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-GRAPH-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-FUNC-CICD-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID-011",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-UX-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-CONCEPT-005",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-PERF-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN-013",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-AVAIL-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-PLAN-013",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-MAINT-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID-011",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-BACKUP-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-STABLE-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-MEASURE-012",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-NFUNC-SEC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-RISK-014",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-TERM-004",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-ARCH-008",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS-006",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VIS-009",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-VALID-011",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-QA-007",
+      "direction": "upstream"
+    },
+    {
+      "source_file": "requirements/yaml/requirements_v2/requirements_document_v1.yaml",
+      "source_id": "REQ-REQ-DOC-001",
+      "field": "derived_from",
+      "ref_id": "PLN-PLN-SYS-006",
+      "direction": "upstream"
+    }
+  ]
+}

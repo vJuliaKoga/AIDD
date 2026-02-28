@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-02-26T08:36:35",
+  "repo_root": "C:\\Users\\juria.koga\\Documents\\Github",
+  "target": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD\\requirements\\yaml\\requirements_v1",
+  "files_checked": [
+    "AIDD/requirements/yaml/requirements_v1/requirements_document_v1.yaml"
+  ],
+  "overall_pass": true,
+  "gates": {
+    "G1_ambiguity": {
+      "pass": true,
+      "checked": 1,
+      "failed": 0,
+      "hits": [],
+      "rules_source": "AMBIGUITY_RULES (default)"
+    },
+    "G3_schema": {
+      "pass": true,
+      "checked": 1,
+      "failed": 0,
+      "failures": [],
+      "schema_registry": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD\\RULES\\schema_registry.yaml"
+    },
+    "META": {
+      "pass": true,
+      "checked": 1,
+      "failed": 0,
+      "failures": [],
+      "required_keys": [
+        "artifact_id",
+        "file",
+        "author",
+        "source_type",
+        "prompt_id",
+        "model",
+        "timestamp",
+        "content_hash"
+      ]
+    },
+    "ID_format": {
+      "pass": true,
+      "checked": 1,
+      "failed": 0,
+      "failures": [],
+      "pattern": "^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\\d{3}$"
+    },
+    "G4_deep_eval": {
+      "pass": false,
+      "reason": "not_run_in_this_environment",
+      "note": "Deep Eval is expected to be executed via your agent/tooling (e.g., Cline). This runner can be extended to ingest results JSON."
+    },
+    "G4_promptfoo": {
+      "pass": false,
+      "reason": "not_available",
+      "note": "promptfoo is not available in your environment. Gate kept as N/A."
+    }
+  }
+}

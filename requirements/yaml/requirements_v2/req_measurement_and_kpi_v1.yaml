@@ -1,0 +1,232 @@
+meta:
+  artifact_id: REQ-REQ-DOC-008
+  file: req_measurement_and_kpi_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-008
+  title: AIDD上流工程品質保証プラットフォーム — 成果測定と効果検証 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-MEASURE-012
+  functional_requirements:
+  - req_id: REQ-FUNC-KPITRACK-001
+    category: データ管理
+    priority: Must
+    title: 定量的指標追跡・記録機能（7種類の指標）
+    description: 'systemは、以下7種類の定量的指標をシステム内で追跡・記録する。
+
+      1. QA工数：タスク実施時間の記録（QA活動の定着度確認に使用）
+
+      2. 検索工数：アプリ内検索とWeb検索の比較（利用方法の差分記録）
+
+      3. 仕様書起因バグ：バグ原因分析結果のカテゴリ別記録
+
+      4. 手戻り回数：設計変更回数の記録
+
+      5. 仕様-実装乖離：レビュー指摘数の記録
+
+      6. 品質ゲート通過率：CI/CD成功率の自動集計
+
+      7. AI評価安定性：スコアの標準偏差の自動算出
+
+      各指標は永続化され、機械可読な形式でエクスポートできる。
+
+      '
+    rationale: 7種類の指標を継続的に記録することで、Phase別KPI目標の達成状況を定量的に評価できる。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 上記7種の指標がデータとして記録・参照できる'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 指標データがJSON形式でエクスポートできる'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 品質ゲート通過率とAI評価安定性がCI/CD実行後に自動集計される'
+      verification_method: テスト
+    assumptions:
+    - QA工数・検索工数・バグ件数・手戻り回数の記録は手動入力が主体となる
+    risks:
+    - risk_description: 指標の手動記録が定着せず計測データが不足する
+      probability: 高
+      impact: 中
+      mitigation: タスク完了時に指標入力フォームを表示し、記録なしでのDone遷移を一定期間後に制限する設定を追加する
+    derived_from: PLN-PLN-MEASURE_METRICS_TABLE-001
+    traces_to:
+    - REQ-REQ-DOC-008
+    dependencies: []
+    notes: QA工数はむしろ増加することが想定されており、増加そのものを問題視しない
+  - req_id: REQ-FUNC-QPROOF-001
+    category: 可視化
+    priority: Must
+    title: 品質証跡自動生成機能（CI/CDログ・品質レポート公開）
+    description: 'systemは、技術的実証・方法論的実証・実践的実証の3層証跡を自動生成し公開する。
+
+      技術的実証：CI/CD実行ログをCI/CD上に記録する。
+
+      方法論的実証：AI評価 0.8以上達成・構造一貫性維持を品質レポートに記録する。
+
+      実践的実証：要件定義から実装までのトレーサビリティをverify_traceability.pyで検証し結果を記録する。
+
+      全証跡を品質レポートのダッシュボードで参照できる。
+
+      '
+    rationale: 3層実証構造に基づく証跡を自動生成することで、AIDDにおける品質保証手法の有効性を第三者が検証できる。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: CI/CDが実行されるたびにCI/CD実行ログが記録される'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 品質レポートに品質スコア推移グラフが表示される'
+      verification_method: デモ
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: verify_traceability.pyの実行結果が品質レポートに記録される'
+      verification_method: テスト
+    assumptions:
+    - 品質レポートはGitHub Pages等の公開URLで参照可能にする
+    risks:
+    - risk_description: CI/CDの無料枠を超過してCI/CDが停止する
+      probability: 低
+      impact: 高
+      mitigation: CI/CDの利用量を月次でモニタリングし、超過しそうな場合は有料プランへの移行を検討する
+    derived_from: PLN-PLN-MEASURE_PROOF_STRUCTURE-005
+    traces_to:
+    - REQ-REQ-DOC-008
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-GATEPASS-001
+    category: 測定性
+    priority: Must
+    title: 品質ゲート通過率目標（≥85%）
+    description: 'systemは、CI/CDで実行される品質ゲート（G1〜G5）の総合通過率が85%以上であること。
+
+      直近30回のCI/CD実行結果に対して通過率を算出する。
+
+      現実的期待値として85%以上を目標とし、90%以上を達成目標とする。
+
+      '
+    rationale: 品質ゲートの通過率を継続的に計測することで、品質保証プロセスの有効性を定量的に評価できる。
+    metrics:
+    - metric_name: 品質ゲート総合通過率
+      target_value: ≥85%（直近30回のCI/CD実行結果に対して）
+      measurement_method: CI/CDの実行ログからG1〜G5の全ゲートが通過したビルドの割合を算出する
+      tool: CI/CD（品質レポート集計）
+    derived_from: PLN-PLN-MEASURE_METRICS_TABLE-001
+    traces_to:
+    - REQ-REQ-DOC-008
+    dependencies: []
+    notes: ''
+  - req_id: REQ-NFUNC-STABLE-002
+    category: 測定性
+    priority: Should
+    title: AI評価安定性目標（標準偏差σ < 0.1）
+    description: 'systemは、AI評価スコアの標準偏差が0.1未満であること。
+
+      直近20回の評価スコアを対象に標準偏差を算出する。
+
+      スコアが安定していることでAIモデル変動の影響を早期検知できる。
+
+      '
+    rationale: スコアの安定性を監視することで、AIモデル更新やプロンプト変更による品質変動を早期に検知できる。
+    metrics:
+    - metric_name: Deep Evalスコア標準偏差
+      target_value: σ < 0.1（直近20回の評価スコアに対して）
+      measurement_method: 直近20回のAI評価評価スコアを取得し、標準偏差を算出して品質レポートに記録する
+      tool: AI評価（品質レポート）
+    derived_from: PLN-PLN-MEASURE_METRICS_TABLE-001
+    traces_to:
+    - REQ-REQ-DOC-008
+    dependencies: []
+    notes: 現実的期待値σ < 0.1を目標とし、達成目標はσ < 0.05
+  - req_id: REQ-NFUNC-BUGREDUCE-001
+    category: 測定性
+    priority: Should
+    title: Phase 1仕様書起因バグ削減目標（≥20%）
+    description: 'systemは、Phase 1パイロット終了時に仕様書起因バグ件数が対象期間比で20%以上削減されること。
+
+      バグ原因分析でカテゴリ分類された仕様書起因バグ件数を計測対象とする。
+
+      20%削減を現実的期待値とし、30%削減を達成目標とする。
+
+      '
+    rationale: Phase 1の成功指標として企画書で定義された仕様書起因バグ30%削減の現実的目標を設定する。
+    metrics:
+    - metric_name: 仕様書起因バグ削減率（Phase 1パイロット期間）
+      target_value: ≥20%削減（パイロット前と後の同期間のバグ件数比較）
+      measurement_method: Phase 1パイロット前後の同期間のバグチケットを原因分析し、仕様書起因バグの件数を比較する
+      tool: バグトラッキングシステム（手動集計）
+    derived_from: PLN-PLN-MEASURE_METRICS_TABLE-001
+    traces_to:
+    - REQ-REQ-DOC-008
+    dependencies: []
+    notes: ''
+  constraints: []
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-008
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-008
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-008
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-MEASURE_METRICS_TABLE-001
+      target_ids:
+      - REQ-FUNC-KPITRACK-001
+      - REQ-NFUNC-GATEPASS-001
+      - REQ-NFUNC-STABLE-002
+      - REQ-NFUNC-BUGREDUCE-001
+    - source_id: PLN-PLN-MEASURE_QA_EFFORT_ASSUMPTION-002
+      target_ids: []
+    - source_id: PLN-PLN-MEASURE_PROOF_STRUCTURE-005
+      target_ids:
+      - REQ-FUNC-QPROOF-001
+    requirement_to_design:
+    - source_id: REQ-FUNC-KPITRACK-001
+      target_ids: []
+    - source_id: REQ-FUNC-QPROOF-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-KPITRACK-001
+      target_ids: []
+    - source_id: REQ-FUNC-QPROOF-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 5
+    functional: 2
+    non_functional: 3
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

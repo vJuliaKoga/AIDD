@@ -1,0 +1,122 @@
+# requirements_v2 パッチ監査レポート
+
+## サマリー
+
+- Deep Eval対象要件数: 39
+- modified: 39
+- unchanged: 0
+- timeout-only（本文原則未修正）: 2
+
+## 変更一覧（source_file別）
+
+### req_architecture_and_ui_v1.yaml
+
+- REQ-FUNC-AUTOBACKUP-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 要求されている評価手順（企画目的の抽出→要件分解→目的貢献/必要性判定→方針適合と逸脱検出を0.0〜1.0で採点し日本語で理由提示）に対する評価結果が一切提示されていない。Actual Output自体は企画書表の「プロジェクトデータ: 毎日深夜2時/ローカルディスク(+外部ストレージ)/30日」に概ね整合する一方、外部ストレージの保存先が欠落し、SQLite/Node-cronといった実装詳細が混入（CHK-02-02違反）しているなどの指摘・採点が本来必要だが、JS...
+- REQ-FUNC-PROGDISC-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Inputの企画目的（構造化・可視化・検証可能化）や方針・制約（禁止事項/原則：Phase1範囲、実装詳細混入禁止、主語ロール制約、曖昧語禁止等）を評価基準として明示しておらず、Actual Output各項目の目的貢献・必須性（核心/Nice-to-have）判定も行っていない。また、localStorage利用の明記や「全機能がキーボードショートカットで操作できる」等が実装詳細/過剰要求や観測可能性・数値基準不足、許可ロールの不在など方針・制約違反になり得る点の指摘...
+- REQ-FUNC-RTWARN-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順（目的・方針抽出→要件の目的貢献/必要性→方針違反特定→逸脱検出と0.0〜1.0採点＋日本語理由）に沿った評価が提示されていない。提示されているのは要件本文であり、企画目的（構造化・可視化・検証可能化）や禁止事項/原則の抽出・固定、各項目の必要性判定、方針/制約違反（例：Zod+正規表現など実装詳細混入）指摘、根拠のない過剰仕様（例：200ms、送信時ブロック等）の逸脱検出とスコアリング（0.0〜1.0、閾値A/B/C）を実施していないため、評価アウトプットとし...
+- REQ-FUNC-UIVITEST-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順に照らすと、MVP必須判定や主語の明確性指摘、How混入の引用減点などが十分に行われていないため整合が弱い。ACTUAL_OUTPUTは「Visual Regression Testing」「E2Eテスト」「StorybookとChromatic」「Playwright」「セットアップ済み」など技術スタック/実装方法が強く混入しており、本来は危険ワードとして引用して大きく減点すべきだが、その観点での指摘が欠けている。また、要件記述が『〜を自動検証する』中心で、誰...
+- REQ-NFUNC-RTO-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: RTOをレベル別に15分/30分/2時間と数値で定義し、derived_fromも一致しており文脈整合は高い。一方でMVP必須の“目標”要件に対して、括弧内で「バックアップからリストア→最新JSONエクスポートとマージ→トレーサビリティ再検証」「設定ファイル復元→シークレット再設定→テスト実行確認」「テンプレートのGit復元」など復旧“手段(How)”と特定技術語（CI/CD、Git、GitHub Actions、.github/workflows、シークレット）が混入...
+- REQ-NFUNC-TECHSTACK-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: Retrieval Contextには技術スタック表（React+TS、Zustand、Tailwind+shadcn、Zod、React Flow、Node+Express、SQLite、Vitest+Playwright等）が含まれており、Actual Outputの「技術スタック準拠」という主旨自体はderived_from=PLN-PLN-ARCH_TECH_STACK-006と整合する。一方で、企画目的（構造化・可視化・検証可能化）への直接貢献の説明や、Mus...
+
+### req_background_and_problem_v1.yaml
+
+- REQ-FUNC-OBS-001: **modified** / priority=S / checklist=CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: ACTUAL_OUTPUTは要件票としてINPUTとは分離されているが、そのままLLMプロンプトに使える「指示/制約/出力形式」が明示されておらず、条件分岐・例外時（入力不備、集計不能時、グラフ表示失敗時など）の扱いも不足している。背景は一部記載されderived_fromもある一方、「Phase1パイロット」「KPI」「件数グラフ」「PLN-PLN-BG_OBSERVED_PROBLEMS-002」など参照先が到達可能な形で定義・リンクされず、用語定義も薄い。検証基準...
+- REQ-FUNC-QASTR-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: Inputは副次目標（QA観点の標準化・構造化、判断根拠/プロセスの記録可視化、AIDDのQA手法確立・実証、検索工数削減とPoC観点提案）に沿うMVP必須要件を、技術How抜き・ロール明確で書くことが求められているが、Actual Outputは「YAMLワークフローとして構造化」「テンプレートを保存」「3クリック以内」「エクスポート」など具体UI/方式に踏み込み、危険ワードのYAMLを含むため大きく減点。さらに主語が「システムは」のみで、許可ロール（user/adm...
+- REQ-FUNC-VALID-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 企画目的「仕様書の妥当性を検証可能にし、仕様と実装の乖離を防止」に対し、Actual Outputは“仕様書・設計書が検証可能な記述かをチェック”し、不合格時に修正箇所と理由を表示、かつACで曖昧語/スキーマ/トレーサビリティをテスト可能にしており、目的への直接貢献と検証可能化の観点は強い。一方で、評価手順で求められる0.0〜1.0の項目別採点（直接/間接/無関係）や、Phase1適切性・禁止事項（例: 役割の明確化、危険ワード混入）・根拠のない要素混入の明示的検出を“...
+- REQ-NFUNC-KPI-001: **modified** / priority=S / checklist=CHK-05-03(下流追跡可能性)
+  - evidence: 外部観測可能な期待結果としての記述が弱く、「追跡する／実測値を取得し更新する」と内部方針レベルに留まり、表示・出力・通知などの形で何が確認できるかが明確でない。Given/When/Then観点でも、受入基準・前提条件が(なし)でトリガーや期待結果がテストケース化できず3要素が揃わない。禁止の曖昧語の直接使用は目立たない一方、「継続的に計測」など頻度・タイミングが未定義で、KPIの算出定義や境界条件（例：集計期間、更新頻度、対象件数、遅延率/手戻り率/工数倍率の算出式）...
+
+### req_conclusion_next_steps_v1.yaml
+
+- REQ-FUNC-ARCHDOC-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: INPUTは「次のアクション」リストで、Phase0(MVP)としては“要件定義へ進む準備/アーキ設計/CI/CD初期設定/テンプレ作成”といった着手項目の列挙がスコープだが、ACTUAL_OUTPUTはそれを単一の「システム要件（アーキ設計書管理機能）」に落としており、MVP必須の着手リストから逸脱している。さらにHow/設計詳細が混入しており重大減点（例:「技術スタック確定情報・コンポーネント構成・データモデル設計・JSON Schemaとの連携仕様」「archit...
+- REQ-FUNC-CICD-002: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0の「CI/CD初期設定」自体は入力（PLN-PLN-END_IMMEDIATE_ACTIONS-004）に整合しているが、MVP必須を超えた要素が混在している（例:「Allure Report生成」「トレーサビリティチェック」までqa.ymlに含める等）。最重要のHow混入も顕著で、「GitHub Actions」「.github/workflows/qa.yml」「Deep Eval統合・Promptfoo統合・JSON Schemaスキーマ検証」「sec...
+- REQ-FUNC-CONTENT-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 企画目的（構造化・可視化・検証可能化）や方針/制約（曖昧語禁止、検証可能なAC、Phase1範囲、実装詳細混入回避、ロール明確化等）を基準として整理し、Actual Output各項目の目的貢献・Must性・逸脱/違反を0.0〜1.0で日本語根拠付き採点することが求められている。しかし提示されたActual Outputは要件そのものであり、評価手順に沿った抽出・対応付け・必須性判定・方針適合チェックやスコアリングが行われていない。入力根拠にない『Promptfooスコ...
+- REQ-FUNC-REQTPL-001: **modified** / priority=S / checklist=CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順に沿った確認がほぼ行われていないため。求められているのは、ACTUAL_OUTPUTが外部観測可能な結果として書けているか（例: 表示/出力/通知）、Given/When/Thenへ分解してテストケース化できるか、不足要素の特定、禁止の曖昧語（適切に・十分に・必要に応じて・など/等 等）の抽出と具体表現への置換案、さらに境界条件（件数上限・時間・サイズ等）をINPUT要求範囲と照合して具体値追加案を出し、0.0〜1.0のスコアと日本語理由を作ることだが、その観点...
+- REQ-NFUNC-SELFPROOF-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順1〜4に基づく抽出・対応付け・必要性判断・方針適合/逸脱検出（0.0〜1.0の整合度採点＋具体指摘）が一切実施されていない。企画目的（構造化・可視化・検証可能化）や制約（禁止事項・原則）をINPUT/Contextから抽出した形跡がなく、Actual Output各項目が目的貢献しているかの根拠対応付けもない。また「Deep Eval≥0.8」「トレーサビリティ100%」「CI/CDログやAllure公開」等がRetrieval Context（『実証可能な形で...
+
+### req_core_concepts_v1.yaml
+
+- REQ-FUNC-AMB-002: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Retrieval Contextは設計原則（曖昧語を品質ゲートで阻止等）を十分に含み、Actual Outputのrationale/derived_fromも一致しており大きな矛盾はない。一方で、要件内の「リアルタイム検出」「200ms以内」「代替表現を3件以上提案」「入力フィールド」「Done遷移」「設定ファイルで管理」といったUI/実装・運用寄りの具体化はINPUT/Contextに根拠がなく、目的（構造化・可視化・検証可能化）への直接貢献としては“曖昧語ブロッ...
+- REQ-FUNC-JUDGELOG-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0必須の「判断根拠の記録義務」に沿う要件（Done/Abort遷移時に理由等を必須化、未入力なら遷移不可、50文字以上など）はMVPとして概ね妥当で、受入基準も外部観測可能な形で書かれている点は良い。一方でHow混入が重大で、危険ワードに該当する実装詳細『SQLiteに保存されJSON形式でエクスポートできる』やフィールド名の列挙『decidedby・decidedat・decisionsummary・rationale等』があり大きく減点。また主語/ロールが...
+- REQ-FUNC-QAWFUI-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順(1)〜(4)に沿った抽出・対応付けの記述がなく、Retrieval Contextから「構造化・可視化・検証可能化」や禁止事項/原則（例: 実装詳細混入禁止、許可ロール、曖昧語禁止等）を根拠付きで必須条件化していない。目的貢献(0.0〜1.0)、必要性(0.0〜1.0)、方針適合/逸脱(0.0〜1.0)の判定も提示されず、引用や該当箇所指摘もない。実装詳細（React Flow）やクリック数、ロック仕様などは含まれるが、それらを方針違反/根拠薄弱として検出・減...
+- REQ-FUNC-ROLEUI-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順に沿った指摘がほぼ行われていない。手順1のPhase0(MVP)必須/Phase1以降の切り分け比較がなく、Actual Output内の「G1〜G5の品質ゲート」「チェックリスト・テンプレート・プロンプトの表示」等がMVP必須かの判定も示されていない。手順2の危険ワード（DB/API等）スキャン結果や該当フレーズの引用によるHow混入指摘もなく、技術スタック言及の有無チェックを実施していない。手順3の主語（user/admin/viewer/system）の明...
+- REQ-FUNC-SCHEMAVAL-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順で要求されている「企画目的（構造化・可視化・検証可能化）と基本方針・制約の抽出→基準化」「Actual Output各項目の目的貢献と根拠提示」「核心要件/Nice-to-have判定」「方針適合・逸脱検出を0.0〜1.0で採点し日本語で理由と該当箇所記載」という評価そのものが、提示されたActual Outputには含まれていません。Actual Outputは要件記述としては、設計原則『構造の一貫性』『品質ゲートで不合格なら止める』に整合し、ACもテスト可能...
+- REQ-NFUNC-UX-002: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 要件IDやderived_fromが明記され、タイトル・説明もあり構造化の体裁はあるため入力意図（3クリック導線）との整合は一定ある。一方で、受入基準・前提条件・リスクが全て「(なし)」で、Given-When-Then等の検証可能なAC、境界条件（目的情報の範囲、クリック定義、例外画面遷移、ロール差異など）や不正出力判定がなく、ハルシネーション耐性/自動判定可能性が低い。また「目的の情報」にチェックリスト等を追加しておりINPUT由来か不明で暗黙の前提が残る。入力/出...
+
+### req_execution_plan_v1.yaml
+
+- REQ-FUNC-CICD-003: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0のcicd成果物（GitHub Actions workflow/Deep Eval統合/Promptfoo統合/JSON Schema検証/Allure Report自動生成/スコア推移記録）には概ね一致する一方、要件としては実装Howが強く混入している。「workflow（ci.yml）」「OpenAI API経由」「ajv」「Allure Report上でグラフ」など技術スタック・具体手段の固定があり、評価手順2の危険ワード検出観点で逸脱。また主語（u...
+- REQ-FUNC-PHASE0APP-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0必須の7機能自体は入力の「application.features」と整合する一方、Phase0要件としては実装Howが大量に混入しておりMVP要件の書き方として不適切。「React Flow形式」「Vitest単体テスト」「Playwright E2Eテスト」など技術スタック/具体手段の明示があり減点対象。また「データの保存・読込が正常に動作する」など主語（user/admin/viewer/system）が明記されず、外部観測可能な条件・境界も曖昧で、受...
+- REQ-FUNC-PHASE0CTN-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Retrieval ContextはPhase 0成果物のうちcontents（各種テンプレート/チェックリスト/プロンプト集）とCI/CDにDeep Eval/Promptfoo統合がある点を含んでおり、Actual Outputの主題（Phase0コンテンツ整備）との整合は高い。一方で評価手順4にある「0.0〜1.0でスコア付けしつつ日本語で該当箇所を指摘する」要件を満たす“評価結果”としては、Actual Outputをチェックリスト観点で採点・違反指摘する出力に...
+- REQ-FUNC-PHASE0DOC-001: **modified** / priority=S / checklist=CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順（目的・方針抽出→要件を逐次照合→違反検出→根拠妥当性と逸脱確認→0〜1採点＋日本語理由）に従った「評価」が一切行われておらず、提示されたActual Output自体をそのまま再掲しているだけで、チェックリスト観点の判定（目的貢献/必要性、禁止事項・曖昧語・ロール定義、スキーマ必須フィールド、逸脱要素の特定など）も、総合スコア（0.0〜1.0）も提示されていない。
+- REQ-NFUNC-E2EPASS-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順（目的・制約抽出→目的貢献/必要性→違反・根拠なし追加の検出→0.0〜1.0採点と日本語理由）に照らすと、このACTUAL_OUTPUTは入力の完了基準「定義された15画面すべてが設計通りに動作」に部分的に整合し、derived_fromもPLN-PLN-PLAN_PHASE0_CRITERIA-002で妥当。一方で(1) 15画面が要件内で明示されず「各画面」列挙も不足し、(2) 受入基準が空でGiven-When-Then化できず検証可能性(CAT-03)を...
+- REQ-NFUNC-SETUP-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0完了基準の「第三者が1時間以内にセットアップ可能」を要件化しておりスコープ自体は概ねMVP必須に沿う。一方でINPUTは「誰が＝user/admin/viewer/system」を要求しているのに、ACTUAL_OUTPUTは「第三者」「エンジニアが対象」としてロール定義に不一致で主語が基準外。またHow混入として「GitHubリポジトリをクローン」「READMEの手順」「Windows 11環境」と具体的手段・環境を固定しており、機能要件(What)に対し...
+
+### req_glossary_and_constraints_v1.yaml
+
+- REQ-FUNC-SCOPEIN-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順に沿った整理・判定がほぼ行われていないため低評価。求められているのは、Inputから目的（構造化・可視化・検証可能化）と方針/制約（禁止事項・原則、例：ロールはuser/admin/viewer/systemのみ、曖昧語禁止、実装詳細混入検知など）を抽出して評価基準化し、Actual Outputを項目別に目的貢献・核心要件性・逸脱（根拠なし/方針違反）を指摘し、最後に0.0〜1.0の総合スコアと日本語理由を提示すること。しかし提示されたActual Outpu...
+- REQ-FUNC-SCOPEOUT-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Timed out/cancelled while evaluating metric. Increase DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE or set DEEPEVAL_LOG_STACK_TRACES=1 for full traceback.
+- REQ-NFUNC-BROWSER-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-05-03(下流追跡可能性)
+  - evidence: ACTUAL_OUTPUTは要件としての記述であり、評価手順1〜4が求める「INPUTとACTUAL_OUTPUTを明確に分離した、手順・条件分岐・制約・判定基準を含む“そのまま実行可能なLLMプロンプト”」になっていない。特に受入基準が(なし)で、Given-When-Thenや合否判定条件、禁止/不正出力条件、テスト観点など検証可能な正誤基準が欠落しており、ハルシネーション耐性・自動評価可能性（CAT-03/04）を満たしにくい。一方で、技術的制約（Edge/Chr...
+- REQ-NFUNC-WINDOWS-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 評価手順が求める(1)目的・方針/制約の抽出と基準整理、(2)要件ごとの目的貢献の照合、(3)MustかNice-to-haveかの判定、(4)方針違反/根拠なき追加の検出と0.0〜1.0の総合整合度スコア(日本語)の提示、のいずれも実施されていない。提示されているのはWindows制約に沿う単一要件本文で、受入基準なし・Node.js LTSなどINPUTにない技術選定の混入が疑われる点も評価されていないため、評価としての整合が低い。
+
+### req_measurement_and_kpi_v1.yaml
+
+- REQ-FUNC-KPITRACK-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0必須のKPI定義・観測という入力（定量指標の測定方法/目標値/現実的期待値）に対し、Actual Outputは「追跡・記録機能」「JSON形式でエクスポート」など機能要件化しておりMVP観点は一部合うが、実装Howが混入して重大減点となる。具体的に「SQLiteに保存しJSON形式でエクスポート」「CI/CD成功率の自動集計」「スコアの標準偏差の自動算出」など技術/実装手段（DB・CI/CD）が要件に入り、Phase1以降に回すべき運用最適化/自動化も含む...
+- REQ-FUNC-QPROOF-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Retrieval ContextはINPUTの3層実証構造（technical/methodological/practicalのwhat/how/evidence）を過不足なく含んでおり問題ない。一方Actual Outputは、technicalproofの証跡（GitHub Actionsログ、Allure公開URL、品質スコア推移グラフ）やmethodologicalproofのDeep Eval 0.8/構造一貫性/トレーサビリティと整合し、目的（可視化・検...
+- REQ-NFUNC-BUGREDUCE-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: Timed out/cancelled while evaluating metric. Increase DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE or set DEEPEVAL_LOG_STACK_TRACES=1 for full traceback.
+- REQ-NFUNC-GATEPASS-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: INPUTは定量指標テーブル（品質ゲート通過率：目標90%以上／現実的期待値85%以上）を機能要件ではなく観測可能な測定要件として落とし込むことが期待されるが、ACTUAL_OUTPUTは「CI/CDで実行される品質ゲート（G1〜G5）」「直近30回のCI/CD実行結果」など運用・実装寄りのHow（CI/CDという技術運用手段やゲート段数・集計窓）を混入させており、評価ステップ2の禁止観点に抵触して減点対象。MVP必須の指標定義（85%以上/90%以上）は概ねINPUT...
+- REQ-NFUNC-STABLE-002: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-05-03(下流追跡可能性)
+  - evidence: 要件は入力表の「Deep Eval安定性：スコア標準偏差、目標σ<0.05、現実的期待値σ<0.1」を正しく参照（derived_fromも一致）しており、根拠のない別指標の混入はない。一方で企画目的（構造化・可視化・検証可能化）への直接貢献は“監視”の説明に留まり、外部観測可能な出力や可視化の形が要件として明確でない。さらに検証可能性の要である受入基準が空欄で、Given-When-Then等のテスト可能なACがないためCAT-03に大きく抵触。加えて「直近20回」と...
+
+### req_positioning_and_strategy_v1.yaml
+
+- REQ-FUNC-PRMTPL-001: **modified** / priority=R / checklist=CHK-05-03(下流追跡可能性)
+  - evidence: Timed out/cancelled while evaluating metric. Increase DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE or set DEEPEVAL_LOG_STACK_TRACES=1 for full traceback.
+- REQ-FUNC-QA4AIDD-001: **modified** / priority=S / checklist=CHK-02-02(How非混入), CHK-02-03(主語明確性（ロール）), CHK-03-02(受入基準の検証可能性), CHK-05-03(下流追跡可能性)
+  - evidence: Phase0(MVP)必須に絞れておらず、「CI/CDで自動実行」「Allure Reportとして公開」「品質ゲート（G1〜G5）」「公開URL」など運用・可視化・ゲート管理まで含めておりPhase1以降に回すべき内容が混入している。さらに実装Howの混入が顕著で、「CI/CD環境はGitHub Actionsで構築される」「OpenAI APIキー」「Allure Report」「CI/CDログ」など技術スタック/運用基盤/外部サービス前提を具体指定しているため重大...
+- REQ-FUNC-QAVERIFY-001: **modified** / priority=R / checklist=CHK-05-03(下流追跡可能性)
+  - evidence: Timed out/cancelled while evaluating metric. Increase DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE or set DEEPEVAL_LOG_STACK_TRACES=1 for full traceback.
+
+## timeout系で本文を原則未修正とした要件
+
+- REQ-FUNC-PRMTPL-001 (req_positioning_and_strategy_v1.yaml): Timed out/cancelled while evaluating metric. Increase DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE or set DEEPEVAL_LOG_STACK_TRACES=1 for full traceback.
+- REQ-FUNC-QAVERIFY-001 (req_positioning_and_strategy_v1.yaml): Timed out/cancelled while evaluating metric. Increase DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE or set DEEPEVAL_LOG_STACK_TRACES=1 for full traceback.
+
+## MISSING（根拠不明のため未修正）
+
+- なし
+

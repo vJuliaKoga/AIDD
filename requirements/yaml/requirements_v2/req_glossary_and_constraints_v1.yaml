@@ -1,0 +1,279 @@
+meta:
+  artifact_id: REQ-REQ-DOC-007
+  file: req_glossary_and_constraints_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-007
+  title: AIDD上流工程品質保証プラットフォーム — 用語定義と前提条件 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-TERM-004
+  functional_requirements:
+  - req_id: REQ-FUNC-SCOPEIN-001
+    category: 品質保証
+    priority: Must
+    title: スコープ内全機能の実装完了
+    description: 'systemは、企画書で定義されたスコープ内機能を全て実装する。
+
+      対象機能は以下の9カテゴリである：
+
+      上流工程品質保証ワークフロー、構造化テンプレート・チェックリスト・プロンプト集の提供、
+
+      品質ゲート評価の自動化（AI評価・JSON Schema検証）、トレーサビリティID体系の実装、
+
+      CI/CD環境構築と品質レポートによるモニタリング、プロンプト評価によるプロンプト品質評価、
+
+      Abort理由記録と判断ログの保存、JSON/YAMLエクスポート機能、永続化データによる承認者管理。
+
+      '
+    rationale: スコープ内機能の完全実装がPhase 0完了の前提条件であり、手法実証の範囲を明確にする。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 上記9カテゴリの機能が各1件以上動作確認済みである'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 全機能の操作手順がドキュメントに記載されている'
+      verification_method: レビュー
+    assumptions:
+    - スコープ内機能の詳細な仕様は各専用要件定義書で定義される
+    risks:
+    - risk_description: 1人開発体制のため全機能を均質な品質で実装できない
+      probability: 中
+      impact: 高
+      mitigation: 各機能に自動テスト単体テストと自動検証 利用者操作を模した自動検証を実装し、CI/CDで自動検証する
+    derived_from: PLN-PLN-TERM_SCOPE_IN-005
+    traces_to:
+    - REQ-REQ-DOC-007
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-SCOPEOUT-001
+    category: 品質保証
+    priority: Must
+    title: スコープ外機能の意図的非実装
+    description: 'systemは、Phase 0のスコープ外（実装しない）機能を明示し、過剰実装を防止する。
+
+      スコープ外の例：
+
+      - アプリ内のAI自動生成機能
+
+      - 外部ツールとのAPI連携
+
+      - ユーザー満足度測定
+
+      - モバイル対応
+
+      - プロンプト共有機能
+
+      '
+    rationale: 'スコープ外機能の境界を明示することで、Phase 0の完成基準を明確にし、
+
+      1人開発体制での過剰実装を防ぐ。
+
+      '
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: スコープ外機能が実装されておらず、UIに該当メニューや画面が存在しない'
+      verification_method: レビュー
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 将来拡張候補としてプロンプト共有機能が設計ドキュメントに記録されている'
+      verification_method: レビュー
+    assumptions: []
+    risks:
+    - risk_description: 将来のPhase計画が変更されてスコープ外機能を優先実装する必要が生じる
+      probability: 低
+      impact: 中
+      mitigation: スコープ変更は変更管理プロセスに従い、影響範囲を文書化してから実施する
+    derived_from: PLN-PLN-TERM_SCOPE_OUT-006
+    traces_to:
+    - REQ-REQ-DOC-007
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-BROWSER-001
+    category: 可用性
+    priority: Must
+    title: 対応ブラウザ動作保証（Edge・Chrome）
+    description: '全機能がEdge最新安定版およびChrome最新安定版で動作すること。
+
+      Firefox・Safariは動作対象外とする。モバイルブラウザは動作対象外とする。
+
+      '
+    rationale: 企画書の技術制約「対応ブラウザ：Edge、Chrome（モバイル非対応）」に準拠するため。
+    metrics:
+    - metric_name: ブラウザ別E2Eテスト通過率
+      target_value: Edge最新版・Chrome最新版それぞれ100%通過
+      measurement_method: 自動検証の利用者操作を模した自動検証スイートをchromium（Chrome）とmsedge（Edge）の両プロファイルで実行し、全テストが通過することを確認する
+      tool: 自動検証
+    derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+    traces_to:
+    - REQ-REQ-DOC-007
+    dependencies: []
+    notes: ''
+  - req_id: REQ-NFUNC-WINDOWS-001
+    category: 保守性
+    priority: Must
+    title: Windows環境での動作保証
+    description: 'systemは、全機能がWindows 11 Home環境で動作すること。
+
+      Linux・macOSでの動作は保証しない。
+
+      バックエンドは実行環境 LTSを使用し、Windows互換のパッケージのみを使用する。
+
+      '
+    rationale: 企画書の技術制約「OS環境：Windowsのみ」に準拠するため。
+    metrics:
+    - metric_name: Windows環境でのCI/CD実行成功率
+      target_value: ≥95%（GitHub Actionsのwindows-latestランナーで実行）
+      measurement_method: CI/CDのwindows-latestランナーでテストスイートを実行し、連続した直近20回の成功率を算出する
+      tool: CI/CD
+    derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+    traces_to:
+    - REQ-REQ-DOC-007
+    dependencies: []
+    notes: ''
+  constraints:
+  - constraint_id: REQ-CONST-AI-002
+    type: 技術的制約
+    title: AI基盤制約（OpenAI APIのみ使用可能）
+    description: 'AIモデルの呼び出しにはOpenAI APIのみを使用する。
+
+      他のLLMプロバイダー（Anthropic・Google・Mistral等）へのAPI接続は実装しない。
+
+      Deep EvalおよびPromptfooの評価にもOpenAI APIを経由する。
+
+      '
+    rationale: 開発体制の技術制約として企画書で定義されており、現時点では他プロバイダーへの対応コストを掛けない判断がされている。
+    impact: 他のLLMとの比較検証ができず、OpenAI APIの障害・価格変動がシステム全体に影響する。
+    mitigation: 将来的なマルチモデル対応を考慮したインターフェース設計を行い、OpenAI APIクライアントを抽象化層で包む。
+    derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+  - constraint_id: REQ-CONST-OS-002
+    type: 技術的制約
+    title: OS環境制約（Windows専用）
+    description: '動作保証はWindows 11 Home環境のみとする。
+
+      Linux・macOSでの動作確認は行わない。
+
+      コンテナ化（Docker）は将来検討事項とする。
+
+      '
+    rationale: 開発者の環境がWindows 11 Homeであり、クロスプラットフォーム対応のコストを掛けない判断がされている。
+    impact: Linux/macOS環境のエンジニアはそのままでは利用できない。
+    mitigation: Windows Subsystem for Linux（WSL2）環境での動作を将来確認し、コンテナ化を検討する。
+    derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+  - constraint_id: REQ-CONST-SKILL-002
+    type: 技術的制約
+    title: ユーザースキル前提制約（JSON/YAML読み書き必須）
+    description: '本システムのユーザーはJSON・YAMLの構造を読み書きできることを前提とする。
+
+      この前提を満たさないユーザーへの利用サポートはPhase 0のスコープ外とする。
+
+      '
+    rationale: 人による最終判断の質を担保するために、テンプレート内容の理解が必須であり、JSON/YAML読み書きスキルが前提となる。
+    impact: JSON/YAML経験のないエンジニアへの導入障壁が高くなる。
+    mitigation: GUIによる補助機能とエラーメッセージの充実を図り、JSON/YAML編集を最小限に抑えるUIを設計する。
+    derived_from: PLN-PLN-TERM_USER_CONSTRAINTS-004
+  - constraint_id: REQ-CONST-COST-002
+    type: ビジネス制約
+    title: 月額予算制約（10万円以内）
+    description: '月額ランニングコストを10万円以内に維持する。
+
+      OpenAI API利用料・クラウドストレージ・CI/CDサービス料金の合計が10万円を超えてはならない。
+
+      '
+    rationale: 個人プロジェクト規模としての予算上限が設定されており、商用サービスへの多額の支出を避ける。
+    impact: 有料ツール・有料クラウドサービスの選択肢が限定される。
+    mitigation: OSSの最大活用（GitHub Actions無料枠・SQLite・Allure Report OSSを使用）し、OpenAI APIコストをコールバック数制御で管理する。
+    derived_from: PLN-PLN-TERM_PROJECT_CONSTRAINTS-003
+  - constraint_id: REQ-CONST-TEAM-002
+    type: 組織ポリシー
+    title: 1人開発体制制約
+    description: '本プロジェクトはエンジニア1名（古賀）が開発・検証を担当する。
+
+      コードレビューの人的リソースが存在しないため、自動テストとCI/CDによる品質担保を強化する。
+
+      '
+    rationale: リソース制約として企画書で定義されており、Phase 0完了までは外部リソースを調達しない判断がされている。
+    impact: 開発速度と品質レビューの深さに上限が生じる。
+    mitigation: 自動テストの充実（Vitest・Playwright）と外部レビュー依頼（必要時）で補う。
+    derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-007
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-007
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-007
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-TERM_GLOSSARY-001
+      target_ids: []
+    - source_id: PLN-PLN-TERM_TECH_CONSTRAINTS-002
+      target_ids:
+      - REQ-NFUNC-BROWSER-001
+      - REQ-NFUNC-WINDOWS-001
+      - REQ-CONST-AI-002
+      - REQ-CONST-OS-002
+      - REQ-CONST-TEAM-002
+    - source_id: PLN-PLN-TERM_PROJECT_CONSTRAINTS-003
+      target_ids:
+      - REQ-CONST-COST-002
+    - source_id: PLN-PLN-TERM_USER_CONSTRAINTS-004
+      target_ids:
+      - REQ-CONST-SKILL-002
+    - source_id: PLN-PLN-TERM_SCOPE_IN-005
+      target_ids:
+      - REQ-FUNC-SCOPEIN-001
+    - source_id: PLN-PLN-TERM_SCOPE_OUT-006
+      target_ids:
+      - REQ-FUNC-SCOPEOUT-001
+    requirement_to_design:
+    - source_id: REQ-FUNC-SCOPEIN-001
+      target_ids: []
+    - source_id: REQ-FUNC-SCOPEOUT-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-SCOPEIN-001
+      target_ids: []
+    - source_id: REQ-FUNC-SCOPEOUT-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 9
+    functional: 2
+    non_functional: 2
+    constraints: 5
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-02-21T18:22:33",
+  "repo_root": "C:\\Users\\juria.koga\\Documents\\Github",
+  "target": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD\\planning\\yaml\\planning_v2.2",
+  "files_checked": [
+    "AIDD/planning/yaml/planning_v2.2/00_index.yaml",
+    "AIDD/planning/yaml/planning_v2.2/01_executive_summary.yaml",
+    "AIDD/planning/yaml/planning_v2.2/02_background_and_problem.yaml",
+    "AIDD/planning/yaml/planning_v2.2/03_positioning_and_strategy.yaml",
+    "AIDD/planning/yaml/planning_v2.2/04_glossary_and_constraints.yaml",
+    "AIDD/planning/yaml/planning_v2.2/05_core_concepts_and_principles.yaml",
+    "AIDD/planning/yaml/planning_v2.2/06_system_design.yaml",
+    "AIDD/planning/yaml/planning_v2.2/07_quality_assurance_design.yaml",
+    "AIDD/planning/yaml/planning_v2.2/08_architecture_and_ui.yaml",
+    "AIDD/planning/yaml/planning_v2.2/09_visualization_and_export.yaml",
+    "AIDD/planning/yaml/planning_v2.2/10_rollout_plan.yaml",
+    "AIDD/planning/yaml/planning_v2.2/11_validation_and_meta_quality.yaml",
+    "AIDD/planning/yaml/planning_v2.2/12_measurement_and_kpi.yaml",
+    "AIDD/planning/yaml/planning_v2.2/13_execution_plan.yaml",
+    "AIDD/planning/yaml/planning_v2.2/14_risks_and_constraints.yaml",
+    "AIDD/planning/yaml/planning_v2.2/15_conclusion_next_steps.yaml",
+    "AIDD/planning/yaml/planning_v2.2/16_appendix.yaml",
+    "AIDD/planning/yaml/planning_v2.2/planning.template.yaml"
+  ],
+  "overall_pass": true,
+  "gates": {
+    "G1_ambiguity": {
+      "pass": true,
+      "checked": 18,
+      "failed": 0,
+      "hits": [],
+      "terms_source": "DEFAULT_AMBIGUITY_TERMS"
+    },
+    "G3_schema": {
+      "pass": true,
+      "checked": 18,
+      "failed": 0,
+      "failures": [],
+      "schema_registry": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD\\RULES\\schema_registry.yaml"
+    },
+    "META": {
+      "pass": true,
+      "checked": 18,
+      "failed": 0,
+      "failures": [],
+      "required_keys": [
+        "run_id",
+        "prompt_id",
+        "timestamp",
+        "model",
+        "output_hash"
+      ]
+    },
+    "ID_format": {
+      "pass": true,
+      "checked": 18,
+      "failed": 0,
+      "failures": [],
+      "pattern": "^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\\d{3}$"
+    },
+    "G4_deep_eval": {
+      "pass": false,
+      "reason": "not_run_in_this_environment",
+      "note": "Deep Eval is expected to be executed via your agent/tooling (e.g., Cline). This runner can be extended to ingest results JSON."
+    },
+    "G4_promptfoo": {
+      "pass": false,
+      "reason": "not_available",
+      "note": "promptfoo is not available in your environment. Gate kept as N/A."
+    }
+  }
+}

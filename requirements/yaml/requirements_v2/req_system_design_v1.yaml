@@ -1,0 +1,386 @@
+meta:
+  artifact_id: REQ-REQ-DOC-013
+  file: req_system_design_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-013
+  title: AIDD上流工程品質保証プラットフォーム — システム設計 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-SYS-006
+  functional_requirements:
+  - req_id: REQ-FUNC-3LAYERWF-001
+    category: データ管理
+    priority: Must
+    title: 3層ワークフロー表示機能（L1/L2/L3）
+    description: 'タスクをL1（工程：REQ/BAS/DET）・L2（タスク：REQ-T001等）・L3（詳細：チェック観点/テンプレート/プロンプト）
+
+      の3層構造で管理・表示する。各層のIDはPREFIX-PHASE-PURPOSE-NNN形式で発行する。
+
+      L1→L2→L3の階層をUIで段階的に展開できる。
+
+      '
+    rationale: 3層構造によりQA活動の粒度が統一され、工程・タスク・観点を一貫した構造で管理できる。
+    acceptance_criteria:
+    - criterion: L1（工程）選択後にL2（タスク）リストが表示され、L2選択後にL3（詳細）が表示される
+      verification_method: デモ
+    - criterion: 各層のIDがPREFIX-PHASE-PURPOSE-NNN形式で付与されている
+      verification_method: テスト
+    - criterion: L1のID例（REQ・BAS・DET）が画面上で選択・表示できる
+      verification_method: テスト
+    assumptions:
+    - 初期データとしてREQ・BAS・DET工程が事前登録されている
+    risks:
+    - risk_description: 3層構造がユーザーの認知負荷となり使用されない
+      probability: 中
+      impact: 高
+      mitigation: 段階的情報開示（Progressive Disclosure）UIを実装し、初心者モードでは段階的にガイドする
+    derived_from: PLN-PLN-SYS_LAYERS-001
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-TRACEID-001
+    category: データ管理
+    priority: Must
+    title: トレーサビリティID体系実装（PREFIX-PHASE-PURPOSE-NNN）
+    description: '全成果物に一意のIDを付与し、derived_from（上流成果物への参照）・traces_to（下流成果物への参照）・
+
+      prompts_used（使用プロンプトへの参照）を記録する。
+
+      IDはissue_id.pyで自動発行し、id_issued_log.yamlに記録する。
+
+      手採番は禁止する。
+
+      '
+    rationale: トレーサビリティID体系によって変更影響分析と品質ゲートG5（トレーサビリティ検証）が可能になる。
+    acceptance_criteria:
+    - criterion: issue_id.pyが実行されると一意のIDが発行されid_issued_log.yamlに記録される
+      verification_method: テスト
+    - criterion: 同一IDが2件以上存在する場合にCI/CDでエラーが出力される
+      verification_method: テスト
+    - criterion: derived_fromに存在しないIDを記述した場合にG5が不合格を返す
+      verification_method: テスト
+    assumptions:
+    - issue_id.pyはPython環境で動作する
+    risks:
+    - risk_description: ID発行ルールが徹底されず手採番IDが混入する
+      probability: 中
+      impact: 高
+      mitigation: PRマージ前のCI/CDチェックでID形式と一意性を自動検証し、違反時はマージをブロックする
+    derived_from: PLN-PLN-SYS_TRACEABILITY_POLICY-002
+    traces_to: []
+    dependencies: []
+    notes: PLN-PLN-SYS_ID_CONVENTION-003のID命名規則を実装
+  - req_id: REQ-FUNC-STATUS-002
+    category: データ管理
+    priority: Must
+    title: タスクステータス管理機能（ToDo/InProgress/Done/Abort）
+    description: '各タスクは ToDo → InProgress → Done または ToDo → InProgress → Abort の
+
+      ステータス遷移を管理する。
+
+      InProgressへの遷移は担当者設定時に自動遷移する。
+
+      Doneへの遷移はチェックリスト完了と品質ゲート通過を確認後のみ許可する。
+
+      Abortへの遷移はカテゴリ選択と理由記述（50文字以上）を必須とする。
+
+      '
+    rationale: ステータス管理によってQA活動の進捗が可視化され、品質保証プロセスの形骸化を防ぐ。
+    acceptance_criteria:
+    - criterion: タスクのステータスがToDo/InProgress/Done/Abortの4種で管理される
+      verification_method: テスト
+    - criterion: チェックリスト未完了のタスクにDone遷移ボタンが非活性状態で表示される
+      verification_method: テスト
+    - criterion: 全ステータス遷移がSQLiteに記録されJSON形式でエクスポートできる
+      verification_method: テスト
+    assumptions:
+    - ステータス管理はSQLiteのtasksテーブルで実装される
+    risks:
+    - risk_description: Done遷移のブロック条件が厳格すぎてユーザーが回避策を探す
+      probability: 中
+      impact: 高
+      mitigation: ブロック理由を具体的に表示し、未完了チェックリストへのワンクリックナビゲーションを提供する
+    derived_from: PLN-PLN-SYS_STATUS-008
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-ABORTREC-001
+    category: データ管理
+    priority: Must
+    title: Abort記録機能（4カテゴリ選択・50文字以上理由必須）
+    description: 'タスクをAbortする際は以下の4カテゴリから1つを選択し、詳細理由を50文字以上で記述する。
+
+      カテゴリ：scopeout（スコープ外）・prerequisite_missing（前提条件未確定）・
+
+      delegated（委託元で実施済）・not_applicable（今回適用不要）。
+
+      代替措置と承認者も記録できる。Abort記録はSQLiteのabort_logsテーブルに保存する。
+
+      '
+    rationale: Abortは正式な品質判断として扱い、理由の明示を必須とすることで形骸化を防ぐ。
+    acceptance_criteria:
+    - criterion: Abort実行時にカテゴリ選択（4種）と50文字以上の理由記述が必須入力となる
+      verification_method: テスト
+    - criterion: 理由が50文字未満の場合にバリデーションエラーが表示されAbortが実行されない
+      verification_method: テスト
+    - criterion: Abort記録がSQLiteに保存されJSON/YAML形式でエクスポートできる
+      verification_method: テスト
+    assumptions:
+    - Abort記録スキーマはSQLiteのabort_logsテーブルで実装される
+    risks:
+    - risk_description: 入力負荷が高くAbortが記録されないまま放置されるタスクが発生する
+      probability: 中
+      impact: 高
+      mitigation: カテゴリ選択後に理由のテンプレートテキストを自動入力し、ユーザーが修正するだけで50文字を達成できるよう支援する
+    derived_from: PLN-PLN-SYS_ABORT_PHILOSOPHY-009
+    traces_to: []
+    dependencies: []
+    notes: PLN-PLN-SYS_ABORT_CATEGORIES-010のカテゴリ4種を実装
+  - req_id: REQ-FUNC-DECLOG-001
+    category: データ管理
+    priority: Must
+    title: 判断ログ記録機能（6必須項目）
+    description: '重要な判断（設計選択・技術選定・スコープ決定等）を判断ログとして記録する。
+
+      必須項目：decided_by（判断者氏名）・decided_at（ISO8601形式日時）・
+
+      decision_summary（50文字以上の要約）・rationale（判断根拠・代替案を含む）・
+
+      evidence（参照ドキュメントID等）・importance（High/Medium/Low）。
+
+      判断ログはSQLiteのdecision_logsテーブルに保存する。
+
+      '
+    rationale: 判断根拠の記録義務により、保守時の意図不明と同一議論の繰り返しを防ぐ。
+    acceptance_criteria:
+    - criterion: 必須6項目が未入力の場合に判断ログ保存ボタンが非活性状態になる
+      verification_method: テスト
+    - criterion: decision_summaryが50文字未満の場合にバリデーションエラーが表示される
+      verification_method: テスト
+    - criterion: 保存された判断ログがJSON形式でエクスポートできる
+      verification_method: テスト
+    assumptions:
+    - 判断者名は事前登録された承認者テーブルから選択する
+    risks:
+    - risk_description: 判断ログの記録が習慣化されず重要な判断が記録漏れになる
+      probability: 中
+      impact: 高
+      mitigation: 工程完了時にCI/CDが判断ログの存在チェックを実行し、ログなし完了をブロックする
+    derived_from: PLN-PLN-SYS_TRACEABILITY_POLICY-002
+    traces_to: []
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-IDUNIQ-001
+    category: 信頼性
+    priority: Must
+    title: ID一意性保証
+    description: 'システム内で発行される全IDが一意であること。重複IDは発行されない。
+
+      id_issued_log.yamlに全発行IDが記録されており、重複チェックはissue_id.py実行時に自動実行される。
+
+      '
+    rationale: ID一意性が担保されないとトレーサビリティチェック（G5）が機能しない。
+    metrics:
+    - metric_name: ID重複発生件数
+      target_value: 0件（CI/CDで常時チェック）
+      measurement_method: CI/CDでid_issued_log.yamlの全IDを対象に重複チェックを実行し、重複IDの件数をカウントする
+      tool: verify_traceability.py
+    derived_from: PLN-PLN-SYS_ID_CONVENTION-003
+    traces_to: []
+    dependencies: []
+    notes: ''
+  constraints: []
+  data_requirements:
+    entities:
+    - entity_id: REQ-DATA-TASK-002
+      entity_name: Task
+      description: タスクチケット（L2レベル）を表すエンティティ。タスクのライフサイクルを管理する。
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: PREFIX-PHASE-PURPOSE-NNN形式の一意ID
+      - attribute_name: phase_id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 所属するL1工程ID（REQ/BAS/DET）
+      - attribute_name: title
+        data_type: string
+        required: true
+        default_value: ''
+        description: タスクの名称
+      - attribute_name: status
+        data_type: string
+        required: true
+        default_value: ToDo
+        description: 'タスクのステータス。列挙値: ToDo/InProgress/Done/Abort'
+      - attribute_name: priority
+        data_type: string
+        required: false
+        default_value: medium
+        description: 'タスクの優先度。列挙値: high/medium/low'
+      - attribute_name: created_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: タスク作成日時（ISO8601形式）
+      - attribute_name: updated_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: タスク更新日時（ISO8601形式）
+      relationships:
+      - related_entity: Phase
+        relationship_type: 1対多
+        description: タスクは1つの工程（Phase）に属する
+      - related_entity: AbortLog
+        relationship_type: 1対1
+        description: AbortステータスのタスクはAbortLogを1件持つ
+      validation_rules:
+      - rule: statusはToDo/InProgress/Done/Abortのいずれかである
+        enforcement: both
+      - rule: statusがDoneの場合はchecklistの全項目が完了状態である
+        enforcement: application
+      derived_from: PLN-PLN-SYS_LAYERS-001
+    - entity_id: REQ-DATA-ABORT-002
+      entity_name: AbortLog
+      description: タスクのAbort理由を記録するエンティティ。
+      attributes:
+      - attribute_name: id
+        data_type: string
+        required: true
+        default_value: ''
+        description: AbortログのID
+      - attribute_name: task_id
+        data_type: string
+        required: true
+        default_value: ''
+        description: 対象タスクのID
+      - attribute_name: aborted_by
+        data_type: string
+        required: true
+        default_value: ''
+        description: Abort実施者の氏名
+      - attribute_name: aborted_at
+        data_type: datetime
+        required: true
+        default_value: ''
+        description: Abort実施日時（ISO8601形式）
+      - attribute_name: reason_category
+        data_type: string
+        required: true
+        default_value: ''
+        description: 'Abort理由カテゴリ。列挙値: scopeout/prerequisite_missing/delegated/not_applicable'
+      - attribute_name: reason_detail
+        data_type: text
+        required: true
+        default_value: ''
+        description: Abort理由の詳細説明（50文字以上）
+      relationships:
+      - related_entity: Task
+        relationship_type: 1対1
+        description: AbortLogは1つのタスクに属する
+      validation_rules:
+      - rule: reason_detailは50文字以上である
+        enforcement: both
+      - rule: reason_categoryはscopeout/prerequisite_missing/delegated/not_applicableのいずれかである
+        enforcement: both
+      derived_from: PLN-PLN-SYS_ABORT_CATEGORIES-010
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-013
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-013
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-013
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-SYS_LAYERS-001
+      target_ids:
+      - REQ-FUNC-3LAYERWF-001
+      - REQ-DATA-TASK-002
+    - source_id: PLN-PLN-SYS_TRACEABILITY_POLICY-002
+      target_ids:
+      - REQ-FUNC-TRACEID-001
+      - REQ-FUNC-DECLOG-001
+    - source_id: PLN-PLN-SYS_ID_CONVENTION-003
+      target_ids:
+      - REQ-NFUNC-IDUNIQ-001
+    - source_id: PLN-PLN-SYS_STATUS-008
+      target_ids:
+      - REQ-FUNC-STATUS-002
+    - source_id: PLN-PLN-SYS_ABORT_PHILOSOPHY-009
+      target_ids:
+      - REQ-FUNC-ABORTREC-001
+    - source_id: PLN-PLN-SYS_ABORT_CATEGORIES-010
+      target_ids:
+      - REQ-DATA-ABORT-002
+    requirement_to_design:
+    - source_id: REQ-FUNC-3LAYERWF-001
+      target_ids: []
+    - source_id: REQ-FUNC-TRACEID-001
+      target_ids: []
+    - source_id: REQ-FUNC-STATUS-002
+      target_ids: []
+    - source_id: REQ-FUNC-ABORTREC-001
+      target_ids: []
+    - source_id: REQ-FUNC-DECLOG-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-3LAYERWF-001
+      target_ids: []
+    - source_id: REQ-FUNC-TRACEID-001
+      target_ids: []
+    - source_id: REQ-FUNC-STATUS-002
+      target_ids: []
+    - source_id: REQ-FUNC-ABORTREC-001
+      target_ids: []
+    - source_id: REQ-FUNC-DECLOG-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 6
+    functional: 5
+    non_functional: 1
+    constraints: 0
+    data_entities: 2
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

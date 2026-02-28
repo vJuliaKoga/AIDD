@@ -1,0 +1,226 @@
+meta:
+  artifact_id: REQ-REQ-DOC-002
+  file: req_background_and_problem_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-26 09:23
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-002
+  title: AIDD上流工程品質保証プラットフォーム — 企画背景と課題定義 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-BG-002
+  functional_requirements:
+  - req_id: REQ-FUNC-VALID-001
+    category: 品質保証
+    priority: Must
+    title: 仕様妥当性検証機能
+    description: 'システムは、AI駆動開発において生成された仕様書・設計書が
+
+      実装可能かつ検証可能な記述になっているかをチェックする機能を提供する。
+
+      曖昧語チェック（G1）・スキーマ検証（G3）・トレーサビリティ検証（G5）を
+
+      1操作で一括実行し、不合格の場合は具体的な修正箇所と理由を表示する。
+
+      '
+    rationale: 仕様と実装の乖離がテスト工数の増大（計画比2.5倍を超える案件が発生）の根本原因であるため、上流工程での仕様妥当性検証を必須とする。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: G1（曖昧語チェック）を実行し、検出数が0件であることを確認できる'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: G3（スキーマ検証）を実行し、VALIDが出力されることを確認できる'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: G5（トレーサビリティ）を実行し、derived_fromが全要件に設定済みであることを確認できる'
+      verification_method: テスト
+    assumptions:
+    - 検証対象ファイルはYAML形式で提供される
+    risks:
+    - risk_description: 新しいスキーマ変更に対してバリデーターが対応できない
+      probability: 低
+      impact: 中
+      mitigation: スキーマバージョン管理を実施し、変更時は検証ツールと同期して更新する
+    derived_from: PLN-PLN-BG_PRIMARY_GOAL-006
+    traces_to:
+    - REQ-REQ-DOC-002
+    dependencies: []
+    notes: PRD F-001, PLN-PLN-BG_CONTEXT-001 も参照
+  - req_id: REQ-FUNC-QASTR-001
+    category: 品質保証
+    priority: Must
+    title: QA観点の構造化・標準化機能
+    description: 'システムは、上流工程のQA観点をYAMLワークフローとして構造化し、
+
+      開発フェーズ（要件定義・基本設計・詳細設計）ごとにテンプレートを提供する。
+
+      テンプレートは再利用可能な形式で保存し、プロジェクト横断で共有できる。
+
+      '
+    rationale: QA観点の属人化により品質のばらつきが発生しているため、標準化されたワークフローテンプレートを提供し、誰でも同一品質のQAが実施できる状態を目指す。
+    acceptance_criteria:
+    - criterion: 要件定義・基本設計・詳細設計それぞれのワークフローテンプレートが各1種類以上存在する
+      verification_method: レビュー
+    - criterion: テンプレートを選択してワークフローを展開する操作が3クリック以内で完了する
+      verification_method: デモ
+    - criterion: テンプレートをYAML形式でエクスポートできる
+      verification_method: テスト
+    assumptions:
+    - テンプレートの初期バージョンは人手で作成する
+    risks:
+    - risk_description: テンプレートが現場の実態と乖離し使われなくなる
+      probability: 中
+      impact: 高
+      mitigation: Phase 1のパイロット時にフィードバックを収集し、テンプレートを改訂する
+    derived_from: PLN-PLN-BG_SECONDARY_GOALS-007
+    traces_to:
+    - REQ-REQ-DOC-002
+    dependencies: []
+    notes: PLN-PLN-BG_ROOT_CAUSES-004（構造化されていない知識）への対処
+  - req_id: REQ-FUNC-OBS-001
+    category: データ管理
+    priority: Should
+    title: 問題観測データ記録機能
+    description: 'システムは、AI駆動開発において観測された品質課題（仕様の不整合・設計乖離・
+
+      判断根拠の欠如等）をカテゴリ別に記録する機能を提供する。
+
+      記録したデータはKPI測定に使用し、Phase 1パイロット時に仮説値を実測値に置換する。
+
+      '
+    rationale: 品質課題の根本原因（構造化されていない知識・検証不可能な記述・トレーサビリティの欠如）を可視化するため、問題を定量的に記録・集計する機能が必要。
+    acceptance_criteria:
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 問題カテゴリ（仕様曖昧性・仕様実装乖離・QA属人化・判断根拠不在・品質不可視性）を選択して記録できる'
+      verification_method: テスト
+    - criterion: 'Given: 対象機能が利用可能である / When: 記載された操作または条件が成立する / Then: 記録された問題データをカテゴリ別に集計し、件数グラフで表示できる'
+      verification_method: デモ
+    assumptions: []
+    risks:
+    - risk_description: 記録粒度が粗すぎてKPI測定に使えない
+      probability: 低
+      impact: 中
+      mitigation: Phase 1開始前に記録フォーマットをレビューし、KPI測定要件と整合させる
+    derived_from: PLN-PLN-BG_ROOT_CAUSES-004
+    traces_to:
+    - REQ-REQ-DOC-002
+    dependencies: []
+    notes: PLN-PLN-BG_OBSERVED_PROBLEMS-002 のカテゴリ分類を参照
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-KPI-001
+    category: 測定性
+    priority: Must
+    title: KPI定量測定
+    description: 'システムは、プロジェクト品質を定量的に測定するための以下のKPIを追跡する。
+
+      Phase 1パイロットで実測値を取得し、仮説値を更新する。
+
+      '
+    rationale: 品質改善の効果を定量的に示すため、遅延率・手戻り発生率・テスト工数倍率を継続的に計測する必要がある。
+    metrics:
+    - metric_name: テスト工数倍率
+      target_value: Phase 1目標 ≤1.5倍（現状仮説値：平均2.5倍）
+      measurement_method: プロジェクト完了時に実績テスト工数 / 計画テスト工数を計算
+      tool: GitHub Actions CI/CDログ、手動集計
+    - metric_name: 手戻り発生率
+      target_value: Phase 1目標 ≤25%（現状仮説値：50%以上の案件が発生）
+      measurement_method: レビュー・テスト・運用フェーズでの設計修正件数 / 全タスク件数
+      tool: タスクチケット管理システム集計
+    derived_from: PLN-PLN-BG_METRICS-003
+    traces_to:
+    - REQ-REQ-DOC-002
+    dependencies: []
+    notes: 仮説値はPhase 1パイロットで実測値に置換する（PLN-PLN-BG_DECISION_RULES-008参照）
+  constraints:
+  - constraint_id: REQ-CONST-HYPO-001
+    type: 組織ポリシー
+    title: 仮説値の実測置換ルール
+    description: '本要件定義書に記載する工数倍率・発生率等の数値が仮説に基づく場合、
+
+      Phase 1のパイロット実施時に実測値を取得し、仮説値を実測値に置換する。
+
+      置換時は更新日時・使用データソース・更新者をログとして記録し、証跡性を担保する。
+
+      '
+    rationale: 現時点での数値は観測に基づく仮説であり、意思決定の根拠として使用する前に実測値で検証する必要がある。
+    impact: 仮説値のまま設計・開発を進めると、KPI目標の達成基準が実態に合わない可能性がある。
+    mitigation: Phase 1パイロット計画に仮説値検証タスクを明示的に含め、実測後すぐに更新できる体制を整える。
+    derived_from: PLN-PLN-BG_DECISION_RULES-008
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-002
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-002
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-002
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-BG_PRIMARY_GOAL-006
+      target_ids:
+      - REQ-FUNC-VALID-001
+    - source_id: PLN-PLN-BG_SECONDARY_GOALS-007
+      target_ids:
+      - REQ-FUNC-QASTR-001
+    - source_id: PLN-PLN-BG_ROOT_CAUSES-004
+      target_ids:
+      - REQ-FUNC-OBS-001
+    - source_id: PLN-PLN-BG_METRICS-003
+      target_ids:
+      - REQ-NFUNC-KPI-001
+    - source_id: PLN-PLN-BG_DECISION_RULES-008
+      target_ids:
+      - REQ-CONST-HYPO-001
+    requirement_to_design:
+    - source_id: REQ-FUNC-VALID-001
+      target_ids: []
+    - source_id: REQ-FUNC-QASTR-001
+      target_ids: []
+    - source_id: REQ-FUNC-OBS-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-VALID-001
+      target_ids: []
+    - source_id: REQ-FUNC-QASTR-001
+      target_ids: []
+    - source_id: REQ-FUNC-OBS-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 5
+    functional: 3
+    non_functional: 1
+    constraints: 1
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

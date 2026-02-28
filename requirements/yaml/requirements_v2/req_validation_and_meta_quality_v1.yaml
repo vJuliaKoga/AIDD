@@ -1,0 +1,291 @@
+meta:
+  artifact_id: REQ-REQ-DOC-014
+  file: req_validation_and_meta_quality_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-014
+  title: AIDD上流工程品質保証プラットフォーム — 検証可能性の担保（自己実証含む） 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-VALID-011
+  functional_requirements:
+  - req_id: REQ-FUNC-CICDPIPELINE-001
+    category: 自動化
+    priority: Must
+    title: CI/CDパイプライン実装（自動検証8項目統合）
+    description: 'GitHub Actionsで以下8項目の自動検証をCI/CDパイプラインとして実装する。
+
+      1. YAML/JSON構文検証
+
+      2. JSON Schemaスキーマ検証（validate_req.py / ajv）
+
+      3. 曖昧語チェック（ambiguous_checker.py）
+
+      4. Deep Eval評価（スコア閾値0.8判定）
+
+      5. Promptfoo評価（PRマージ時のみ）
+
+      6. トレーサビリティチェック（verify_traceability.py）
+
+      7. Allure Report生成と公開
+
+      8. スコア推移記録
+
+      PRマージ時に全項目が自動実行され、いずれかが不合格の場合はマージをブロックする。
+
+      '
+    rationale: CI/CDによる自動検証を実装することで、提案する品質保証手法の機械的動作を実証する。
+    acceptance_criteria:
+    - criterion: PRマージ時に上記8項目の自動検証がGitHub Actionsで実行される
+      verification_method: テスト
+    - criterion: いずれかの検証が不合格の場合にPRマージがブロックされエラー内容が出力される
+      verification_method: テスト
+    - criterion: 全検証合格後にAllure Reportが自動生成されGitHub Pagesで公開される
+      verification_method: デモ
+    assumptions:
+    - GitHub ActionsのPUBLIC REPOSITORY無料枠を使用する
+    risks:
+    - risk_description: CI/CDの実行時間が長くなりフィードバックが遅延する
+      probability: 中
+      impact: 中
+      mitigation: 軽量チェック（構文検証・曖昧語チェック）をジョブ並列化し、重いチェック（Deep Eval）はPRマージ時のみ実行する
+    derived_from: PLN-PLN-VALID_CICD_PIPELINE-007
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-DEPLOYBLOCK-001
+    category: 品質保証
+    priority: Must
+    title: デプロイブロック機能（全ゲートPASS必須・override禁止）
+    description: '以下のデプロイ条件を全て満たす場合のみデプロイを許可する。
+
+      - 構文検証: PASS
+
+      - 曖昧語チェック: 検出数 = 0件
+
+      - JSON Schemaスキーマ検証: 通過率 = 100%
+
+      - Deep Eval Score: ≥ 0.8
+
+      - トレーサビリティ: ≥ 95%
+
+      条件を満たさない場合はデプロイをブロックし、修正ガイドを表示する。
+
+      override（条件未達での強制デプロイ）は実装しない。
+
+      '
+    rationale: override禁止によりデプロイブロックの形骸化を防ぎ、品質ゲートの実効性を担保する。
+    acceptance_criteria:
+    - criterion: 上記5条件が全てPASSの場合のみデプロイが実行される
+      verification_method: テスト
+    - criterion: いずれかの条件が不合格の場合にデプロイがブロックされ不合格内容と修正ガイドが表示される
+      verification_method: テスト
+    - criterion: override機能（強制デプロイ）がUIにもAPIにも存在しない
+      verification_method: レビュー
+    assumptions:
+    - デプロイはGitHub Actionsのworkflow_dispatchまたは自動トリガーで実行される
+    risks:
+    - risk_description: 緊急修正が必要な場面でデプロイブロックが業務を停止させる
+      probability: 低
+      impact: 高
+      mitigation: 緊急時の対処フロー（手動でPASSを確認してからデプロイする手順）をREADMEに明記する。overrideは実装しない
+    derived_from: PLN-PLN-VALID_DEPLOYMENT_GATE-008
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-WFVALIDATION-001
+    category: 検証
+    priority: Must
+    title: ワークフロー定義妥当性自動検証機能
+    description: '手動作成の要件定義ワークフロー（YAML）を入力として、同じ構造で基本設計・詳細設計ワークフローを
+
+      生成させ、JSON Schemaスキーマ検証で構造一貫性を自動検証する。
+
+      必須フィールド・ID規則・階層の深さ等の構造一貫性をスキーマ検証で確認する。
+
+      手動作成と自動生成で同一のUIレンダリングが得られることを確認する。
+
+      '
+    rationale: メタ品質保証「提案する品質保証手法を、このアプリの開発に適用する」を具現化する。
+    acceptance_criteria:
+    - criterion: 手動作成ワークフローのスキーマ検証がVALIDを返す
+      verification_method: テスト
+    - criterion: 手動作成ワークフローを入力としてAI生成したワークフローのスキーマ検証がVALIDを返す
+      verification_method: テスト
+    - criterion: 手動作成と自動生成のワークフローが同一のUIコンポーネントでレンダリングされる
+      verification_method: デモ
+    assumptions:
+    - ワークフロー生成にはOpenAI APIを使用する
+    risks:
+    - risk_description: AI生成ワークフローがスキーマ検証を通過しない
+      probability: 中
+      impact: 中
+      mitigation: スキーマ定義をプロンプトに含め、生成後に自動検証して不合格時は再生成するフローを実装する
+    derived_from: PLN-PLN-VALID_WORKFLOW_VALIDATION-003
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-CONTENTQUAL-001
+    category: 品質保証
+    priority: Should
+    title: テンプレート・チェックリスト・プロンプト品質管理機能
+    description: 'テンプレート・チェックリスト・プロンプトの各品質基準を満たしたコンテンツのみを格納する。
+
+      テンプレート：使用時のDeep Evalスコア ≥ 0.8かつ複数ユースケースで再利用可能。
+
+      チェックリスト：各項目がYes/No判定可能かつMECE構造。
+
+      プロンプト：Promptfooスコア ≥ 0.8かつ期待出力形式と制約条件を明記したもの。
+
+      品質基準を満たさないコンテンツは格納を拒否する。
+
+      '
+    rationale: コンテンツの品質基準を事前に定義することで、品質ゲートの有効性を担保するコンテンツを提供できる。
+    acceptance_criteria:
+    - criterion: Deep Evalスコア < 0.8のテンプレートを格納しようとした場合にエラーが返却される
+      verification_method: テスト
+    - criterion: Promptfooスコア < 0.8のプロンプトを格納しようとした場合にエラーが返却される
+      verification_method: テスト
+    assumptions:
+    - コンテンツの品質評価は格納前のCI/CDで自動実行される
+    risks:
+    - risk_description: 品質評価コストが高く頻繁なコンテンツ更新が困難になる
+      probability: 中
+      impact: 中
+      mitigation: 評価はPRマージ時のみ実行し、開発中の頻繁なローカルテストには評価をスキップするオプションを提供する
+    derived_from: PLN-PLN-VALID_CONTENT_QUALITY-005
+    traces_to: []
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-WFSCHEMPASS-001
+    category: 信頼性
+    priority: Must
+    title: ワークフロー生成スキーマ検証通過率100%
+    description: 'システムが出力・格納するワークフローYAMLのJSON Schemaスキーマ検証通過率が100%であること。
+
+      スキーマ違反のワークフローはシステムに格納されない。
+
+      '
+    rationale: メタ品質保証の証跡として、自動生成ワークフローの構造正確性を定量的に示す必要がある。
+    metrics:
+    - metric_name: ワークフロースキーマ検証通過率
+      target_value: 100%（直近100件の検証結果に対して）
+      measurement_method: CI/CDでvalidate_req.pyを実行し、格納された全ワークフローのスキーマ検証通過率を算出する
+      tool: validate_req.py（ajv）
+    derived_from: PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-NFUNC-TPLSCORE-001
+    category: 性能
+    priority: Must
+    title: テンプレートDeep Evalスコア（≥0.8）
+    description: 'システムに格納される全テンプレートのDeep Evalスコアが0.8以上であること。
+
+      スコアが0.8未満のテンプレートはシステムに格納されない。
+
+      改善サイクルの頻度はプロジェクト終了時ごとに実施する。
+
+      '
+    rationale: テンプレートの品質を定量的に保証することで、品質ゲートへの入力品質を担保する。
+    metrics:
+    - metric_name: テンプレートDeep Evalスコア
+      target_value: ≥0.8（全格納テンプレートに対して）
+      measurement_method: テンプレート格納前にCI/CDでDeep Eval評価を実行し、スコアを確認する
+      tool: Deep Eval
+    derived_from: PLN-PLN-VALID_CONTENT_QUALITY-005
+    traces_to: []
+    dependencies: []
+    notes: ''
+  constraints: []
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-014
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-014
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-014
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-VALID_META_QA-002
+      target_ids: []
+    - source_id: PLN-PLN-VALID_WORKFLOW_VALIDATION-003
+      target_ids:
+      - REQ-FUNC-WFVALIDATION-001
+    - source_id: PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004
+      target_ids:
+      - REQ-NFUNC-WFSCHEMPASS-001
+    - source_id: PLN-PLN-VALID_CONTENT_QUALITY-005
+      target_ids:
+      - REQ-FUNC-CONTENTQUAL-001
+      - REQ-NFUNC-TPLSCORE-001
+    - source_id: PLN-PLN-VALID_CICD_PIPELINE-007
+      target_ids:
+      - REQ-FUNC-CICDPIPELINE-001
+    - source_id: PLN-PLN-VALID_DEPLOYMENT_GATE-008
+      target_ids:
+      - REQ-FUNC-DEPLOYBLOCK-001
+    requirement_to_design:
+    - source_id: REQ-FUNC-CICDPIPELINE-001
+      target_ids: []
+    - source_id: REQ-FUNC-DEPLOYBLOCK-001
+      target_ids: []
+    - source_id: REQ-FUNC-WFVALIDATION-001
+      target_ids: []
+    - source_id: REQ-FUNC-CONTENTQUAL-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-CICDPIPELINE-001
+      target_ids: []
+    - source_id: REQ-FUNC-DEPLOYBLOCK-001
+      target_ids: []
+    - source_id: REQ-FUNC-WFVALIDATION-001
+      target_ids: []
+    - source_id: REQ-FUNC-CONTENTQUAL-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 6
+    functional: 4
+    non_functional: 2
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING

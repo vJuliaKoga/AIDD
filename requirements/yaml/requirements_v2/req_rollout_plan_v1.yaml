@@ -1,0 +1,228 @@
+meta:
+  artifact_id: REQ-REQ-DOC-012
+  file: req_rollout_plan_v1.yaml
+  author: 古賀
+  source_type: hybrid
+  prompt_id: PRM-REQ-YAML-002
+  model: claude-sonnet-4-6
+  timestamp: "2026-02-27"
+  content_hash: PENDING
+requirements_document:
+  doc_id: REQ-REQ-DOC-012
+  title: AIDD上流工程品質保証プラットフォーム — 段階的導入戦略と展開計画 要件定義書
+  version: '1.0'
+  status: draft
+  derived_from: PLN-PLN-ROLL-010
+  functional_requirements:
+  - req_id: REQ-FUNC-PHASE0ROLLOUT-001
+    category: 品質保証
+    priority: Must
+    title: Phase 0完成機能一式の実装（仕様書妥当性評価起点）
+    description: 'Phase 0として仕様書妥当性評価機能を最初に完成させる。
+
+      現場で最も問題となっている「仕様書と実UIの乖離」への対処として、
+
+      曖昧語チェック・受入基準の検証可能性確認・UI統一性チェックを実施する機能を提供する。
+
+      Phase 0完了後にPhase 1（現場パイロット）へ移行する。
+
+      '
+    rationale: 現場導入の最大ブロッカー「仕様書と実UIの乖離」から着手することで、導入効果を1週間以内に実感できる。
+    acceptance_criteria:
+    - criterion: 仕様書に対して曖昧語チェック・受入基準の検証可能性確認・UI統一性チェックが1操作で実行できる
+      verification_method: デモ
+    - criterion: チェック結果が不合格の場合に不合格箇所と修正ガイドが表示される
+      verification_method: テスト
+    assumptions:
+    - Phase 0はサンプルプロジェクトとしての完成を優先する
+    risks:
+    - risk_description: Phase 0完成前にPhase 1の要求が発生し、優先度が混乱する
+      probability: 低
+      impact: 中
+      mitigation: Phase 0完了基準を明確に定義し、完了前はPhase 1機能の実装を開始しない
+    derived_from: PLN-PLN-ROLL_BLOCKER-001
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-PROCINTEG-001
+    category: 品質保証
+    priority: Should
+    title: 既存プロセスへの統合ポイント提供（3フェーズ分）
+    description: '要件定義・設計・テストの既存プロセスに対して、以下の統合ポイントを提供する。
+
+      要件定義フェーズ：「要件定義書作成 → 品質ゲート実行 → レビュー → 承認」のフローを提示。
+
+      設計フェーズ：「設計書作成 → 構造一貫性チェック → レビュー → 承認」のフローを提示。
+
+      テストフェーズ：「トレーサビリティ確認 → テスト設計 → 実施 → バグ報告」のフローを提示。
+
+      各フェーズの統合後のフロー定義をYAML形式でエクスポートできる。
+
+      '
+    rationale: 既存プロセスへの統合ポイントを明示することで、現場での採用障壁を下げる。
+    acceptance_criteria:
+    - criterion: 3フェーズ分の統合後フロー定義がYAML形式でエクスポートできる
+      verification_method: テスト
+    - criterion: 統合前後のフローをUI上で比較表示できる
+      verification_method: デモ
+    assumptions:
+    - 統合ポイントの定義は人手で作成し、システムに格納する
+    risks:
+    - risk_description: 既存プロセスが組織ごとに異なり、汎用的な統合ポイントが提供できない
+      probability: 中
+      impact: 中
+      mitigation: 統合ポイントをカスタマイズ可能な形式で提供し、組織固有のフローに対応できるよう設計する
+    derived_from: PLN-PLN-ROLL_PROCESS_INTEGRATION-007
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-FUNC-ONBOARD-001
+    category: UI/UX
+    priority: Should
+    title: オンボーディング・チュートリアル機能
+    description: '新規ユーザーが本システムのQA手法を2時間以内に習得できるチュートリアルを提供する。
+
+      内容：シンプルなTodoアプリを題材に、要件YAML化→曖昧語チェック→トレーサビリティ→ゲート通過の手順を体験する。
+
+      チュートリアルはドキュメントとして提供し、クイックスタート・品質ゲート解説・トラブルシューティング・ベストプラクティス集を含む。
+
+      '
+    rationale: 学習コストを定量的に制限することで、Phase 1パイロット時の新規ユーザーの習熟を支援する。
+    acceptance_criteria:
+    - criterion: クイックスタートドキュメントに従いTodoアプリの要件YAMLを2時間以内に品質ゲート通過させられる
+      verification_method: デモ
+    - criterion: クイックスタート・品質ゲート解説・トラブルシューティング・ベストプラクティスの4種のドキュメントが存在する
+      verification_method: レビュー
+    assumptions:
+    - チュートリアルはJSON/YAMLの読み書きスキルを持つエンジニアを対象とする
+    risks:
+    - risk_description: チュートリアルが陳腐化してシステムの最新仕様と乖離する
+      probability: 中
+      impact: 中
+      mitigation: チュートリアルをGit管理してシステム変更時に同時更新するルールを運用ルールとして定義する
+    derived_from: PLN-PLN-ROLL_ONBOARDING-009
+    traces_to: []
+    dependencies: []
+    notes: ''
+  non_functional_requirements:
+  - req_id: REQ-NFUNC-PHASE1EFFECT-001
+    category: 測定性
+    priority: Should
+    title: Phase 1効果可視化期間（1週間以内）
+    description: 'Phase 1パイロット開始から1週間以内に仕様書起因バグ削減効果を定量的に確認できること。
+
+      測定対象：バグチケットの原因分析でカテゴリ分類された仕様書起因バグの件数。
+
+      Phase 1目標：仕様書起因バグを対象期間比で20%以上削減。
+
+      '
+    rationale: 導入の即効性を定量的に示すことで、Phase 2以降への継続展開の根拠を得る。
+    metrics:
+    - metric_name: Phase 1開始からの効果確認期間
+      target_value: ≤7日（パイロット開始日から仕様書起因バグ削減効果の計測結果が得られるまで）
+      measurement_method: パイロット開始日から7日後にバグチケット分析を実施し、仕様書起因バグの件数を計測する
+      tool: タスクチケット管理システム
+    derived_from: PLN-PLN-ROLL_PHASE1_METRICS-004
+    traces_to: []
+    dependencies: []
+    notes: ''
+  - req_id: REQ-NFUNC-WORKFLOWCHANGE-001
+    category: 保守性
+    priority: Should
+    title: 既存ワークフロー変更ノード数制限（3個以内）
+    description: 'Phase 1で既存ワークフローに追加する判断ノードとタスクノードの合計を3個以内とする。
+
+      変更量の測定は改修前後のBPMN図差分でノード増分をカウントする方法で実施する。
+
+      3個以内であることを確認してからPhase 1の現場導入を開始する。
+
+      '
+    rationale: 現場への導入障壁を最小化するために、既存プロセスへの変更量を定量的に制限する。
+    metrics:
+    - metric_name: 追加ノード数（判断ノード + タスクノードの合計）
+      target_value: ≤3個（改修前後のBPMN図差分で計測）
+      measurement_method: Phase 1導入前後のBPMN図差分を比較し、追加された判断ノードとタスクノードの合計を計算する
+      tool: 手動計測（BPMNダイアグラムツール）
+    derived_from: PLN-PLN-ROLL_PHASE1_METRICS-004
+    traces_to: []
+    dependencies: []
+    notes: PLN-PLN-ROLL_NODE_COUNT_RULE-006のカウント方法に従う
+  constraints: []
+  data_requirements:
+    entities: []
+  integration_requirements: []
+  quality_gates:
+  - gate_id: REQ-QG-G1-012
+    phase: 要件定義（本ファイル）
+    title: G1 曖昧語チェック
+    conditions:
+    - condition: 本ファイル内の全テキストフィールドに曖昧語が検出されない
+      automated: true
+      tool: ambiguous_checker.py
+    blocking: true
+    pass_criteria: 曖昧語検出数 = 0件
+    derived_from: PLN-PLN-QA_GATES-002
+    gate_exempt:
+    - G1
+  - gate_id: REQ-QG-G3-012
+    phase: 要件定義（本ファイル）
+    title: G3 スキーマ検証
+    conditions:
+    - condition: 本ファイルがreq.schema.jsonのスキーマ定義に完全準拠している
+      automated: true
+      tool: validate_req.py
+    blocking: true
+    pass_criteria: validate_req.py の出力にVALIDを含む
+    derived_from: PLN-PLN-QA_GATES-002
+  - gate_id: REQ-QG-G5-012
+    phase: 要件定義（本ファイル）
+    title: G5 トレーサビリティチェック
+    conditions:
+    - condition: 全要件のderived_fromに企画書IDが設定されており、参照先が実在する
+      automated: true
+      tool: verify_traceability.py
+    blocking: true
+    pass_criteria: verify_traceability.py check でBroken links = 0かつPending derived = 0
+    derived_from: PLN-PLN-QA_GATES-002
+  traceability:
+    concept_to_requirement:
+    - source_id: PLN-PLN-ROLL_BLOCKER-001
+      target_ids:
+      - REQ-FUNC-PHASE0ROLLOUT-001
+    - source_id: PLN-PLN-ROLL_PHASES-002
+      target_ids: []
+    - source_id: PLN-PLN-ROLL_PHASE1_METRICS-004
+      target_ids:
+      - REQ-NFUNC-PHASE1EFFECT-001
+      - REQ-NFUNC-WORKFLOWCHANGE-001
+    - source_id: PLN-PLN-ROLL_PROCESS_INTEGRATION-007
+      target_ids:
+      - REQ-FUNC-PROCINTEG-001
+    - source_id: PLN-PLN-ROLL_ONBOARDING-009
+      target_ids:
+      - REQ-FUNC-ONBOARD-001
+    requirement_to_design:
+    - source_id: REQ-FUNC-PHASE0ROLLOUT-001
+      target_ids: []
+    - source_id: REQ-FUNC-PROCINTEG-001
+      target_ids: []
+    - source_id: REQ-FUNC-ONBOARD-001
+      target_ids: []
+    requirement_to_test:
+    - source_id: REQ-FUNC-PHASE0ROLLOUT-001
+      target_ids: []
+    - source_id: REQ-FUNC-PROCINTEG-001
+      target_ids: []
+    - source_id: REQ-FUNC-ONBOARD-001
+      target_ids: []
+  validation_summary:
+    total_requirements: 5
+    functional: 3
+    non_functional: 2
+    constraints: 0
+    data_entities: 0
+    integrations: 0
+    quality_gates: 3
+    ambiguous_terms_count: PENDING
+    coverage_ratio: PENDING
+    traceability_completeness: PENDING
