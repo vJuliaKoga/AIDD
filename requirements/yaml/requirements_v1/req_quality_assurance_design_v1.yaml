@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-010
   file: req_quality_assurance_design_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-010
   title: AIDD上流工程品質保証プラットフォーム — 品質保証の核心設計 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-QA-007
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-G1AUTO-001
       category: 自動化
       priority: Must
       title: G1 曖昧語チェック自動実行機能
@@ -46,7 +46,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-G2VERIFY-001
       category: 検証
       priority: Must
       title: G2 検証可能性チェック機能
@@ -67,13 +67,13 @@ requirements_document:
         - risk_description: 定量値の定義基準が曖昧でG2チェックが機能しない
           probability: 低
           impact: 中
-          mitigation: target_valueのフォーマット基準（例: ≤200ms、≥99.9%、=0件等）をドキュメントに明記する
+          mitigation: target_valueのフォーマット基準（例：≤200ms、≥99.9%、=0件等）をドキュメントに明記する
       derived_from: PLN-PLN-QA_GATES-002
       traces_to: []
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-G3SCHEMA-001
       category: 自動化
       priority: Must
       title: G3 JSON Schemaスキーマ検証機能
@@ -101,7 +101,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-G4DEEPEVAL-001
       category: 自動化
       priority: Must
       title: G4 Deep Eval AI品質評価機能
@@ -130,7 +130,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-G5TRACE-001
       category: 自動化
       priority: Must
       title: G5 トレーサビリティ自動検証機能
@@ -159,7 +159,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-ABORTQUAL-001
       category: 自動化
       priority: Must
       title: Abort理由記述品質強制機能（4カテゴリ・50文字以上）
@@ -185,7 +185,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-DATAINTEG-001
       category: 自動化
       priority: Should
       title: CI/CDデータ整合性自動チェック機能（5種チェック）
@@ -213,7 +213,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-QADEGALT-001
       category: 自動化
       priority: Should
       title: 品質劣化自動アラート機能
@@ -242,7 +242,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-EVALSCORE-001
       category: 性能
       priority: Must
       title: Deep Eval評価スコア閾値（≥0.8）
@@ -262,7 +262,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-PROMTFOOSCORE-001
       category: 性能
       priority: Should
       title: Promptfoo評価スコア閾値（≥0.8）
@@ -281,7 +281,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-SCHEMAPASS-001
       category: 性能
       priority: Must
       title: スキーマ検証通過率100%
@@ -299,7 +299,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-AMBZERO-001
       category: 性能
       priority: Must
       title: 曖昧語検出数ゼロ
@@ -325,7 +325,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-010
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -338,7 +338,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-010
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -349,7 +349,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-010
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -365,24 +365,52 @@ requirements_document:
       - source_id: PLN-PLN-QA_GATE_PHILOSOPHY-001
         target_ids: []
       - source_id: PLN-PLN-QA_GATES-002
-        target_ids: []
+        target_ids: [REQ-FUNC-G1AUTO-001, REQ-FUNC-G2VERIFY-001, REQ-FUNC-G3SCHEMA-001, REQ-FUNC-G5TRACE-001, REQ-NFUNC-SCHEMAPASS-001, REQ-NFUNC-AMBZERO-001]
       - source_id: PLN-PLN-QA_DEEPEVAL_THRESHOLD-003
-        target_ids: []
+        target_ids: [REQ-FUNC-G4DEEPEVAL-001, REQ-NFUNC-EVALSCORE-001]
       - source_id: PLN-PLN-QA_MANDATORY_CHECKS-004
         target_ids: []
       - source_id: PLN-PLN-QA_DATA_QUALITY_ABORT-007
-        target_ids: []
+        target_ids: [REQ-FUNC-ABORTQUAL-001]
       - source_id: PLN-PLN-QA_DATA_QUALITY_CHECKS-009
-        target_ids: []
+        target_ids: [REQ-FUNC-DATAINTEG-001]
       - source_id: PLN-PLN-QA_DEGRADATION_DETECTION-011
-        target_ids: []
+        target_ids: [REQ-FUNC-QADEGALT-001]
       - source_id: PLN-PLN-QA_PROMPTFOO-012
-        target_ids: []
+        target_ids: [REQ-NFUNC-PROMTFOOSCORE-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-G1AUTO-001
+        target_ids: []
+      - source_id: REQ-FUNC-G2VERIFY-001
+        target_ids: []
+      - source_id: REQ-FUNC-G3SCHEMA-001
+        target_ids: []
+      - source_id: REQ-FUNC-G4DEEPEVAL-001
+        target_ids: []
+      - source_id: REQ-FUNC-G5TRACE-001
+        target_ids: []
+      - source_id: REQ-FUNC-ABORTQUAL-001
+        target_ids: []
+      - source_id: REQ-FUNC-DATAINTEG-001
+        target_ids: []
+      - source_id: REQ-FUNC-QADEGALT-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-G1AUTO-001
+        target_ids: []
+      - source_id: REQ-FUNC-G2VERIFY-001
+        target_ids: []
+      - source_id: REQ-FUNC-G3SCHEMA-001
+        target_ids: []
+      - source_id: REQ-FUNC-G4DEEPEVAL-001
+        target_ids: []
+      - source_id: REQ-FUNC-G5TRACE-001
+        target_ids: []
+      - source_id: REQ-FUNC-ABORTQUAL-001
+        target_ids: []
+      - source_id: REQ-FUNC-DATAINTEG-001
+        target_ids: []
+      - source_id: REQ-FUNC-QADEGALT-001
         target_ids: []
 
   validation_summary:

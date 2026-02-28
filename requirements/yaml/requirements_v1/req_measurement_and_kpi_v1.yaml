@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-008
   file: req_measurement_and_kpi_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-008
   title: AIDD上流工程品質保証プラットフォーム — 成果測定と効果検証 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-MEASURE-012
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-KPITRACK-001
       category: データ管理
       priority: Must
       title: 定量的指標追跡・記録機能（7種類の指標）
@@ -50,7 +50,7 @@ requirements_document:
       dependencies: []
       notes: QA工数はむしろ増加することが想定されており、増加そのものを問題視しない
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-QPROOF-001
       category: 可視化
       priority: Must
       title: 品質証跡自動生成機能（CI/CDログ・Allure Report公開）
@@ -81,7 +81,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-GATEPASS-001
       category: 測定性
       priority: Must
       title: 品質ゲート通過率目標（≥85%）
@@ -100,7 +100,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-STABLE-002
       category: 測定性
       priority: Should
       title: Deep Eval安定性目標（標準偏差σ < 0.1）
@@ -119,7 +119,7 @@ requirements_document:
       dependencies: []
       notes: 現実的期待値σ < 0.1を目標とし、達成目標はσ < 0.05
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-BUGREDUCE-001
       category: 測定性
       priority: Should
       title: Phase 1仕様書起因バグ削減目標（≥20%）
@@ -146,7 +146,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-008
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -159,7 +159,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-008
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -170,7 +170,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-008
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -184,16 +184,20 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-MEASURE_METRICS_TABLE-001
-        target_ids: []
+        target_ids: [REQ-FUNC-KPITRACK-001, REQ-NFUNC-GATEPASS-001, REQ-NFUNC-STABLE-002, REQ-NFUNC-BUGREDUCE-001]
       - source_id: PLN-PLN-MEASURE_QA_EFFORT_ASSUMPTION-002
         target_ids: []
       - source_id: PLN-PLN-MEASURE_PROOF_STRUCTURE-005
-        target_ids: []
+        target_ids: [REQ-FUNC-QPROOF-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-KPITRACK-001
+        target_ids: []
+      - source_id: REQ-FUNC-QPROOF-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-KPITRACK-001
+        target_ids: []
+      - source_id: REQ-FUNC-QPROOF-001
         target_ids: []
 
   validation_summary:

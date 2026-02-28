@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-007
   file: req_glossary_and_constraints_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-007
   title: AIDD上流工程品質保証プラットフォーム — 用語定義と前提条件 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-TERM-004
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-SCOPEIN-001
       category: 品質保証
       priority: Must
       title: スコープ内全機能の実装完了
@@ -45,7 +45,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-SCOPEOUT-001
       category: 品質保証
       priority: Must
       title: スコープ外機能の意図的非実装
@@ -75,7 +75,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-BROWSER-001
       category: 可用性
       priority: Must
       title: 対応ブラウザ動作保証（Edge・Chrome）
@@ -93,7 +93,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-WINDOWS-001
       category: 保守性
       priority: Must
       title: Windows環境での動作保証
@@ -113,7 +113,7 @@ requirements_document:
       notes: ''
 
   constraints:
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-AI-002
       type: 技術的制約
       title: AI基盤制約（OpenAI APIのみ使用可能）
       description: |
@@ -125,7 +125,7 @@ requirements_document:
       mitigation: 将来的なマルチモデル対応を考慮したインターフェース設計を行い、OpenAI APIクライアントを抽象化層で包む。
       derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-OS-002
       type: 技術的制約
       title: OS環境制約（Windows専用）
       description: |
@@ -137,7 +137,7 @@ requirements_document:
       mitigation: Windows Subsystem for Linux（WSL2）環境での動作を将来確認し、コンテナ化を検討する。
       derived_from: PLN-PLN-TERM_TECH_CONSTRAINTS-002
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-SKILL-002
       type: 技術的制約
       title: ユーザースキル前提制約（JSON/YAML読み書き必須）
       description: |
@@ -148,7 +148,7 @@ requirements_document:
       mitigation: GUIによる補助機能とエラーメッセージの充実を図り、JSON/YAML編集を最小限に抑えるUIを設計する。
       derived_from: PLN-PLN-TERM_USER_CONSTRAINTS-004
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-COST-002
       type: ビジネス制約
       title: 月額予算制約（10万円以内）
       description: |
@@ -159,7 +159,7 @@ requirements_document:
       mitigation: OSSの最大活用（GitHub Actions無料枠・SQLite・Allure Report OSSを使用）し、OpenAI APIコストをコールバック数制御で管理する。
       derived_from: PLN-PLN-TERM_PROJECT_CONSTRAINTS-003
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-TEAM-002
       type: 組織ポリシー
       title: 1人開発体制制約
       description: |
@@ -176,7 +176,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-007
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -189,7 +189,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-007
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -200,7 +200,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-007
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -216,20 +216,24 @@ requirements_document:
       - source_id: PLN-PLN-TERM_GLOSSARY-001
         target_ids: []
       - source_id: PLN-PLN-TERM_TECH_CONSTRAINTS-002
-        target_ids: []
+        target_ids: [REQ-NFUNC-BROWSER-001, REQ-NFUNC-WINDOWS-001, REQ-CONST-AI-002, REQ-CONST-OS-002, REQ-CONST-TEAM-002]
       - source_id: PLN-PLN-TERM_PROJECT_CONSTRAINTS-003
-        target_ids: []
+        target_ids: [REQ-CONST-COST-002]
       - source_id: PLN-PLN-TERM_USER_CONSTRAINTS-004
-        target_ids: []
+        target_ids: [REQ-CONST-SKILL-002]
       - source_id: PLN-PLN-TERM_SCOPE_IN-005
-        target_ids: []
+        target_ids: [REQ-FUNC-SCOPEIN-001]
       - source_id: PLN-PLN-TERM_SCOPE_OUT-006
-        target_ids: []
+        target_ids: [REQ-FUNC-SCOPEOUT-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-SCOPEIN-001
+        target_ids: []
+      - source_id: REQ-FUNC-SCOPEOUT-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-SCOPEIN-001
+        target_ids: []
+      - source_id: REQ-FUNC-SCOPEOUT-001
         target_ids: []
 
   validation_summary:

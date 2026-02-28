@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-003
   file: req_architecture_and_ui_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-003
   title: AIDD上流工程品質保証プラットフォーム — アーキテクチャとUI設計 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-ARCH-008
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-UIVITEST-001
       category: 検証
       priority: Should
       title: UI統一性自動検証機能（Visual Regression Testing）
@@ -44,7 +44,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-RTWARN-001
       category: UI/UX
       priority: Must
       title: リアルタイム誤り検知・警告機能（6種エラーパターン）
@@ -80,7 +80,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PROGDISC-001
       category: UI/UX
       priority: Should
       title: 段階的情報開示機能（初心者/熟練者モード切替）
@@ -109,7 +109,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-AUTOBACKUP-001
       category: データ管理
       priority: Must
       title: 自動バックアップ機能（毎日深夜2時実行）
@@ -138,7 +138,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-TECHSTACK-001
       category: 保守性
       priority: Must
       title: 技術スタック準拠（フロントエンド/バックエンド）
@@ -158,7 +158,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-RTO-001
       category: 可用性
       priority: Must
       title: リカバリ時間目標（レベル別）
@@ -183,7 +183,7 @@ requirements_document:
       notes: ''
 
   constraints:
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-TECHFREEZE-001
       type: 技術的制約
       title: 規定技術スタック変更禁止（Phase 0期間中）
       description: |
@@ -200,7 +200,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-003
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -213,7 +213,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-003
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -224,7 +224,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-003
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -240,22 +240,34 @@ requirements_document:
       - source_id: PLN-PLN-ARCH_UI_QA_PURPOSE-001
         target_ids: []
       - source_id: PLN-PLN-ARCH_UI_STANDARDIZATION_TARGETS-002
-        target_ids: []
+        target_ids: [REQ-FUNC-UIVITEST-001]
       - source_id: PLN-PLN-ARCH_INTERACTION_WARNINGS-004
-        target_ids: []
+        target_ids: [REQ-FUNC-RTWARN-001]
       - source_id: PLN-PLN-ARCH_PROGRESSIVE_DISCLOSURE-005
-        target_ids: []
+        target_ids: [REQ-FUNC-PROGDISC-001]
       - source_id: PLN-PLN-ARCH_TECH_STACK-006
-        target_ids: []
+        target_ids: [REQ-NFUNC-TECHSTACK-001, REQ-CONST-TECHFREEZE-001]
       - source_id: PLN-PLN-ARCH_BACKUP_POLICY-008
-        target_ids: []
+        target_ids: [REQ-FUNC-AUTOBACKUP-001]
       - source_id: PLN-PLN-ARCH_RECOVERY_PROCEDURES-009
-        target_ids: []
+        target_ids: [REQ-NFUNC-RTO-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-UIVITEST-001
+        target_ids: []
+      - source_id: REQ-FUNC-RTWARN-001
+        target_ids: []
+      - source_id: REQ-FUNC-PROGDISC-001
+        target_ids: []
+      - source_id: REQ-FUNC-AUTOBACKUP-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-UIVITEST-001
+        target_ids: []
+      - source_id: REQ-FUNC-RTWARN-001
+        target_ids: []
+      - source_id: REQ-FUNC-PROGDISC-001
+        target_ids: []
+      - source_id: REQ-FUNC-AUTOBACKUP-001
         target_ids: []
 
   validation_summary:

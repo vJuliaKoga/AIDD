@@ -1,0 +1,393 @@
+meta:
+  schema_version: "1.0.0"
+  checklist_id: QA4AIDD-REQ-CHECKLIST-001
+  title: AIDD要件妥当性チェックリスト
+  description: |
+    AI駆動開発における上流工程品質保証のための要件検証チェックリスト。
+    人間レビューおよびDeep Eval双方での使用を想定。
+  evaluation_mode:
+    - human_review
+    - deep_eval
+  scoring:
+    scale: 3  # 0: No/不適合, 1: 部分的, 2: Yes/適合
+    pass_threshold: 0.7  # 70%以上で合格
+
+# ===== 対象要件メタデータ =====
+target:
+  requirement_id: ""
+  requirement_name: ""
+  target_role: 
+    enum: [user, admin, viewer, system, other]
+    value: ""
+  priority: 
+    enum: [A, B, C]
+    value: ""
+  review_date: ""
+  reviewer: ""
+  requirement_body: ""
+
+# ===== チェック項目定義 =====
+categories:
+
+  # ---------- 1. 目的整合性（Why） ----------
+  - id: CAT-01
+    name: 目的整合性
+    name_en: purpose_alignment
+    weight: 1.5  # 重み付け（重要カテゴリ）
+    items:
+      - id: CHK-01-01
+        title: 企画目的への貢献
+        question: 企画目的（構造化・可視化・検証可能化）に直接貢献しているか
+        eval_criteria: |
+          - 構造化：成果物が機械可読な形式で出力されるか
+          - 可視化：状態・関係性が視覚的に確認可能か
+          - 検証可能化：合否判定が自動化できるか
+        scoring:
+          "2": 3つ中2つ以上に明確に貢献
+          "1": 1つに貢献、または間接的貢献
+          "0": 貢献が不明確または説明不能
+        deep_eval_prompt: |
+          この要件が「構造化」「可視化」「検証可能化」のいずれかに
+          直接貢献するか評価してください。貢献度を0-2で採点。
+
+      - id: CHK-01-02
+        title: 必要性の明確さ
+        question: 「あったら便利」ではなく「ないと成立しない」と言えるか
+        eval_criteria: |
+          - 「この要件がないとシステムの核心価値が提供できない」と説明可能
+          - 削除した場合の影響が具体的に述べられる
+        scoring:
+          "2": 削除不可能な核心要件
+          "1": 重要だが代替手段あり
+          "0": Nice-to-have / 説明困難
+        deep_eval_prompt: |
+          この要件を削除した場合、システムの核心価値にどの程度影響するか
+          評価してください。
+
+  # ---------- 2. スコープ・What/How分離 ----------
+  - id: CAT-02
+    name: スコープ適切性
+    name_en: scope_validity
+    weight: 1.2
+    items:
+      - id: CHK-02-01
+        title: フェーズ適切性
+        question: Phase1で実施すべき内容か（Phase2以降に回すべき内容を含まないか）
+        eval_criteria: |
+          - MVP達成に必須か
+          - 他要件への依存関係が解決済みか
+        scoring:
+          "2": Phase1必須、依存解決済み
+          "1": 優先度判断が微妙
+          "0": 明らかにPhase2以降
+
+      - id: CHK-02-02
+        title: How非混入
+        question: 実装詳細（DB構造/API設計/UI固定/技術選定）が混入していないか
+        eval_criteria: |
+          危険ワード検出:
+            - DB関連: テーブル, カラム, PostgreSQL, MongoDB
+            - API関連: エンドポイント, REST, GraphQL
+            - UI関連: ボタン配置, 画面遷移図, px指定
+            - 技術固有: React, Python, AWS
+        scoring:
+          "2": How要素なし（純粋なWhat）
+          "1": 軽微なHow混入（許容範囲）
+          "0": 重大なHow混入
+        deep_eval_prompt: |
+          以下の要件文にDB/API/UI/技術固有の実装詳細が含まれていないか
+          検査してください。含まれている場合は該当箇所を抽出。
+
+      - id: CHK-02-03
+        title: 主語明確性（ロール）
+        question: 「誰が」が明確に定義されているか（主語＝ロール）
+        eval_criteria: |
+          - 許可されたロール: user, admin, viewer, system
+          - 「ユーザー」等の曖昧表現は不可
+        scoring:
+          "2": ロールが明示的に定義
+          "1": 文脈から推測可能
+          "0": 主語不明または曖昧
+
+  # ---------- 3. 検証可能性（AIDD重要） ----------
+  - id: CAT-03
+    name: 検証可能性
+    name_en: verifiability
+    weight: 2.0  # AIDD最重要
+    items:
+      - id: CHK-03-01
+        title: 外部観測可能性
+        question: 内部処理ではなく外部から観測可能な結果として記述されているか
+        eval_criteria: |
+          - 「〜が表示される」「〜が出力される」「〜が通知される」等
+          - NG例: 「内部で計算する」「バックグラウンドで処理する」
+        scoring:
+          "2": 完全に外部観測可能
+          "1": 部分的に観測可能
+          "0": 内部処理記述のみ
+
+      - id: CHK-03-02
+        title: 受入基準の検証可能性
+        question: 成功条件（AC）がテストケースとして記述可能か
+        eval_criteria: |
+          Given-When-Then形式で記述可能か:
+            - Given: 前提条件が明確
+            - When: トリガーが特定可能
+            - Then: 期待結果が測定可能
+        scoring:
+          "2": 即座にテストケース導出可能
+          "1": 補足情報があれば導出可能
+          "0": テスト不可能
+        deep_eval_prompt: |
+          この要件からGiven-When-Then形式のテストケースを生成できるか
+          評価してください。生成可能な場合は例を1つ示してください。
+
+      - id: CHK-03-03
+        title: 曖昧語排除
+        question: 曖昧な表現が含まれていないか
+        eval_criteria: |
+          禁止ワードリスト:
+            - 程度曖昧: 適切に, 十分に, 柔軟に, 簡単に, 最適に, 迅速に
+            - 範囲曖昧: など, 等, その他, 必要に応じて
+            - 時間曖昧: すぐに, リアルタイムに（定義なし）
+            - 量曖昧: 大量の, 多くの, 少量の
+        scoring:
+          "2": 禁止ワードなし
+          "1": 1-2個の軽微な曖昧語
+          "0": 3個以上または重大な曖昧語
+        deep_eval_prompt: |
+          以下の要件文から曖昧な表現を全て抽出し、
+          それぞれの改善案を提示してください。
+
+      - id: CHK-03-04
+        title: 境界条件の明示
+        question: 数値・範囲・限界値が具体的に定義されているか
+        eval_criteria: |
+          例:
+            - ○: 「最大100件まで表示」「5秒以内に応答」
+            - ×: 「大量のデータを処理」「高速に応答」
+        scoring:
+          "2": 全ての境界条件が数値化
+          "1": 主要な境界条件は定義
+          "0": 境界条件の定義なし
+
+  # ---------- 4. AI可読性（AIDD固有・新規追加） ----------
+  - id: CAT-04
+    name: AI可読性
+    name_en: ai_readability
+    weight: 1.8
+    items:
+      - id: CHK-04-01
+        title: プロンプト構造化度
+        question: AIがこの要件を正確にコード化できる構造か
+        eval_criteria: |
+          - 入力/出力が明確に分離
+          - 処理フローが論理的に記述
+          - 条件分岐が明示的
+        scoring:
+          "2": そのままプロンプトとして使用可能
+          "1": 軽微な補足で使用可能
+          "0": 大幅な書き換えが必要
+        deep_eval_prompt: |
+          この要件をそのままLLMへのプロンプトとして使用し、
+          正確な実装を生成できるか評価してください。
+          問題点があれば指摘してください。
+
+      - id: CHK-04-02
+        title: コンテキスト完全性
+        question: 前提知識なしでAIが理解可能か
+        eval_criteria: |
+          - ドメイン固有用語が定義されている
+          - 暗黙の前提が明示されている
+          - 参照先が存在し到達可能
+        scoring:
+          "2": 完全に自己完結
+          "1": 外部参照が明示的に存在
+          "0": 暗黙の前提に依存
+
+      - id: CHK-04-03
+        title: ハルシネーション耐性
+        question: AI生成結果の正誤を検証する基準があるか
+        eval_criteria: |
+          - 期待出力の具体例がある
+          - 制約条件が明示されている
+          - 不正出力の判定基準がある
+        scoring:
+          "2": 検証基準が完備
+          "1": 部分的に検証可能
+          "0": 検証基準なし
+
+  # ---------- 5. トレーサビリティ（AIDD固有・新規追加） ----------
+  - id: CAT-05
+    name: トレーサビリティ
+    name_en: traceability
+    weight: 1.5
+    items:
+      - id: CHK-05-01
+        title: ID体系準拠
+        question: 要件IDが規定のフォーマットに従っているか
+        eval_criteria: |
+          フォーマット: [PREFIX]-[CATEGORY]-[SUBCATEGORY]-[NUMBER]
+          例: REQ-FUNC-AUTH-001, REQ-NFR-PERF-002
+        scoring:
+          "2": 完全準拠
+          "1": 軽微な逸脱
+          "0": 非準拠または未付与
+
+      - id: CHK-05-02
+        title: 上流参照整合性
+        question: derivedfrom参照先が存在し、内容と整合しているか
+        eval_criteria: |
+          - 参照IDが存在する
+          - 参照先の内容とこの要件が論理的に導出関係にある
+        scoring:
+          "2": 参照存在かつ整合
+          "1": 参照存在するが整合性未確認
+          "0": 参照なしまたは不整合
+
+      - id: CHK-05-03
+        title: 下流追跡可能性
+        question: この要件から設計・実装への追跡が可能か
+        eval_criteria: |
+          - tracesto が定義されている（または定義予定が明確）
+          - 設計書・テストケースへのリンクが想定できる
+        scoring:
+          "2": 下流追跡構造が完備
+          "1": 追跡構造は設計中
+          "0": 追跡不可能
+
+      - id: CHK-05-04
+        title: 変更影響範囲の局所化
+        question: この要件の変更が他要件に波及する範囲が限定的か
+        eval_criteria: |
+          - 依存関係が明示されている
+          - 疎結合な設計になっている
+        scoring:
+          "2": 影響範囲が明確かつ限定的
+          "1": 影響範囲は推定可能
+          "0": 影響範囲が不明または広範
+
+  # ---------- 6. スキーマ準拠（AIDD固有・新規追加） ----------
+  - id: CAT-06
+    name: スキーマ準拠
+    name_en: schema_compliance
+    weight: 1.3
+    items:
+      - id: CHK-06-01
+        title: 構造フォーマット検証
+        question: 規定のYAML/JSONスキーマに適合しているか
+        eval_criteria: |
+          - 必須フィールドが全て存在
+          - データ型が正しい
+          - enum値が許可された値のみ
+        scoring:
+          "2": スキーマ完全適合
+          "1": 軽微な違反（自動修正可能）
+          "0": 重大な違反
+
+      - id: CHK-06-02
+        title: メタデータ完全性
+        question: 必須メタデータが全て記入されているか
+        eval_criteria: |
+          必須メタデータ:
+            - requirement_id
+            - title
+            - target_role
+            - priority
+            - acceptance_criteria (1個以上)
+        scoring:
+          "2": 全メタデータ完備
+          "1": 1-2項目欠損
+          "0": 3項目以上欠損
+
+  # ---------- 7. 例外・ログ・権限 ----------
+  - id: CAT-07
+    name: 運用考慮
+    name_en: operational_consideration
+    weight: 1.0
+    items:
+      - id: CHK-07-01
+        title: 例外・失敗時の定義
+        question: 異常系・境界条件・失敗時の振る舞いが定義されているか
+        eval_criteria: |
+          - エラー発生時のユーザーへの通知方法
+          - リカバリー可能かどうか
+          - 次に取れる行動が明確
+        scoring:
+          "2": 主要例外が網羅
+          "1": 一部例外のみ定義
+          "0": 例外定義なし
+
+      - id: CHK-07-02
+        title: ログ・証跡の定義
+        question: 監査・調査に必要なログ粒度が定義されているか
+        eval_criteria: |
+          - 何を記録するか（イベント種別）
+          - いつ記録するか（タイミング）
+          - どの粒度で記録するか（詳細度）
+        scoring:
+          "2": ログ要件が明確
+          "1": 基本的なログ要件あり
+          "0": ログ要件なし
+
+      - id: CHK-07-03
+        title: 権限・ガバナンス整合性
+        question: ロールごとの権限が矛盾なく定義されているか
+        eval_criteria: |
+          - CRUD権限がロール別に定義
+          - 権限昇格パスが明確
+          - 最小権限の原則に従う
+        scoring:
+          "2": 権限設計が完備
+          "1": 基本権限は定義
+          "0": 権限定義なしまたは矛盾
+        applicable_condition: "ロール・権限に言及している場合のみ"
+
+# ===== 判定ロジック =====
+judgment:
+  calculation: |
+    weighted_score = Σ(category_weight × category_avg_score) / Σ(category_weight)
+    normalized_score = weighted_score / 2.0  # 0-1に正規化
+  
+  thresholds:
+    A_adopt:
+      min_score: 0.8
+      required_pass:
+        - CHK-01-01  # 目的貢献
+        - CHK-02-02  # How非混入
+        - CHK-03-02  # AC検証可能性
+        - CHK-03-03  # 曖昧語排除
+      description: Phase1採用
+
+    B_future:
+      min_score: 0.5
+      description: 価値あり、Phase2以降または要修正
+
+    C_reject:
+      max_score: 0.5
+      or_condition:
+        - CHK-01-02 == 0  # 説明不能
+        - CHK-02-02 == 0  # How混入
+      description: 削除または大幅見直し
+
+    hold:
+      condition: "必須パス項目に未評価(null)がある"
+      description: 要追加情報
+
+# ===== Deep Eval統合設定 =====
+deep_eval_config:
+  enabled: true
+  model: "gpt-4o"  # or claude-3-opus
+  evaluation_items:
+    - CHK-02-02  # How混入検出
+    - CHK-03-02  # テストケース生成可能性
+    - CHK-03-03  # 曖昧語抽出
+    - CHK-04-01  # プロンプト構造化度
+  output_format: |
+    {
+      "item_id": "CHK-XX-XX",
+      "score": 0-2,
+      "rationale": "評価理由",
+      "extracted_issues": ["問題点リスト"],
+      "suggestions": ["改善提案リスト"]
+    }

@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-009
   file: req_positioning_and_strategy_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-009
   title: AIDD上流工程品質保証プラットフォーム — プロジェクトの位置づけと戦略的意義 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-POS-003
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-QA4AIDD-001
       category: 品質保証
       priority: Must
       title: QA4AIDD実践手法実証機能
@@ -47,7 +47,7 @@ requirements_document:
       dependencies: []
       notes: PLN-PLN-VALID-011（メタ品質保証）と連携
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PRMTPL-001
       category: 品質保証
       priority: Must
       title: 構造化プロンプトテンプレート提供機能
@@ -75,7 +75,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-QAVERIFY-001
       category: 品質保証
       priority: Must
       title: 品質ゲートによるAI出力遵守確認機能
@@ -105,7 +105,7 @@ requirements_document:
       dependencies: []
       notes: PLN-PLN-QA-007（品質保証核心設計）と連携
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-ALLUREREPORT-001
       category: 可視化
       priority: Should
       title: Allure Report品質スコア時系列可視化機能
@@ -133,7 +133,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PROMPTFOO-001
       category: 品質保証
       priority: Should
       title: Promptfoo評価・改善サイクル実行機能
@@ -161,7 +161,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-SETUP-002
       category: 保守性
       priority: Must
       title: 再現可能性（第三者セットアップ1時間以内）
@@ -182,7 +182,7 @@ requirements_document:
       dependencies: []
       notes: Windows 11環境でのみ動作を保証する
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-PUBPROOF-001
       category: 信頼性
       priority: Must
       title: 実証可能性（証跡の公開）
@@ -204,7 +204,7 @@ requirements_document:
       notes: ''
 
   constraints:
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-SAMPSCOPE-001
       type: ビジネス制約
       title: サンプルプロジェクト位置づけ制約
       description: |
@@ -222,7 +222,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-009
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -235,7 +235,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-009
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -246,7 +246,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-009
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -260,18 +260,34 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-POS_NATURE-001
-        target_ids: []
+        target_ids: [REQ-FUNC-QA4AIDD-001, REQ-CONST-SAMPSCOPE-001]
       - source_id: PLN-PLN-POS_STRATEGIC_VALUE-002
-        target_ids: []
+        target_ids: [REQ-NFUNC-SETUP-002, REQ-NFUNC-PUBPROOF-001]
       - source_id: PLN-PLN-POS_QA4AIDD_DEF-003
         target_ids: []
       - source_id: PLN-PLN-POS_QA4AIDD_IMPL-004
-        target_ids: []
+        target_ids: [REQ-FUNC-PRMTPL-001, REQ-FUNC-QAVERIFY-001, REQ-FUNC-ALLUREREPORT-001, REQ-FUNC-PROMPTFOO-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-QA4AIDD-001
+        target_ids: []
+      - source_id: REQ-FUNC-PRMTPL-001
+        target_ids: []
+      - source_id: REQ-FUNC-QAVERIFY-001
+        target_ids: []
+      - source_id: REQ-FUNC-ALLUREREPORT-001
+        target_ids: []
+      - source_id: REQ-FUNC-PROMPTFOO-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-QA4AIDD-001
+        target_ids: []
+      - source_id: REQ-FUNC-PRMTPL-001
+        target_ids: []
+      - source_id: REQ-FUNC-QAVERIFY-001
+        target_ids: []
+      - source_id: REQ-FUNC-ALLUREREPORT-001
+        target_ids: []
+      - source_id: REQ-FUNC-PROMPTFOO-001
         target_ids: []
 
   validation_summary:

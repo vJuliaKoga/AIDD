@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-006
   file: req_execution_plan_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-006
   title: AIDD上流工程品質保証プラットフォーム — プロジェクト実行計画 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-PLAN-013
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PHASE0APP-001
       category: データ管理
       priority: Must
       title: Phase 0アプリケーション機能一式（7機能）の実装
@@ -50,7 +50,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-CICD-003
       category: 自動化
       priority: Must
       title: Phase 0 CI/CD環境構築（6コンポーネント）
@@ -83,7 +83,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PHASE0CTN-001
       category: 品質保証
       priority: Must
       title: Phase 0コンテンツ作成（テンプレート・チェックリスト・プロンプト集）
@@ -116,7 +116,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PHASE0DOC-001
       category: 保守性
       priority: Must
       title: Phase 0ドキュメント整備（5種類）
@@ -147,7 +147,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-SETUP-001
       category: 保守性
       priority: Must
       title: 第三者セットアップ所要時間（1時間以内）
@@ -166,7 +166,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-E2EPASS-001
       category: 信頼性
       priority: Must
       title: Phase 0全画面動作確認（設計通りの動作）
@@ -192,7 +192,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-006
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -205,7 +205,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-006
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -216,7 +216,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-006
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -230,16 +230,28 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-PLAN_PHASE0_DELIVERABLES-001
-        target_ids: []
+        target_ids: [REQ-FUNC-PHASE0APP-001, REQ-FUNC-CICD-003, REQ-FUNC-PHASE0CTN-001, REQ-FUNC-PHASE0DOC-001]
       - source_id: PLN-PLN-PLAN_PHASE0_CRITERIA-002
-        target_ids: []
+        target_ids: [REQ-NFUNC-SETUP-001, REQ-NFUNC-E2EPASS-001]
       - source_id: PLN-PLN-PLAN_PHASES_OVERVIEW-003
         target_ids: []
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-PHASE0APP-001
+        target_ids: []
+      - source_id: REQ-FUNC-CICD-003
+        target_ids: []
+      - source_id: REQ-FUNC-PHASE0CTN-001
+        target_ids: []
+      - source_id: REQ-FUNC-PHASE0DOC-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-PHASE0APP-001
+        target_ids: []
+      - source_id: REQ-FUNC-CICD-003
+        target_ids: []
+      - source_id: REQ-FUNC-PHASE0CTN-001
+        target_ids: []
+      - source_id: REQ-FUNC-PHASE0DOC-001
         target_ids: []
 
   validation_summary:

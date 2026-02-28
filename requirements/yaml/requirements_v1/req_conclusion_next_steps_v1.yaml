@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-004
   file: req_conclusion_next_steps_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-004
   title: AIDD上流工程品質保証プラットフォーム — 結論と次のステップ 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-END-015
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-REQTPL-001
       category: 品質保証
       priority: Must
       title: 要件定義ワークフローテンプレート作成・管理機能
@@ -46,7 +46,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-ARCHDOC-001
       category: 品質保証
       priority: Must
       title: アーキテクチャ設計書管理機能（architecture.yaml）
@@ -74,7 +74,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-CICD-002
       category: 自動化
       priority: Must
       title: CI/CD初期設定機能（GitHub Actions）
@@ -92,7 +92,7 @@ requirements_document:
         - criterion: 全ジョブ合格後にAllure Reportが自動生成される
           verification_method: テスト
       assumptions:
-        - GitHub Actionsのsecretsにopenai_api_keyが設定済みである
+        - GitHub ActionsのsecretsにOPENAI_API_KEYが設定済みである
       risks:
         - risk_description: secrets設定漏れによりCI/CDジョブがエラーで停止する
           probability: 中
@@ -103,7 +103,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-CONTENT-001
       category: 品質保証
       priority: Must
       title: コンテンツ管理機能（テンプレート・チェックリスト・プロンプト集格納）
@@ -135,7 +135,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-SELFPROOF-001
       category: 信頼性
       priority: Must
       title: 品質保証手法の自己実証（AIDDで開発しDeep Eval ≥ 0.8達成）
@@ -167,7 +167,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-004
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -180,7 +180,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-004
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -191,7 +191,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-004
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -205,20 +205,32 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-END_VALUE-001
-        target_ids: []
+        target_ids: [REQ-NFUNC-SELFPROOF-001]
       - source_id: PLN-PLN-END_INNOVATIONS-002
         target_ids: []
       - source_id: PLN-PLN-END_SUCCESS_CRITERIA-003
         target_ids: []
       - source_id: PLN-PLN-END_IMMEDIATE_ACTIONS-004
-        target_ids: []
+        target_ids: [REQ-FUNC-REQTPL-001, REQ-FUNC-ARCHDOC-001, REQ-FUNC-CICD-002, REQ-FUNC-CONTENT-001]
       - source_id: PLN-PLN-END_SUMMARY-005
         target_ids: []
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-REQTPL-001
+        target_ids: []
+      - source_id: REQ-FUNC-ARCHDOC-001
+        target_ids: []
+      - source_id: REQ-FUNC-CICD-002
+        target_ids: []
+      - source_id: REQ-FUNC-CONTENT-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-REQTPL-001
+        target_ids: []
+      - source_id: REQ-FUNC-ARCHDOC-001
+        target_ids: []
+      - source_id: REQ-FUNC-CICD-002
+        target_ids: []
+      - source_id: REQ-FUNC-CONTENT-001
         target_ids: []
 
   validation_summary:

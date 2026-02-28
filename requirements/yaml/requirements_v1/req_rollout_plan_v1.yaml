@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-012
   file: req_rollout_plan_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-012
   title: AIDD上流工程品質保証プラットフォーム — 段階的導入戦略と展開計画 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-ROLL-010
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PHASE0ROLLOUT-001
       category: 品質保証
       priority: Must
       title: Phase 0完成機能一式の実装（仕様書妥当性評価起点）
@@ -43,7 +43,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-PROCINTEG-001
       category: 品質保証
       priority: Should
       title: 既存プロセスへの統合ポイント提供（3フェーズ分）
@@ -71,7 +71,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-ONBOARD-001
       category: UI/UX
       priority: Should
       title: オンボーディング・チュートリアル機能
@@ -98,7 +98,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-PHASE1EFFECT-001
       category: 測定性
       priority: Should
       title: Phase 1効果可視化期間（1週間以内）
@@ -117,7 +117,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-WORKFLOWCHANGE-001
       category: 保守性
       priority: Should
       title: 既存ワークフロー変更ノード数制限（3個以内）
@@ -144,7 +144,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-012
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -157,7 +157,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-012
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -168,7 +168,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-012
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -182,20 +182,28 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-ROLL_BLOCKER-001
-        target_ids: []
+        target_ids: [REQ-FUNC-PHASE0ROLLOUT-001]
       - source_id: PLN-PLN-ROLL_PHASES-002
         target_ids: []
       - source_id: PLN-PLN-ROLL_PHASE1_METRICS-004
-        target_ids: []
+        target_ids: [REQ-NFUNC-PHASE1EFFECT-001, REQ-NFUNC-WORKFLOWCHANGE-001]
       - source_id: PLN-PLN-ROLL_PROCESS_INTEGRATION-007
-        target_ids: []
+        target_ids: [REQ-FUNC-PROCINTEG-001]
       - source_id: PLN-PLN-ROLL_ONBOARDING-009
-        target_ids: []
+        target_ids: [REQ-FUNC-ONBOARD-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-PHASE0ROLLOUT-001
+        target_ids: []
+      - source_id: REQ-FUNC-PROCINTEG-001
+        target_ids: []
+      - source_id: REQ-FUNC-ONBOARD-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-PHASE0ROLLOUT-001
+        target_ids: []
+      - source_id: REQ-FUNC-PROCINTEG-001
+        target_ids: []
+      - source_id: REQ-FUNC-ONBOARD-001
         target_ids: []
 
   validation_summary:

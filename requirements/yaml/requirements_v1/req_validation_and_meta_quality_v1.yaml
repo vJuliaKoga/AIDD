@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-014
   file: req_validation_and_meta_quality_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-014
   title: AIDD上流工程品質保証プラットフォーム — 検証可能性の担保（自己実証含む） 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-VALID-011
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-CICDPIPELINE-001
       category: 自動化
       priority: Must
       title: CI/CDパイプライン実装（自動検証8項目統合）
@@ -51,7 +51,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-DEPLOYBLOCK-001
       category: 品質保証
       priority: Must
       title: デプロイブロック機能（全ゲートPASS必須・override禁止）
@@ -84,7 +84,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-WFVALIDATION-001
       category: 検証
       priority: Must
       title: ワークフロー定義妥当性自動検証機能
@@ -113,7 +113,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-CONTENTQUAL-001
       category: 品質保証
       priority: Should
       title: テンプレート・チェックリスト・プロンプト品質管理機能
@@ -142,7 +142,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-WFSCHEMPASS-001
       category: 信頼性
       priority: Must
       title: ワークフロー生成スキーマ検証通過率100%
@@ -160,7 +160,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-TPLSCORE-001
       category: 性能
       priority: Must
       title: テンプレートDeep Evalスコア（≥0.8）
@@ -187,7 +187,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-014
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -200,7 +200,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-014
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -211,7 +211,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-014
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -227,20 +227,32 @@ requirements_document:
       - source_id: PLN-PLN-VALID_META_QA-002
         target_ids: []
       - source_id: PLN-PLN-VALID_WORKFLOW_VALIDATION-003
-        target_ids: []
+        target_ids: [REQ-FUNC-WFVALIDATION-001]
       - source_id: PLN-PLN-VALID_WORKFLOW_ACCEPTANCE-004
-        target_ids: []
+        target_ids: [REQ-NFUNC-WFSCHEMPASS-001]
       - source_id: PLN-PLN-VALID_CONTENT_QUALITY-005
-        target_ids: []
+        target_ids: [REQ-FUNC-CONTENTQUAL-001, REQ-NFUNC-TPLSCORE-001]
       - source_id: PLN-PLN-VALID_CICD_PIPELINE-007
-        target_ids: []
+        target_ids: [REQ-FUNC-CICDPIPELINE-001]
       - source_id: PLN-PLN-VALID_DEPLOYMENT_GATE-008
-        target_ids: []
+        target_ids: [REQ-FUNC-DEPLOYBLOCK-001]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-CICDPIPELINE-001
+        target_ids: []
+      - source_id: REQ-FUNC-DEPLOYBLOCK-001
+        target_ids: []
+      - source_id: REQ-FUNC-WFVALIDATION-001
+        target_ids: []
+      - source_id: REQ-FUNC-CONTENTQUAL-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-CICDPIPELINE-001
+        target_ids: []
+      - source_id: REQ-FUNC-DEPLOYBLOCK-001
+        target_ids: []
+      - source_id: REQ-FUNC-WFVALIDATION-001
+        target_ids: []
+      - source_id: REQ-FUNC-CONTENTQUAL-001
         target_ids: []
 
   validation_summary:

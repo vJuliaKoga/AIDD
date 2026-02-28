@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-005
   file: req_core_concepts_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-005
   title: AIDD上流工程品質保証プラットフォーム — 基本思想とコンセプト 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-CONCEPT-005
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-ROLEUI-001
       category: UI/UX
       priority: Must
       title: 役割分担に基づくUI設計（判断=人間・記憶/構造化=システム・検証=自動化）
@@ -46,7 +46,7 @@ requirements_document:
       dependencies: []
       notes: PLN-PLN-CONCEPT_PHILOSOPHY-001（設計哲学）を具現化する中核要件
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-AMB-002
       category: 検証
       priority: Must
       title: 曖昧語リアルタイム検出・ブロック機能
@@ -75,7 +75,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-QAWFUI-001
       category: UI/UX
       priority: Must
       title: 段階的展開QAワークフローUI
@@ -103,7 +103,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-JUDGELOG-001
       category: データ管理
       priority: Must
       title: 全判断への理由付与強制機能
@@ -131,7 +131,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-SCHEMAVAL-001
       category: 検証
       priority: Must
       title: 構造一貫性自動保証機能（Codex生成成果物検証）
@@ -158,7 +158,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-UX-002
       category: 操作性
       priority: Must
       title: 3クリック以内アクセス保証
@@ -185,7 +185,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-005
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -198,7 +198,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-005
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -209,7 +209,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-005
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -225,18 +225,34 @@ requirements_document:
       - source_id: PLN-PLN-CONCEPT_PHILOSOPHY-001
         target_ids: []
       - source_id: PLN-PLN-CONCEPT_ROLE_SPLIT-002
-        target_ids: []
+        target_ids: [REQ-FUNC-ROLEUI-001]
       - source_id: PLN-PLN-CONCEPT_PRINCIPLES-003
-        target_ids: []
+        target_ids: [REQ-FUNC-AMB-002, REQ-FUNC-JUDGELOG-001, REQ-FUNC-SCHEMAVAL-001]
       - source_id: PLN-PLN-CONCEPT_CONCEPT-004
-        target_ids: []
+        target_ids: [REQ-FUNC-QAWFUI-001]
       - source_id: PLN-PLN-CONCEPT_USABILITY_METRIC-005
-        target_ids: []
+        target_ids: [REQ-NFUNC-UX-002]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-ROLEUI-001
+        target_ids: []
+      - source_id: REQ-FUNC-AMB-002
+        target_ids: []
+      - source_id: REQ-FUNC-QAWFUI-001
+        target_ids: []
+      - source_id: REQ-FUNC-JUDGELOG-001
+        target_ids: []
+      - source_id: REQ-FUNC-SCHEMAVAL-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-ROLEUI-001
+        target_ids: []
+      - source_id: REQ-FUNC-AMB-002
+        target_ids: []
+      - source_id: REQ-FUNC-QAWFUI-001
+        target_ids: []
+      - source_id: REQ-FUNC-JUDGELOG-001
+        target_ids: []
+      - source_id: REQ-FUNC-SCHEMAVAL-001
         target_ids: []
 
   validation_summary:

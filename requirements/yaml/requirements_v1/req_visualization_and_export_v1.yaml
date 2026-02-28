@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-015
   file: req_visualization_and_export_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-015
   title: AIDD上流工程品質保証プラットフォーム — 可視化と報告機能 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-VIS-009
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-FLOWCHART-001
       category: 可視化
       priority: Must
       title: 品質フロー図生成機能（React Flow形式）
@@ -48,7 +48,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-SNAP-002
       category: データ管理
       priority: Should
       title: スナップショット保存機能
@@ -77,7 +77,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-EXPORT-002
       category: 自動化
       priority: Must
       title: JSON/YAML/PDFエクスポート機能
@@ -107,7 +107,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-FLOWRENDER-001
       category: 性能
       priority: Must
       title: フロー図レンダリング完了時間
@@ -129,7 +129,7 @@ requirements_document:
 
   data_requirements:
     entities:
-      - entity_id: PENDING
+      - entity_id: REQ-DATA-SNAP-002
         entity_name: Snapshot
         description: プロジェクト状態の時点データを保存するエンティティ。
         attributes:
@@ -174,7 +174,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-015
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -187,7 +187,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-015
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -198,7 +198,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-015
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -212,16 +212,24 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-VIS_WORKFLOW_PURPOSE-001
-        target_ids: []
+        target_ids: [REQ-FUNC-FLOWCHART-001]
       - source_id: PLN-PLN-VIS_WORKFLOW_REQUIREMENTS-002
-        target_ids: []
+        target_ids: [REQ-FUNC-EXPORT-002, REQ-NFUNC-FLOWRENDER-001]
       - source_id: PLN-PLN-VIS_SNAPSHOT_EX-004
-        target_ids: []
+        target_ids: [REQ-FUNC-SNAP-002, REQ-DATA-SNAP-002]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-FLOWCHART-001
+        target_ids: []
+      - source_id: REQ-FUNC-SNAP-002
+        target_ids: []
+      - source_id: REQ-FUNC-EXPORT-002
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-FLOWCHART-001
+        target_ids: []
+      - source_id: REQ-FUNC-SNAP-002
+        target_ids: []
+      - source_id: REQ-FUNC-EXPORT-002
         target_ids: []
 
   validation_summary:

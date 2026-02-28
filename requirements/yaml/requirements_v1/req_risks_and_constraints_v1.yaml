@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-011
   file: req_risks_and_constraints_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-011
   title: AIDD上流工程品質保証プラットフォーム — リスクと制約の明確化 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-RISK-014
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-AIABSTRACT-001
       category: 品質保証
       priority: Could
       title: マルチモデル対応を考慮したAIクライアント抽象化設計
@@ -43,7 +43,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-AUTOTEST-001
       category: 品質保証
       priority: Should
       title: 自動テスト充実によるコードレビュー人手不足補完
@@ -73,7 +73,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-OSSCOST-001
       category: 保守性
       priority: Must
       title: OSSのみを使用したコスト制約対応
@@ -93,7 +93,7 @@ requirements_document:
       notes: ''
 
   constraints:
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-AI-003
       type: 技術的制約
       title: OpenAI APIのみ使用可能（他LLMプロバイダー禁止）
       description: |
@@ -105,7 +105,7 @@ requirements_document:
       mitigation: AIクライアントをインターフェースで抽象化し、将来的なプロバイダー切替えに対応できる設計とする。
       derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-OS-003
       type: 技術的制約
       title: Windows環境専用（Mac/Linux未対応）
       description: |
@@ -117,7 +117,7 @@ requirements_document:
       mitigation: 将来のPhase 1以降でDockerコンテナ化を検討し、クロスプラットフォーム対応を段階的に進める。
       derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-TEAM-003
       type: 組織ポリシー
       title: 1人開発体制制約（Phase 0期間）
       description: |
@@ -129,7 +129,7 @@ requirements_document:
       mitigation: Vitestカバレッジ70%以上とPlaywright E2E全シナリオカバーで自動検証を充実させ、人手レビュー不足を補う。
       derived_from: PLN-PLN-RISK_CONSTRAINTS_TECH-001
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-SAMPSCOPE-002
       type: ビジネス制約
       title: サンプルプロジェクト規模制約（実運用課題の未検証リスク）
       description: |
@@ -142,7 +142,7 @@ requirements_document:
       mitigation: Phase 1パイロットの規模を小規模（1〜2週間・専任QA1名）に限定して実運用課題を早期発見する。
       derived_from: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-COST-003
       type: ビジネス制約
       title: 月額予算制約（10万円以内）
       description: |
@@ -153,7 +153,7 @@ requirements_document:
       mitigation: 評価対象を差分ファイルのみに限定し、APIコールバック数を制御してコストをモニタリングする。
       derived_from: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
 
-    - constraint_id: PENDING
+    - constraint_id: REQ-CONST-SKILL-003
       type: 技術的制約
       title: JSON/YAMLスキル必須制約（ユーザー前提条件）
       description: |
@@ -171,7 +171,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-011
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -184,7 +184,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-011
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -195,7 +195,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-011
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -209,20 +209,24 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-RISK_CONSTRAINTS_TECH-001
-        target_ids: []
+        target_ids: [REQ-FUNC-AIABSTRACT-001, REQ-FUNC-AUTOTEST-001, REQ-CONST-AI-003, REQ-CONST-OS-003, REQ-CONST-TEAM-003]
       - source_id: PLN-PLN-RISK_CONSTRAINTS_PROJECT-002
-        target_ids: []
+        target_ids: [REQ-NFUNC-OSSCOST-001, REQ-CONST-SAMPSCOPE-002, REQ-CONST-COST-003]
       - source_id: PLN-PLN-RISK_CONSTRAINTS_SKILL-003
-        target_ids: []
+        target_ids: [REQ-CONST-SKILL-003]
       - source_id: PLN-PLN-RISK_CAPABILITIES-004
         target_ids: []
       - source_id: PLN-PLN-RISK_NONCAPABILITIES-005
         target_ids: []
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-AIABSTRACT-001
+        target_ids: []
+      - source_id: REQ-FUNC-AUTOTEST-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-AIABSTRACT-001
+        target_ids: []
+      - source_id: REQ-FUNC-AUTOTEST-001
         target_ids: []
 
   validation_summary:

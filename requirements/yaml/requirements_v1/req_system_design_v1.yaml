@@ -1,22 +1,22 @@
 meta:
-  artifact_id: PENDING
+  artifact_id: REQ-REQ-DOC-013
   file: req_system_design_v1.yaml
   author: 古賀
   source_type: hybrid
   prompt_id: PRM-REQ-YAML-003
-  model: PENDING
-  timestamp: PENDING
+  model: claude-sonnet-4-6
+  timestamp: 2026-02-27
   content_hash: PENDING
 
 requirements_document:
-  doc_id: PENDING
+  doc_id: REQ-REQ-DOC-013
   title: AIDD上流工程品質保証プラットフォーム — システム設計 要件定義書
   version: '1.0'
   status: draft
   derived_from: PLN-PLN-SYS-006
 
   functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-FUNC-3LAYERWF-001
       category: データ管理
       priority: Must
       title: 3層ワークフロー表示機能（L1/L2/L3）
@@ -44,7 +44,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-TRACEID-001
       category: データ管理
       priority: Must
       title: トレーサビリティID体系実装（PREFIX-PHASE-PURPOSE-NNN）
@@ -73,7 +73,7 @@ requirements_document:
       dependencies: []
       notes: PLN-PLN-SYS_ID_CONVENTION-003のID命名規則を実装
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-STATUS-002
       category: データ管理
       priority: Must
       title: タスクステータス管理機能（ToDo/InProgress/Done/Abort）
@@ -103,7 +103,7 @@ requirements_document:
       dependencies: []
       notes: ''
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-ABORTREC-001
       category: データ管理
       priority: Must
       title: Abort記録機能（4カテゴリ選択・50文字以上理由必須）
@@ -132,7 +132,7 @@ requirements_document:
       dependencies: []
       notes: PLN-PLN-SYS_ABORT_CATEGORIES-010のカテゴリ4種を実装
 
-    - req_id: PENDING
+    - req_id: REQ-FUNC-DECLOG-001
       category: データ管理
       priority: Must
       title: 判断ログ記録機能（6必須項目）
@@ -163,7 +163,7 @@ requirements_document:
       notes: ''
 
   non_functional_requirements:
-    - req_id: PENDING
+    - req_id: REQ-NFUNC-IDUNIQ-001
       category: 信頼性
       priority: Must
       title: ID一意性保証
@@ -185,7 +185,7 @@ requirements_document:
 
   data_requirements:
     entities:
-      - entity_id: PENDING
+      - entity_id: REQ-DATA-TASK-002
         entity_name: Task
         description: タスクチケット（L2レベル）を表すエンティティ。タスクのライフサイクルを管理する。
         attributes:
@@ -238,7 +238,7 @@ requirements_document:
             enforcement: application
         derived_from: PLN-PLN-SYS_LAYERS-001
 
-      - entity_id: PENDING
+      - entity_id: REQ-DATA-ABORT-002
         entity_name: AbortLog
         description: タスクのAbort理由を記録するエンティティ。
         attributes:
@@ -286,7 +286,7 @@ requirements_document:
   integration_requirements: []
 
   quality_gates:
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G1-013
       phase: 要件定義（本ファイル）
       title: G1 曖昧語チェック
       conditions:
@@ -299,7 +299,7 @@ requirements_document:
       gate_exempt:
         - G1
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G3-013
       phase: 要件定義（本ファイル）
       title: G3 スキーマ検証
       conditions:
@@ -310,7 +310,7 @@ requirements_document:
       pass_criteria: validate_req.py の出力にVALIDを含む
       derived_from: PLN-PLN-QA_GATES-002
 
-    - gate_id: PENDING
+    - gate_id: REQ-QG-G5-013
       phase: 要件定義（本ファイル）
       title: G5 トレーサビリティチェック
       conditions:
@@ -324,22 +324,38 @@ requirements_document:
   traceability:
     concept_to_requirement:
       - source_id: PLN-PLN-SYS_LAYERS-001
-        target_ids: []
+        target_ids: [REQ-FUNC-3LAYERWF-001, REQ-DATA-TASK-002]
       - source_id: PLN-PLN-SYS_TRACEABILITY_POLICY-002
-        target_ids: []
+        target_ids: [REQ-FUNC-TRACEID-001, REQ-FUNC-DECLOG-001]
       - source_id: PLN-PLN-SYS_ID_CONVENTION-003
-        target_ids: []
+        target_ids: [REQ-NFUNC-IDUNIQ-001]
       - source_id: PLN-PLN-SYS_STATUS-008
-        target_ids: []
+        target_ids: [REQ-FUNC-STATUS-002]
       - source_id: PLN-PLN-SYS_ABORT_PHILOSOPHY-009
-        target_ids: []
+        target_ids: [REQ-FUNC-ABORTREC-001]
       - source_id: PLN-PLN-SYS_ABORT_CATEGORIES-010
-        target_ids: []
+        target_ids: [REQ-DATA-ABORT-002]
     requirement_to_design:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-3LAYERWF-001
+        target_ids: []
+      - source_id: REQ-FUNC-TRACEID-001
+        target_ids: []
+      - source_id: REQ-FUNC-STATUS-002
+        target_ids: []
+      - source_id: REQ-FUNC-ABORTREC-001
+        target_ids: []
+      - source_id: REQ-FUNC-DECLOG-001
         target_ids: []
     requirement_to_test:
-      - source_id: PENDING
+      - source_id: REQ-FUNC-3LAYERWF-001
+        target_ids: []
+      - source_id: REQ-FUNC-TRACEID-001
+        target_ids: []
+      - source_id: REQ-FUNC-STATUS-002
+        target_ids: []
+      - source_id: REQ-FUNC-ABORTREC-001
+        target_ids: []
+      - source_id: REQ-FUNC-DECLOG-001
         target_ids: []
 
   validation_summary:
